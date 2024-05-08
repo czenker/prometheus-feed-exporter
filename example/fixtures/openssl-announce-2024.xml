@@ -1,0 +1,24 @@
+<rss version="2.0" xml:base="https://www.mail-archive.com/openssl-announce@openssl.org/maillist.xml">
+    <channel xml:base="https://www.mail-archive.com/openssl-announce@openssl.org/maillist.xml">
+        <item>
+            <title>OpenSSL version 3.2.1 published</title>
+            <link>http://www.mail-archive.com/openssl-announce@openssl.org/msg00438.html</link>
+            <description>&lt;font color=#6f6f6f&gt; 2024/02/01&lt;/font&gt; -- &lt;a
+                href="http://www.mail-archive.com/search?l=openssl-announce@openssl.org&amp;q=from:%22Matt
+                Caswell%22"&gt;Matt Caswell&lt;/a&gt;</description>
+            <pubDate>Thu, 01 Feb 2024 20:02:45 GMT</pubDate>
+            <guid isPermaLink="true">
+                http://www.mail-archive.com/openssl-announce@openssl.org/msg00438.html</guid>
+        </item>
+        <item>
+            <title>OpenSSL Security Advisory</title>
+            <link>http://www.mail-archive.com/openssl-announce@openssl.org/msg00437.html</link>
+            <description>&lt;font color=#6f6f6f&gt; 2024/01/25&lt;/font&gt; -- &lt;a
+                href="http://www.mail-archive.com/search?l=openssl-announce@openssl.org&amp;q=from:%22Matt
+                Caswell%22"&gt;Matt Caswell&lt;/a&gt;</description>
+            <pubDate>Thu, 25 Jan 2024 18:44:16 GMT</pubDate>
+            <guid isPermaLink="true">
+                http://www.mail-archive.com/openssl-announce@openssl.org/msg00437.html</guid>
+        </item>
+    </channel>
+</rss>

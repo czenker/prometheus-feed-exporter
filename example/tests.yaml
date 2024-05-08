@@ -1,0 +1,37 @@
+
+cases:
+
+- name: openssl-announce
+  setup:
+    feedFile: ./example/fixtures/openssl-announce-2024.xml
+    feedName: openssl-announce
+    now: "2024-02-14T00:00:00Z"
+  tests:
+  - it: "should find a Security Advisory"
+    query: "title == 'OpenSSL Security Advisory'"
+    expected: true
+  - it: "should ignore release notes"
+    query: "title == 'OpenSSL version 3.2.1 published'"
+    expected: false
+
+- name: helm-releases
+  setup:
+    feedFile: ./example/fixtures/helm-2024.xml
+    feedName: helm-releases
+    now: "2024-03-19T00:00:00+00:00"
+  tests:
+  - it: "should not find a patch release"
+    query: "title == 'Helm v3.14.3'"
+    expected: false
+  - it: "should find a security patch release #1"
+    query: "title == 'Helm v3.14.2'"
+    expected: true
+  - it: "should find a security patch release #2"
+    query: "title == 'Helm v3.14.1'"
+    expected: true
+  - it: "should not find a feature release"
+    query: "title == 'Helm v3.14.0'"
+    expected: false
+  - it: "should not find a pre-release"
+    query: "title == 'Helm v3.14.0-rc.1'"
+    expected: false

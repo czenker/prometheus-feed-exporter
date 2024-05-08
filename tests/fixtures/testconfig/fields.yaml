@@ -1,0 +1,10 @@
+cases:
+- name: some-feed
+  setup:
+    feedFile: ./tests/feed.xml
+    feedName: istio-news
+    now: "2023-12-31T12:34:56Z"
+  tests:
+  - it: "should find the entry for SEC-1234"
+    query: 'title.contains("SEC-1234")'
+    expected: true

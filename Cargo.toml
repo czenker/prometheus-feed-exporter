@@ -1,0 +1,33 @@
+[package]
+name = "prometheus-feed-exporter"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "prometheus_feed_exporter"
+path = "src/lib.rs"
+
+[[bin]]
+name = "prometheus-feed-exporter"
+path = "src/main.rs"
+
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+cel-interpreter = "0.6.0"
+chrono = "0.4.34"
+clap = { version = "4.5.1", features = ["derive"] }
+colored = "2.1.0"
+config = "0.14.0"
+env_logger = "0.11.3"
+feed-rs = "1.4.0"
+html-escape = "0.2.13"
+log = "0.4.20"
+metrics = "0.22.1"
+metrics-exporter-prometheus = "0.13.1"
+regex = "1.10.3"
+reqwest = "0.11.24"
+serde = "1.0.196"
+serde_derive = "1.0.196"
+tokio = { version = "1.36.0", features = ["full"] }

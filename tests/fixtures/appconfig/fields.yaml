@@ -1,0 +1,9 @@
+pushgateway:
+  endpoint: "http://example.com:9000"
+feeds:
+  foobar:
+    uri: https://example.com/feed.xml
+    headers: []
+    excludes: []
+    includes: []
+    entry_id: "links[0]"

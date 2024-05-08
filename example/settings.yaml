@@ -1,0 +1,18 @@
+#pushgateway:
+  # endpoint: https://httpbin.org/put
+feeds:
+
+  openssl-announce:
+    uri: https://www.mail-archive.com/openssl-announce@openssl.org/maillist.xml
+    excludes:
+      - 'published < now - duration("2160h")'
+    includes:
+      - 'title.contains("Security")'
+
+  helm-releases:
+    uri: https://github.com/helm/helm/releases.atom
+    entry_id: 'links[0]'
+    excludes:
+      - 'updated < now - duration("2160h")'
+    includes:
+      - 'content.contains("is a security")'

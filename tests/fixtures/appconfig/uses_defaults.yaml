@@ -1,0 +1,3 @@
+feeds:
+  foobar:
+    uri: https://example.com/feed.xml

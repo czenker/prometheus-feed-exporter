@@ -33,7 +33,7 @@ jobs:
       uses: docker/build-push-action@v4
       with:
         context: .
-        target: linux/amd64
-        # target: linux/amd64, linux/arm/v7
+        platform: linux/amd64
+        # platform: linux/amd64, linux/arm/v7
         push: true
         tags: ${{ env.IMAGE_NAME }}:dev

@@ -10,7 +10,13 @@ Feed types supported by the library [feed-rs](https://github.com/feed-rs/feed-rs
 include RSS, Atom and JSON. All entries can be filtered with the
 [Common Expression Language](https://github.com/google/cel-spec/blob/master/doc/intro.md).
 
+## Build
 
+It should work with Docker too. If `relabel=shared` causes issues, remove it for Docker.
+
+````bash
+podman build -f Containerfile -t prometheus-feed-exporter:latest .
+````
 
 
 ## Todos

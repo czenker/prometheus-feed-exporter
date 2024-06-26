@@ -19,13 +19,16 @@ RUN --mount=type=bind,source=.,target=/app,rw,relabel=shared \
     --mount=type=cache,target=/var/cache/apt/ \
     cargo build --locked --release
 
+RUN --mount=type=bind,source=.,target=/app,rw,relabel=shared \
+    mkdir /release && cp /app/target/release/$APP_NAME /release/$APP_NAME
+
 # ---
 
-FROM gcr.io/distroless/static-debian12 AS final
+FROM docker.io/library/debian:bullseye-slim AS final
 ARG APP_NAME
 
 USER 10001
 
-COPY ./target/release/$APP_NAME /bin/
+COPY --from=build /release/$APP_NAME /bin/
 
-CMD ["/bin/$APP_NAME"]
+CMD ["/bin/prometheus-feed-exporter"]

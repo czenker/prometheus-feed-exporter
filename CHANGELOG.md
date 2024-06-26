@@ -1,3 +1,3 @@
-# v0.0.1-alpha1
+# v0.1.0-alpha1
 
-* TODO
+* initial release

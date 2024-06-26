@@ -1,6 +1,6 @@
 use feed_rs::{model::Entry, parser};
 
-use crate::{config::app::AppConfig, utils::feed::{self, get_cel_context_for, debug_cel_context}};
+use crate::{config::app::AppConfig, utils::feed::{get_cel_context_for, debug_cel_context}};
 
 
 pub async fn run(app_config: &AppConfig) {

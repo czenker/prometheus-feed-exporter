@@ -14,13 +14,15 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
-RUN --mount=type=bind,source=.,target=/app,rw,relabel=shared \
+RUN --mount=type=bind,source=.,target=/app,rw \
+    --mount=type=cache,target=/app/target/ \
     --mount=type=cache,target=/usr/local/cargo/registry/ \
     --mount=type=cache,target=/var/cache/apt/ \
     cargo build --locked --release
 
-RUN --mount=type=bind,source=.,target=/app,rw,relabel=shared \
-    mkdir /release && cp /app/target/release/$APP_NAME /release/$APP_NAME
+RUN --mount=type=cache,target=/app/target/ \
+    cp /app/target/release/$APP_NAME /bin
+
 
 # ---
 
@@ -29,6 +31,6 @@ ARG APP_NAME
 
 USER 10001
 
-COPY --from=build /release/$APP_NAME /bin/
+COPY --from=build /bin/$APP_NAME /bin/
 
 CMD ["/bin/prometheus-feed-exporter"]

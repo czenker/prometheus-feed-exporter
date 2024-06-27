@@ -16,6 +16,9 @@ permissions:
 
 jobs:
   publish-docker:
+    strategy:
+      matrix:
+        platform: ["linux/amd64", "linux/arm/v7"]
     name: Publish Docker Test Image
     runs-on: ubuntu-latest
     steps:
@@ -37,6 +40,6 @@ jobs:
       with:
         context: .
         # platforms: linux/amd64
-        platforms: linux/amd64, linux/arm/v7
+        platforms: ${{ matrix.platform }}
         push: true
         tags: ${{ env.REGISTRY}}/${{ env.IMAGE_NAME }}:dev

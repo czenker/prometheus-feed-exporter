@@ -7,6 +7,8 @@ use clap::{Parser, Subcommand};
 pub struct Cli {
      #[command(subcommand)]
     pub command: Command,
+     #[arg(short, long, default_value="example/settings.yaml")]
+    pub settings_file: String,
 }
 
 #[derive(Subcommand)]

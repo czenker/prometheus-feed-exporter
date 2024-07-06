@@ -8,7 +8,7 @@ use env_logger;
 async fn main() {
     env_logger::init();
     let cli = command::parse();
-    let app_config = AppConfig::load(&String::from("example/settings"));
+    let app_config = AppConfig::load(&cli.settings_file);
 
     match cli.command {
         Command::Run{}=>command::run::run(&app_config).await,

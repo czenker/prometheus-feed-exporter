@@ -29,6 +29,10 @@ RUN --mount=type=cache,target=/app/target/ \
 FROM docker.io/library/debian:bullseye-slim AS final
 ARG APP_NAME
 
+RUN apt-get update && apt-get install -y \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
 USER 10001
 
 COPY --from=build /bin/$APP_NAME /bin/

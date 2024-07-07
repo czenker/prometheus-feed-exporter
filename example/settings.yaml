@@ -1,7 +1,8 @@
-#pushgateway:
-  # endpoint: https://httpbin.org/put
-feeds:
+# pushgateway:
+#   endpoint: https://httpbin.org/put
+# ALTERNATIVE: export PFE_PUSHGATEWAY_ENDPOINT="https://httpbin.org/put"
 
+feeds:
   openssl-announce:
     uri: https://www.mail-archive.com/openssl-announce@openssl.org/maillist.xml
     excludes:
@@ -12,6 +13,8 @@ feeds:
   helm-releases:
     uri: https://github.com/helm/helm/releases.atom
     entry_id: 'links[0]'
+    headers:
+      Authorization: "Bearer ${GITHUB_API_TOKEN}"
     excludes:
       - 'updated < now - duration("2160h")'
     includes:

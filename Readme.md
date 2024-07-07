@@ -37,3 +37,4 @@ podman build -f Containerfile -t prometheus-feed-exporter:latest .
   * etc
 * Github Actions
 * async
+* JSON Logger

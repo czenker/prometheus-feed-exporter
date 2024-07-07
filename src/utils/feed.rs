@@ -1,8 +1,26 @@
-use feed_rs::model::Entry;
+use feed_rs::{model::{self, Entry}, parser};
 use cel_interpreter::{Context, Value};
-use crate::config::common::MyCelProgram;
+use reqwest::header::HeaderMap;
+use crate::config::{app::FeedConfig, common::MyCelProgram};
 use crate::utils::string::strip_html;
 use chrono::{DateTime, FixedOffset};
+
+pub async fn get_feed(config: &FeedConfig) -> model::Feed {
+    let headers: HeaderMap = (&config.substituted_headers()).try_into().expect("could not convert headers");
+    let request = reqwest::Client::new()
+        .get(&config.uri)
+        .headers(headers);
+    let response = request
+        .send()
+        .await
+        .expect("Error while sending request");
+    let body = response
+        .text()
+        .await
+        .expect("Error while parsing reponse body");
+
+    parser::parse(body.as_bytes()).expect("Error when parsing response as feed")
+}
 
 pub fn filter<'a>(entries: &'a Vec<&Entry>, includes: &Vec<&MyCelProgram>, excludes: &Vec<&MyCelProgram>, now: &DateTime<FixedOffset>) -> Vec<&'a Entry> {
     let mut result : Vec<&Entry> = Vec::new();
@@ -93,7 +111,6 @@ pub fn get_cel_context_for<'a>(entry: &'a Entry, now: &DateTime<FixedOffset>) ->
 }
 
 pub fn debug_cel_context(context: &Context) {
-    println!("======");
     println!("id: {:?}", context.get_variable("id"));
     println!("title: {:?}", context.get_variable("title"));
     println!("content: {:?}", context.get_variable("content"));

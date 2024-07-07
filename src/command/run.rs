@@ -1,9 +1,8 @@
 use std::cmp::max;
 
 use crate::config::app::{AppConfig, FeedConfig, PushgatewayConfig};
-use crate::utils::feed::{self, get_cel_context_for};
+use crate::utils::feed::{self, get_cel_context_for, get_feed};
 use reqwest;
-use feed_rs::parser;
 use log::{info, debug};
 use cel_interpreter::Value;
 use metrics_exporter_prometheus::{PrometheusBuilder, PrometheusHandle};
@@ -65,15 +64,8 @@ async fn push_metrics(config: &PushgatewayConfig, body: &String) {
 
 async fn analyze(id: &String, config: &FeedConfig) {
     debug!("Analyzing {}", id);
-    let body = reqwest::get(&config.uri)
-        .await
-        .expect("Foobar")
-        .text()
-        .await
-        .expect("Foobar");
-
+    let feed = get_feed(config).await;
     let now = crate::utils::time::now();
-    let feed = parser::parse(body.as_bytes()).expect("Foobar");
 
     let title = feed.title.map(|t| t.content).unwrap_or(String::from(""));
     let feed_updated_timestamp = feed.updated.map(|t| t.timestamp()).unwrap_or_default();
@@ -110,7 +102,7 @@ async fn analyze(id: &String, config: &FeedConfig) {
         let timestamp = entry.updated.map(|t| t.timestamp()).unwrap_or_default();
         last_significant_entry_timestamp = max(last_significant_entry_timestamp, timestamp);
         significant_entry_num += 1;
-        println!("{:?} {:?}", title, entry_id);
+        debug!("{:?} {:?}", title, entry_id);
         gauge!("feed_significant_entry_info", "feed" => id.clone(), "entry" => entry_id.clone()).set(1.);
     }
 

@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use config::{Config, File, FileFormat};
+use config::{Case, Config, FileFormat};
 use serde::Deserialize;
 
 use super::common::MyCelProgram;
@@ -16,13 +16,31 @@ pub struct AppConfig {
 pub struct FeedConfig {
     pub uri: String,
     #[serde(default)]
-    pub headers: Vec<HashMap<String, String>>,
+    pub headers: HashMap<String, String>,
     #[serde(default)]
     pub excludes: Vec<MyCelProgram>,
     #[serde(default)]
     pub includes: Vec<MyCelProgram>,
     #[serde(default)]
     pub entry_id: Option<MyCelProgram>,
+}
+
+impl FeedConfig {
+    pub fn substituted_headers(self: &FeedConfig) -> HashMap<String, String> {
+        let mut options = envmnt::ExpandOptions::new();
+        options.expansion_type = Some(envmnt::ExpansionType::Unix);
+
+        let mut substituted : HashMap<String, String> = HashMap::new();
+
+        for (key, value) in self.headers.iter() {
+            substituted.insert(
+                key.to_string(), 
+                envmnt::expand(value, Some(options))
+            );
+        }
+
+        substituted
+    }
 }
 
 #[derive(Deserialize, Debug)]
@@ -43,7 +61,15 @@ impl PushgatewayConfig {
 impl AppConfig {
     pub fn load(file_name: &String) -> AppConfig {
         let config = Config::builder()
-            .add_source(File::new(file_name, FileFormat::Yaml))
+            .add_source(
+                config::File::new(file_name, FileFormat::Yaml)
+            )
+            .add_source(
+                config::Environment::with_prefix("PFE")
+                    .try_parsing(true)
+                    .separator("_")
+                    .convert_case(Case::Train),
+            )
             .build()
             .unwrap();
 

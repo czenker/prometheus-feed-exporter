@@ -1,20 +1,14 @@
-use feed_rs::{model::Entry, parser};
+use feed_rs::model::Entry;
 
-use crate::{config::app::AppConfig, utils::feed::{get_cel_context_for, debug_cel_context}};
+use crate::{config::app::AppConfig, utils::feed::{debug_cel_context, get_cel_context_for, get_feed}};
 
+pub async fn run(app_config: &AppConfig, feed: &String) {
+    let config = app_config.feeds
+        .get(feed)
+        .expect(format!("A feed with name {} does not exist", feed).as_str());
 
-pub async fn run(app_config: &AppConfig) {
-    let config = app_config.feeds.get("helm-releases").unwrap();
-
-    let body = reqwest::get(&config.uri)
-        .await
-        .expect("Foobar")
-        .text()
-        .await
-        .expect("Foobar");
-
+    let feed = get_feed(config).await;
     let now = crate::utils::time::now();
-    let feed = parser::parse(body.as_bytes()).expect("Foobar");
 
     let entries :Vec<&Entry> = feed.entries.iter().collect();
 
@@ -23,6 +17,5 @@ pub async fn run(app_config: &AppConfig) {
     for entry in entries {
         let context = get_cel_context_for(&entry, &now); // @TODO: don't generate context again
         debug_cel_context(&context);
-
     }
 }

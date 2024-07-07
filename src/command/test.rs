@@ -9,9 +9,9 @@ use feed_rs::parser;
 
 use colored::Colorize;
 
-pub async fn run(app_config: &AppConfig) {
+pub async fn run(app_config: &AppConfig, file_selector: &String) {
 
-    let test_config = TestConfig::load(&String::from("example/tests"));
+    let test_config = TestConfig::load(file_selector);
     let mut test_result = TestResult::new();
 
     for case in test_config.cases.iter() {

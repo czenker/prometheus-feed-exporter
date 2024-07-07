@@ -12,7 +12,7 @@ async fn main() {
 
     match cli.command {
         Command::Run{}=>command::run::run(&app_config).await,
-        Command::Test{} => command::test::run(&app_config).await,
-        Command::Debug{} => command::debug::run(&app_config).await,
+        Command::Test { file } => command::test::run(&app_config, &file).await,
+        Command::Debug{ feed } => command::debug::run(&app_config, &feed).await,
     }
 }

@@ -83,7 +83,74 @@ feeds:
     uri: https://github.com/hashicorp/vault/releases.atom
     entry_id: 'links[0]'
     excludes:
-      - 'updated < now - duration("2160h")'
+      - 'updated < now - duration("720h")'
       - '!title.matches("^v[0-9]+.[0-9]+.[0-9]+(\\+.*)?$")' # only stable releases
     includes:
       - 'content.contains("SECURITY")'
+
+  connaisseur-releases:
+    uri: https://github.com/sse-secure-systems/connaisseur/releases.atom
+    entry_id: 'links[0]'
+    excludes:
+      - 'updated < now - duration("720h")'
+    includes:
+      # they seem to use conventional commits with "sec" as identifier
+      # https://github.com/sse-secure-systems/connaisseur/commit/524b73ff7306707f6d3a4d1e86401479bca91b02
+      - 'content.contains("Sec")'
+
+  prometheus-alertmanager:
+    uri: https://github.com/prometheus/alertmanager/releases.atom
+    entry_id: 'links[0]'
+    excludes:
+      - 'updated < now - duration("720h")'
+    includes:
+      - 'content.contains("[SECURITY]")'
+      - 'content.contains("CVE-")'
+
+  prometheus:
+    uri: https://github.com/prometheus/prometheus/releases.atom
+    entry_id: 'links[0]'
+    excludes:
+      - 'updated < now - duration("720h")'
+    includes:
+      - 'content.contains("[SECURITY]")'
+      - 'content.contains("CVE-")'
+
+  prometheus-nodeexporter:
+    uri: https://github.com/prometheus/node_exporter/releases.atom
+    entry_id: 'links[0]'
+    excludes:
+      - 'updated < now - duration("720h")'
+    includes:
+      - 'content.contains("[SECURITY]")'
+      - 'content.contains("CVE-")'
+
+  prometheus-pushgateway:
+    uri: https://github.com/prometheus/pushgateway/releases.atom
+    entry_id: 'links[0]'
+    excludes:
+      - 'updated < now - duration("720h")'
+    includes:
+      - 'content.contains("[SECURITY]")'
+      - 'content.contains("CVE-")'
+
+  prometheus-blackboxexporter:
+    uri: https://github.com/prometheus/blackbox_exporter/releases.atom
+    entry_id: 'links[0]'
+    excludes:
+      - 'updated < now - duration("720h")'
+    includes:
+      - 'content.contains("[SECURITY]")'
+      - 'content.contains("CVE-")'
+
+  oauth2-proxy:
+    uri: https://github.com/oauth2-proxy/oauth2-proxy/releases.atom
+    entry_id: 'links[0]'
+    excludes:
+      - 'updated < now - duration("720h")'
+    includes:
+      # they don't seem to have a common format, so just match as much as possible
+      - 'content.contains("security") || content.contains("Security")'
+      - 'content.contains("CVE")'
+      - 'content.contains("GHSA")'
+      - 'content.contains("vulnerabilities") || content.contains("Vulnerablities")'

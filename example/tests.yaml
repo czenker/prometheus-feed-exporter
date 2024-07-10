@@ -18,7 +18,7 @@ cases:
   setup:
     feedFile: ./example/fixtures/helm-2024.xml
     feedName: helm-releases
-    now: "2024-03-19T00:00:00+00:00"
+    now: "1970-01-01T00:00:00+00:00" # use date in the past, so no entries are filtered out because they are too old
   tests:
   - it: "should not find a patch release"
     query: "title == 'Helm v3.14.3'"
@@ -33,7 +33,7 @@ cases:
     query: "title == 'Helm v3.14.0'"
     expected: false
   - it: "should not find a pre-release"
-    query: "title == 'Helm v3.14.0-rc.1'"
+    query: "title == 'v3.14.0-rc.1'"
     expected: false
 
 - name: gitlab
@@ -167,4 +167,78 @@ cases:
     expected: false
   - it: "should not find non-stable releases"
     query: "title == 'v1.17.0-rc1'"
+    expected: false
+
+- name: connaisseur
+  setup:
+    feedFile: ./example/fixtures/connaisseur-2024-06.atom
+    feedName: connaisseur-releases
+    now: "1970-01-01T00:00:00+00:00" # use date in the past, so no entries are filtered out because they are too old
+  tests:
+  - it: "should find security release v3.3.1"
+    query: "title == 'v3.3.1'"
+    expected: true
+  - it: "should not find bugfix release v3.3.2"
+    query: "title == 'v3.3.2'"
+    expected: false
+  - it: "should not find bugfix release v3.3.2"
+    query: "title == 'v3.3.2'"
+    expected: false
+  - it: "should not find minor release v3.4.0"
+    # it contains words like "insecure" and "seconds" that should not match
+    query: "title == 'v3.4.0'"
+    expected: false
+
+- name: prometheus-alertmanager
+  setup:
+    feedFile: ./example/fixtures/prometheus-alertmanager.atom
+    feedName: prometheus-alertmanager
+    now: "1970-01-01T00:00:00+00:00" # use date in the past, so no entries are filtered out because they are too old
+  tests:
+  - it: "should find security release v0.26.0"
+    query: "title == '0.26.0 / 2023-08-23'"
+    expected: true
+  - it: "should find security release v0.25.1"
+    query: "title == '0.25.1 / 2023-08-23'"
+    expected: true
+  - it: "should not find release v0.27.0 without security fixes"
+    query: "title == '0.27.0 / 2024-02-28'"
+    expected: false
+
+- name: prometheus-pushgateway
+  setup:
+    feedFile: ./example/fixtures/prometheus-pushgateway.atom
+    feedName: prometheus-pushgateway
+    now: "1970-01-01T00:00:00+00:00" # use date in the past, so no entries are filtered out because they are too old
+  tests:
+  - it: "should find security release v1.6.2"
+    query: "title == '1.6.2 / 2023-09-13'"
+    expected: true
+  - it: "should find security release v1.5.1"
+    query: "title == '1.5.1 / 2022-11-29'"
+    expected: true
+  - it: "should not find release v1.9.0 without security fixes"
+    query: "title == '1.9.0 / 2024-06-06'"
+    expected: false
+
+- name: oauth2-proxy
+  setup:
+    feedFile: ./example/fixtures/oauth2-proxy.atom
+    feedName: oauth2-proxy
+    now: "1970-01-01T00:00:00+00:00" # use date in the past, so no entries are filtered out because they are too old
+  tests:
+  - it: "should not find v7.6.0 without any security fixes"
+    query: "title == 'v7.6.0'"
+    expected: false
+  - it: "should find v7.5.1 that contains fixes for several CVEs"
+    query: "title == 'V7.5.1'"
+    expected: true
+  - it: "should find v7.5.0 that contains fixes for several CVEs and one GHSA"
+    query: "title == 'V7.5.0'"
+    expected: true
+  - it: "should find v7.4.0 that contains fixes for several CVEs"
+    query: "title == 'V7.4.0'"
+    expected: true
+  - it: "should not find v7.2.0"
+    query: "title == 'V7.2.0'"
     expected: false

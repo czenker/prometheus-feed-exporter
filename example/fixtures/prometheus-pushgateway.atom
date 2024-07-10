@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xml:lang="en-US">
+  <id>tag:github.com,2008:https://github.com/prometheus/pushgateway/releases</id>
+  <link type="text/html" rel="alternate" href="https://github.com/prometheus/pushgateway/releases"/>
+  <link type="application/atom+xml" rel="self" href="https://github.com/prometheus/pushgateway/releases.atom"/>
+  <title>Release notes from pushgateway</title>
+  <updated>2024-06-08T14:58:05Z</updated>
+  <entry>
+    <id>tag:github.com,2008:Repository/16345015/v1.9.0</id>
+    <updated>2024-06-08T15:35:46Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/prometheus/pushgateway/releases/tag/v1.9.0"/>
+    <title>1.9.0 / 2024-06-06</title>
+    <content type="html">&lt;ul&gt;
+&lt;li&gt;[CHANGE] Command line: Print --version to stdout, not stderr. &lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;2333642027&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/prometheus/pushgateway/issues/651&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/prometheus/pushgateway/pull/651/hovercard&quot; href=&quot;https://github.com/prometheus/pushgateway/pull/651&quot;&gt;#651&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[FEATURE] UI: Support native histograms. &lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;2006451510&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/prometheus/pushgateway/issues/596&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/prometheus/pushgateway/pull/596/hovercard&quot; href=&quot;https://github.com/prometheus/pushgateway/pull/596&quot;&gt;#596&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[ENHANCEMENT] Log when liveness probes fail due to full write queue. &lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;2324271629&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/prometheus/pushgateway/issues/645&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/prometheus/pushgateway/pull/645/hovercard&quot; href=&quot;https://github.com/prometheus/pushgateway/pull/645&quot;&gt;#645&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[BUGFIX] Update dependencies to pull in possibly relevant bugfixes.&lt;/li&gt;
+&lt;/ul&gt;</content>
+    <author>
+      <name>prombot</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/18470668?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/16345015/v1.8.0</id>
+    <updated>2024-04-03T17:52:03Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/prometheus/pushgateway/releases/tag/v1.8.0"/>
+    <title>1.8.0 / 2024-04-03</title>
+    <content type="html">&lt;ul&gt;
+&lt;li&gt;[FEATURE] API: Support native histograms in api/v1/metrics. &lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;2066938271&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/prometheus/pushgateway/issues/611&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/prometheus/pushgateway/pull/611/hovercard&quot; href=&quot;https://github.com/prometheus/pushgateway/pull/611&quot;&gt;#611&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[BUGFIX] Update dependencies to pull in possibly relevant bugfixes, in particular a bug concerning multiple metric families pushed via protobuf.&lt;/li&gt;
+&lt;/ul&gt;</content>
+    <author>
+      <name>prombot</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/18470668?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/16345015/v1.7.0</id>
+    <updated>2024-01-19T13:34:08Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/prometheus/pushgateway/releases/tag/v1.7.0"/>
+    <title>1.7.0 / 2024-01-18</title>
+    <content type="html">&lt;ul&gt;
+&lt;li&gt;[FEATURE] UI: Keep expansion state on page refresh. &lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;1922269363&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/prometheus/pushgateway/issues/581&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/prometheus/pushgateway/pull/581/hovercard&quot; href=&quot;https://github.com/prometheus/pushgateway/pull/581&quot;&gt;#581&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[SECURITY] Build precompiled binaries with Go v1.21.6 to avoid security issues with previous Go releases.&lt;/li&gt;
+&lt;li&gt;[BUGFIX] Update dependencies to pull in possibly relevant bugfixes.&lt;/li&gt;
+&lt;/ul&gt;</content>
+    <author>
+      <name>prombot</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/18470668?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/16345015/v1.6.2</id>
+    <updated>2023-09-13T16:51:54Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/prometheus/pushgateway/releases/tag/v1.6.2"/>
+    <title>1.6.2 / 2023-09-13</title>
+    <content type="html">&lt;ul&gt;
+&lt;li&gt;[SECURITY] Build precompiled binaries with Go v1.21.1 to avoid &lt;a href=&quot;https://groups.google.com/g/golang-announce/c/Fm51GRLNRvM&quot; rel=&quot;nofollow&quot;&gt;security issues with Go v1.21.0&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;</content>
+    <author>
+      <name>prombot</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/18470668?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/16345015/v1.6.1</id>
+    <updated>2023-09-06T14:17:44Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/prometheus/pushgateway/releases/tag/v1.6.1"/>
+    <title>1.6.1 / 2023-09-05</title>
+    <content type="html">&lt;ul&gt;
+&lt;li&gt;[SECURITY] Build precompiled binaries with current Go version (1.21.0) to avoid known bugs in older Go versions.&lt;/li&gt;
+&lt;li&gt;[BUGFIX] Update dependencies to pull in possibly relevant bugfixes.&lt;/li&gt;
+&lt;/ul&gt;</content>
+    <author>
+      <name>prombot</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/18470668?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/16345015/v1.6.0</id>
+    <updated>2023-05-25T13:57:35Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/prometheus/pushgateway/releases/tag/v1.6.0"/>
+    <title>1.6.0 / 2023-05-25</title>
+    <content type="html">&lt;ul&gt;
+&lt;li&gt;[FEATURE] Add snappy encoding support for &lt;code&gt;/metrics&lt;/code&gt; endpoint. &lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;1468599731&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/prometheus/pushgateway/issues/518&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/prometheus/pushgateway/pull/518/hovercard&quot; href=&quot;https://github.com/prometheus/pushgateway/pull/518&quot;&gt;#518&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[ENHANCEMENT] Add pre-built binaries for the s390x architecture. &lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;1617404881&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/prometheus/pushgateway/issues/537&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/prometheus/pushgateway/pull/537/hovercard&quot; href=&quot;https://github.com/prometheus/pushgateway/pull/537&quot;&gt;#537&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[BUGFIX] Fix possible leak of a file handle when using compression. &lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;1468599731&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/prometheus/pushgateway/issues/518&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/prometheus/pushgateway/pull/518/hovercard&quot; href=&quot;https://github.com/prometheus/pushgateway/pull/518&quot;&gt;#518&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content>
+    <author>
+      <name>prombot</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/18470668?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/16345015/v1.5.1</id>
+    <updated>2022-11-29T16:42:36Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/prometheus/pushgateway/releases/tag/v1.5.1"/>
+    <title>1.5.1 / 2022-11-29</title>
+    <content type="html">&lt;ul&gt;
+&lt;li&gt;[SECURITY] Fix basic authentication bypass vulnerability (&lt;a title=&quot;CVE-2022-46146&quot; data-hovercard-type=&quot;advisory&quot; data-hovercard-url=&quot;/advisories/GHSA-7rg2-cxvp-9p7p/hovercard&quot; href=&quot;https://github.com/advisories/GHSA-7rg2-cxvp-9p7p&quot;&gt;CVE-2022-46146&lt;/a&gt;). &lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;1468173579&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/prometheus/pushgateway/issues/516&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/prometheus/pushgateway/pull/516/hovercard&quot; href=&quot;https://github.com/prometheus/pushgateway/pull/516&quot;&gt;#516&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content>
+    <author>
+      <name>prombot</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/18470668?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/16345015/v1.5.0</id>
+    <updated>2022-11-24T13:00:24Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/prometheus/pushgateway/releases/tag/v1.5.0"/>
+    <title>1.5.0 / 2022-11-24</title>
+    <content type="html">&lt;ul&gt;
+&lt;li&gt;[FEATURE] Add multiple listeners and systemd socket support. &lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;1462469926&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/prometheus/pushgateway/issues/512&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/prometheus/pushgateway/pull/512/hovercard&quot; href=&quot;https://github.com/prometheus/pushgateway/pull/512&quot;&gt;#512&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[FEATURE] Accept a gzip&#39;d body of a POST or PUT request. &lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;1274587361&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/prometheus/pushgateway/issues/477&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/prometheus/pushgateway/pull/477/hovercard&quot; href=&quot;https://github.com/prometheus/pushgateway/pull/477&quot;&gt;#477&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content>
+    <author>
+      <name>prombot</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/18470668?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/16345015/v1.4.3</id>
+    <updated>2022-05-30T22:42:51Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/prometheus/pushgateway/releases/tag/v1.4.3"/>
+    <title>1.4.3 / 2022-05-30</title>
+    <content type="html">&lt;ul&gt;
+&lt;li&gt;[BUGFIX] Update dependencies to pull in possibly relevant bugfixes.&lt;/li&gt;
+&lt;/ul&gt;</content>
+    <author>
+      <name>prombot</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/18470668?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/16345015/v1.4.2</id>
+    <updated>2021-10-11T22:12:34Z</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/prometheus/pushgateway/releases/tag/v1.4.2"/>
+    <title>1.4.2 / 2021-10-11</title>
+    <content type="html">&lt;ul&gt;
+&lt;li&gt;[BUGFIX] Do not log an error upon graceful shutdown. &lt;a class=&quot;issue-link js-issue-link&quot; data-error-text=&quot;Failed to load title&quot; data-id=&quot;1014494522&quot; data-permission-text=&quot;Title is private&quot; data-url=&quot;https://github.com/prometheus/pushgateway/issues/428&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/prometheus/pushgateway/pull/428/hovercard&quot; href=&quot;https://github.com/prometheus/pushgateway/pull/428&quot;&gt;#428&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;[BUGFIX] Update dependencies to pull in possibly relevant bugfixes.&lt;/li&gt;
+&lt;/ul&gt;</content>
+    <author>
+      <name>prombot</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/18470668?s=60&amp;v=4"/>
+  </entry>
+</feed>

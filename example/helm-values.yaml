@@ -1,0 +1,61 @@
+# https://github.com/bjw-s/helm-charts/blob/main/charts/library/common/values.yaml
+
+defaultPodOptions: {}
+
+controllers:
+  main: 
+    enabled: true
+    type: cronjob 
+    cronjob:
+      suspend: false
+      concurrencyPolicy: Forbid
+      schedule: "*/30 * * * *"
+      startingDeadlineSeconds: 30
+      successfulJobsHistory: 3
+      failedJobsHistory: 1
+      ttlSecondsAfterFinished: 3600
+      backoffLimit: 3
+      parallelism: 1
+    containers:
+      exporter:
+        image:
+          repository: ghcr.io/czenker/prometheus-feed-exporter
+          tag: main
+        command:
+        - /bin/prometheus-feed-exporter
+        - --settings-file=/config/settings.yaml
+        - run
+        resources:
+          limits:
+            memory: 32Mi
+          requests:
+            cpu: 10m
+            memory: 16Mi
+        securityContext:
+          privileged: false
+          runAsNonRoot: true
+          runAsUser: 10001
+          runAsGroup: 10001
+          readOnlyRootFilesystem: true
+
+persistence:
+  settings:
+    type: configMap
+    enabled: true
+    identifier: settings # key from `configMaps` object
+    globalMounts:
+    - path: /config
+      readOnly: true
+
+configMaps:
+  settings:
+    enabled: true
+    data:
+      # You can either set your configuration here or
+      # 
+      # – RECOMMENDED – import configuration from your externally managed settings.yaml:
+      # `helm install [...] --set-file 'configMaps.settings.data.settings\.yaml'=example/settings.yaml`
+      # 
+      # @ see example/settings.yaml for valid values
+      settings.yaml: |
+        # TODO

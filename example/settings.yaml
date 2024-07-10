@@ -16,3 +16,71 @@ feeds:
       - 'updated < now - duration("2160h")'
     includes:
       - 'content.contains("is a security")'
+
+  aws-security:
+    uri: https://aws.amazon.com/security/security-bulletins/rss/feed/
+    entry_id: 'links[0]'
+    excludes:
+      - 'published < now - duration("2160h")'
+
+  grafana:
+    uri: https://grafana.com/tags/security/index.xml
+    entry_id: 'links[0]'
+    excludes:
+      - 'updated < now - duration("2160h")'
+    includes:
+      - 'title.contains("Grafana security")'
+      - 'title.contains("CVE-")'
+
+  gitlab:
+    uri: https://about.gitlab.com/security-releases.xml
+    entry_id: 'links[0]'
+    excludes:
+      - 'updated < now - duration("2160h")'
+    includes:
+      - 'content.contains("High") || content.contains("Critical") '
+
+  docker-security:
+    uri: https://www.docker.com/blog/tag/security/feed/
+    excludes:
+      - 'updated < now - duration("2160h")'
+    includes:
+      - 'title.contains("Security Advisory")'
+
+  aqua-security:
+    uri: https://www.aquasec.com/tag/security-threats/feed/
+    excludes:
+      - 'updated < now - duration("2160h")'
+    includes:
+      - 'title.contains("CVE")'
+
+  istio-security:
+    uri: https://istio.io/latest/news/feed.xml
+    excludes:
+      - 'published < now - duration("2160h")'
+    includes:
+      - 'title.contains("ISTIO-SECURITY")'
+
+  kubernetes:
+    uri: https://kubernetes.io/docs/reference/issues-security/official-cve-feed/feed.xml
+    entry_id: 'links[0]'
+    excludes:
+      - 'published < now - duration("2160h")'
+
+  kyverno:
+    uri: https://kyverno.io/blog/index.xml
+    entry_id: 'links[0]'
+    excludes:
+      - 'published < now - duration("2160h")'
+    includes:
+      - 'title.contains("CVE-")'
+      - 'content.contains("CVE-")'
+
+  vault-releases:
+    uri: https://github.com/hashicorp/vault/releases.atom
+    entry_id: 'links[0]'
+    excludes:
+      - 'updated < now - duration("2160h")'
+      - '!title.matches("^v[0-9]+.[0-9]+.[0-9]+(\\+.*)?$")' # only stable releases
+    includes:
+      - 'content.contains("SECURITY")'

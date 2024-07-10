@@ -35,3 +35,136 @@ cases:
   - it: "should not find a pre-release"
     query: "title == 'Helm v3.14.0-rc.1'"
     expected: false
+
+- name: gitlab
+  setup:
+    feedFile: ./example/fixtures/gitlab-2024-06-27.xml
+    feedName: gitlab
+    now: "2024-06-27T00:00:00+00:00"
+  tests:
+  - it: "should find a release with critical issues"
+    query: "title == 'GitLab Critical Patch Release: 17.1.1, 17.0.3, 16.11.5'"
+    expected: true
+  - it: "should not find a releases with only medium and lower issues"
+    query: "title == 'GitLab Patch Release: 17.0.2, 16.11.4, 16.10.7'"
+    expected: false
+
+- name: grafana
+  setup:
+    feedFile: ./example/fixtures/grafana-2024-06.xml
+    feedName: grafana
+    now: "1970-01-01T00:00:00+00:00" # use date in the past, so no entries are filtered out because they are too old
+  tests:
+  - it: "should find Grafana security update #1"
+    query: "title == 'Grafana security update: Grafana Loki and unintended data write attempts to Amazon S3 buckets'"
+    expected: true
+  - it: "should find Grafana security update #2"
+    query: "title == 'Grafana security release: Medium severity security fix for CVE-2024-1442'"
+    expected: true
+  - it: "should not find general information articles #1"
+    query: "title == 'Data source security in Grafana: Best practices and what to avoid'"
+    expected: false
+  - it: "should not find general information articles #2"
+    query: "title == 'Grafana Cloud security: Three common cloud security myths debunked'"
+    expected: false
+
+- name: aqua-security
+  setup:
+    feedFile: ./example/fixtures/aqua-security-2024-06.xml
+    feedName: aqua-security
+    now: "2024-04-20T00:00:00+00:00"
+  tests:
+  - it: "should find report on CVE-2024-3094 (Backdoor in XZ)"
+    query: "title == 'CVE-2024-3094: Newly Discovered Backdoor in XZ tools'"
+    expected: true
+  - it: "should find report on CVE-2024-4323 (Fluent Bit)"
+    query: "title == 'Linguistic Lumberjack: Understanding CVE-2024-4323 in Fluent Bit'"
+    expected: true
+
+- name: aws-security-2024-02
+  setup:
+    feedFile: ./example/fixtures/aws-security-bulletin-2024-06.xml
+    feedName: aws-security
+    now: "2024-02-01T00:00:00+00:00"
+  tests:
+  - it: "should find report on CVE-2024-21626 (Runc container issue)"
+    query: "title == 'CVE-2024-21626 - Runc container issue'"
+    expected: true
+
+- name: aws-security-2024-04
+  setup:
+    feedFile: ./example/fixtures/aws-security-bulletin-2024-06.xml
+    feedName: aws-security
+    now: "2024-04-01T00:00:00+00:00"
+  tests:
+  - it: "should find report on CVE-2024-3094 (Backdoor in XZ)"
+    query: "title == 'CVE-2024-3094'"
+    expected: true
+
+- name: istio-security
+  setup:
+    feedFile: ./example/fixtures/istio-security-2024-06.xml
+    feedName: istio-security
+    now: "2024-07-01T00:00:00+00:00"
+  tests:
+  - it: "should not find any new version without security fixes"
+    query: "title == 'Announcing Istio 1.20.8'"
+    expected: false
+  - it: "should find istio security advisories"
+    query: "title == 'ISTIO-SECURITY-2024-005'"
+    expected: true
+  - it: "should not report EOL messages"
+    query: "title == 'Support for Istio 1.20 has ended'"
+    expected: false
+
+- name: kubernetes
+  setup:
+    feedFile: ./example/fixtures/kubernetes-2024-06.xml
+    feedName: kubernetes
+    now: "2024-05-10T00:00:00+00:00"
+  tests:
+  - it: "should find the latest CVE (CVE-2024-3744)"
+    query: "title == 'CVE-2024-3744'"
+    expected: true
+
+- name: kyverno
+  setup:
+    feedFile: ./example/fixtures/kyverno-2024-06.xml
+    feedName: kyverno
+    now: "1970-01-01T00:00:00+00:00" # use date in the past, so no entries are filtered out because they are too old
+  tests:
+  - it: "should find article on CVE-2022-47633"
+    query: "title.contains('Kyverno CVE-2022-47633 affecting image verification')"
+    expected: true
+  - it: "should not find information articles"
+    query: "title.contains('Kyverno Reports Server - The ultimate solution to scale reporting')"
+    expected: false
+  - it: "should not find release notes"
+    query: "title.contains('Kyverno 1.12 Released')"
+    expected: false
+
+- name: vault-2024-03
+  setup:
+    feedFile: ./example/fixtures/vault-2024-03.atom
+    feedName: vault-releases
+    now: "2024-04-01T00:00:00+00:00"
+  tests:
+  - it: "should find security release 1.15.7"
+    query: "title == 'v1.15.7+ent'"
+    expected: true
+
+- name: vault-2024-06
+  setup:
+    feedFile: ./example/fixtures/vault-2024-06.atom
+    feedName: vault-releases
+    now: "1970-01-01T00:00:00+00:00" # use date in the past, so no entries are filtered out because they are too old
+  tests:
+  - it: "should not find non-security releases"
+    query: "title == 'v1.17.2'"
+    expected: false
+  - it: "should not find module releases"
+    query: "title == 'sdk/v0.13.0: update vault auth submodules to api/v1.14.0 (#27190)'"
+    expected: false
+  - it: "should not find non-stable releases"
+    query: "title == 'v1.17.0-rc1'"
+    expected: false

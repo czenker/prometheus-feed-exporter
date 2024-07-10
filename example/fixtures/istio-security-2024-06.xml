@@ -1,0 +1,2525 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Istio News</title><description>News feed for the Istio service mesh.</description><link>https://istio.io/latest/</link><image><title>Istio News</title><url>https://istio.io/latest//favicons/android-192x192.png</url><link>https://istio.io/latest/</link></image><category>Service mesh</category><item><title>Announcing Istio 1.20.8</title><description><![CDATA[<p>This release note describes what’s different between Istio 1.20.7 and 1.20.8.</p>
+<div class="relnote-actions call-to-action">
+        <a class="entry" href="/latest/news/releases/1.20.x/announcing-1.20/upgrade-notes/">
+            <h5>BEFORE YOU UPGRADE</h5>
+            <p>Things to know and prepare before upgrading.</p>
+        </a>
+            <a class="entry" href="https://github.com/istio/istio/releases/tag/1.20.8">
+                <h5>DOWNLOAD</h5>
+                <p>Download and install this release.</p>
+            </a>
+    <a class="entry" href="https://archive.istio.io/v1.20/docs">
+        <h5>DOCS</h5>
+        <p>Visit the documentation for this release.</p>
+    </a>
+        <a class="entry" href="https://github.com/istio/istio/compare/1.20.7...1.20.8">
+            <h5>SOURCE CHANGES</h5>
+            <p>Inspect the full set of source code changes.</p>
+        </a>
+</div>
+<h2 id="changes">Changes</h2>
+<ul>
+<li>
+<p><strong>Added</strong> <code>gateways.securityContext</code> to manifests to provide an option to customize the gateway <code>securityContext</code>.
+(<a href="https://github.com/istio/istio/issues/49549">Issue #49549</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where JWKS fetched from URIs were not updated promptly when there are errors fetching other URIs.
+(<a href="https://github.com/istio/istio/issues/51636">Issue #51636</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> 503 errors returned by <code>auto-passthrough</code> gateways created after enabling mTLS.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> <code>serviceRegistry</code> ordering of the proxy labels, so we put the Kubernetes registry in front.
+(<a href="https://github.com/istio/istio/issues/50968">Issue #50968</a>)</p>
+</li>
+</ul>
+]]></description><pubDate>Mon, 01 Jul 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.20.x/announcing-1.20.8/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.20.x/announcing-1.20.8/</guid></item><item><title>ISTIO-SECURITY-2024-005</title><description><![CDATA[
+<table>
+    <thead>
+        <tr>
+            <th colspan="2">Disclosure Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>CVE(s)</td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>CVSS Impact Score</td>
+            <td>7.5 <a href="https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator?vector=AV%3aN%2fAC%3aL%2fPR%3aN%2fUI%3aN%2fS%3aU%2fC%3aN%2fI%3aN%2fA%3aH&version=3.1">AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H</a></td>
+        </tr>
+        <tr>
+            <td>Affected Releases</td>
+            <td>
+                    1.21.0 to 1.21.3<br>
+                    1.22.0 to 1.22.1<br>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<h2 id="cve">CVE</h2>
+<h3 id="envoy-cves">Envoy CVEs</h3>
+<ul>
+<li><strong><a href="https://github.com/envoyproxy/envoy/security/advisories/GHSA-8mq4-c2v5-3h39">GHSA-8mq4-c2v5-3h39</a></strong>: (CVSS Score 7.5, Moderate): Datadog: Datadog tracer does not handle trace headers with Unicode characters.</li>
+</ul>
+<h2 id="am-i-impacted">Am I Impacted?</h2>
+<p>You are impacted if you are using Istio 1.21.0 to 1.21.3 or 1.22.0 to 1.22.1 and have enabled the Datadog tracer.</p>
+]]></description><pubDate>Thu, 27 Jun 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/security/istio-security-2024-005/</link><guid isPermaLink="true">https://istio.io/latest//news/security/istio-security-2024-005/</guid><category>CVE</category></item><item><title>Announcing Istio 1.22.2</title><description><![CDATA[<p>This release implements the security updates described in our 27th of June post, <a href="/news/security/istio-security-2024-005/"><code>ISTIO-SECURITY-2024-005</code></a> along with bug fixes to improve robustness.</p>
+<p>This release note describes what is different between Istio 1.22.1 and 1.22.2.</p>
+<div class="relnote-actions call-to-action">
+        <a class="entry" href="/latest/news/releases/1.22.x/announcing-1.22/upgrade-notes/">
+            <h5>BEFORE YOU UPGRADE</h5>
+            <p>Things to know and prepare before upgrading.</p>
+        </a>
+            <a class="entry" href="/docs/setup/getting-started/#download">
+                <h5>DOWNLOAD</h5>
+                <p>Download and install this release.</p>
+            </a>
+    <a class="entry" href="https://istio.io/docs">
+        <h5>DOCS</h5>
+        <p>Visit the documentation for this release.</p>
+    </a>
+        <a class="entry" href="https://github.com/istio/istio/compare/1.22.1...1.22.2">
+            <h5>SOURCE CHANGES</h5>
+            <p>Inspect the full set of source code changes.</p>
+        </a>
+</div>
+<h2 id="changes">Changes</h2>
+<ul>
+<li>
+<p><strong>Improved</strong> waypoint proxies to no longer run as root.</p>
+</li>
+<li>
+<p><strong>Added</strong> <code>gateways.securityContext</code> to manifests to provide an option to customize the gateway <code>securityContext</code>.
+(<a href="https://github.com/istio/istio/issues/49549">Issue #49549</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> a new option in ztunnel to completely disable IPv6, to enable running on kernels with IPv6 disabled.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where <code>istioctl analyze</code> returned IST0162 false positives.
+(<a href="https://github.com/istio/istio/issues/51257">Issue #51257</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> <code>ENABLE_ENHANCED_RESOURCE_SCOPING</code> not being part of helm compatibility profiles for Istio 1.20/1.21.
+(<a href="https://github.com/istio/istio/issues/51399">Issue #51399</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> Kubernetes job pod IPs may not be fully unenrolled from ambient despite being in a terminated state.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> false positives in IST0128 and IST0129 when <code>credentialName</code> and <code>workloadSelector</code> were set.
+(<a href="https://github.com/istio/istio/issues/51567">Issue #51567</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where JWKS fetched from URIs were not updated promptly when there are errors fetching other URIs.
+(<a href="https://github.com/istio/istio/issues/51636">Issue #51636</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue causing <code>workloadSelector</code> policies to apply to the wrong namespace in ztunnel.
+(<a href="https://github.com/istio/istio/issues/51556">Issue #51556</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a bug causing <code>discoverySelectors</code> to accidentally filter out all <code>GatewayClasses</code>.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> certificate chains parsing avoid unnecessary parsing errors by trimming unnecessary intermediate certificates.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a bug in ambient mode causing requests at the start of a Pod lifetime to be rejected with <code>unknown source</code>.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue in ztunnel where some expected connection terminations were reported as errors.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue in ztunnel when connecting to a service with a <code>targetPort</code> that exists only on a subset of pods.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue when deleting a <code>ServiceEntry</code> when there are duplicate hostnames across multiple <code>ServiceEntries</code>.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where ztunnel would send directly to pods when connecting to a <code>LoadBalancer</code> IP, instead of going through the <code>LoadBalancer</code>.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where ztunnel would send traffic to terminating pods.</p>
+</li>
+</ul>
+]]></description><pubDate>Thu, 27 Jun 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.22.x/announcing-1.22.2/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.22.x/announcing-1.22.2/</guid></item><item><title>Announcing Istio 1.21.4</title><description><![CDATA[<p>This release implements the security updates described in our 27th of June post, <a href="/news/security/istio-security-2024-005/"><code>ISTIO-SECURITY-2024-005</code></a> along with bug fixes to improve robustness.</p>
+<p>This release note describes what is different between Istio 1.21.3 and 1.21.4.</p>
+<div class="relnote-actions call-to-action">
+        <a class="entry" href="/latest/news/releases/1.21.x/announcing-1.21/upgrade-notes/">
+            <h5>BEFORE YOU UPGRADE</h5>
+            <p>Things to know and prepare before upgrading.</p>
+        </a>
+            <a class="entry" href="https://github.com/istio/istio/releases/tag/1.21.4">
+                <h5>DOWNLOAD</h5>
+                <p>Download and install this release.</p>
+            </a>
+    <a class="entry" href="https://archive.istio.io/v1.21/docs">
+        <h5>DOCS</h5>
+        <p>Visit the documentation for this release.</p>
+    </a>
+        <a class="entry" href="https://github.com/istio/istio/compare/1.21.3...1.21.4">
+            <h5>SOURCE CHANGES</h5>
+            <p>Inspect the full set of source code changes.</p>
+        </a>
+</div>
+<h2 id="changes">Changes</h2>
+<ul>
+<li>
+<p><strong>Added</strong> <code>gateways.securityContext</code> to manifests to provide an option to customize the gateway <code>securityContext</code>.
+(<a href="https://github.com/istio/istio/issues/49549">Issue #49549</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where <code>istioctl analyze</code> returned IST0162 false positives.
+(<a href="https://github.com/istio/istio/issues/51257">Issue #51257</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> false positives in IST0128 and IST0129 when <code>credentialName</code> and <code>workloadSelector</code> were set.
+(<a href="https://github.com/istio/istio/issues/51567">Issue #51567</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where JWKS fetched from URIs were not updated promptly when there are errors fetching other URIs.
+(<a href="https://github.com/istio/istio/issues/51636">Issue #51636</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> 503 errors returned by <code>auto-passthrough</code> gateways created after enabling mTLS.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> <code>serviceRegistry</code> ordering of the proxy labels, so we put the Kubernetes registry in front.
+(<a href="https://github.com/istio/istio/issues/50968">Issue #50968</a>)</p>
+</li>
+</ul>
+]]></description><pubDate>Thu, 27 Jun 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.21.x/announcing-1.21.4/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.21.x/announcing-1.21.4/</guid></item><item><title>Support for Istio 1.20 has ended</title><description><![CDATA[<p>As <a href="/news/support/announcing-1.20-eol/">previously announced</a>, support for Istio 1.20 has now officially ended.</p>
+<p>At this point we will no longer back-port fixes for security issues and critical bugs to 1.20. We highly recommend that
+you upgrade to the latest version of Istio (1.22.2) if you haven&rsquo;t already.</p>
+]]></description><pubDate>Tue, 25 Jun 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/support/announcing-1.20-eol-final/</link><guid isPermaLink="true">https://istio.io/latest//news/support/announcing-1.20-eol-final/</guid></item><item><title>ISTIO-SECURITY-2024-004</title><description><![CDATA[
+<table>
+    <thead>
+        <tr>
+            <th colspan="2">Disclosure Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>CVE(s)</td>
+            <td>
+                    <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-32976">CVE-2024-32976</a><br>
+                    <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-32975">CVE-2024-32975</a><br>
+                    <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-32974">CVE-2024-32974</a><br>
+                    <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-34363">CVE-2024-34363</a><br>
+                    <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-34362">CVE-2024-34362</a><br>
+                    <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-23326">CVE-2024-23326</a><br>
+                    <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-34364">CVE-2024-34364</a><br>
+            </td>
+        </tr>
+        <tr>
+            <td>CVSS Impact Score</td>
+            <td>7.5 <a href="https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator?vector=AV%3aN%2fAC%3aL%2fPR%3aN%2fUI%3aN%2fS%3aU%2fC%3aN%2fI%3aN%2fA%3aH&version=3.1">AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H</a></td>
+        </tr>
+        <tr>
+            <td>Affected Releases</td>
+            <td>
+                    All releases prior to 1.20.0<br>
+                    1.20.0 to 1.20.6<br>
+                    1.21.0 to 1.21.2<br>
+                    1.22.0<br>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<h2 id="cve">CVE</h2>
+<h3 id="envoy-cves">Envoy CVEs</h3>
+<ul>
+<li>
+<p><strong><a href="https://github.com/envoyproxy/envoy/security/advisories/GHSA-vcf8-7238-v74c">CVE-2024-23326</a></strong>: (CVSS Score 5.9, Moderate): Incorrect handling of responses to HTTP/1 upgrade requests that can lead to request smuggling.</p>
+</li>
+<li>
+<p><strong><a href="https://github.com/envoyproxy/envoy/security/advisories/GHSA-mgxp-7hhp-8299">CVE-2024-32974</a></strong>: (CVSS Score 5.9, Moderate): Vulnerability in QUIC stack that can lead to abnormal process termination.</p>
+</li>
+<li>
+<p><strong><a href="https://github.com/envoyproxy/envoy/security/advisories/GHSA-g9mq-6v96-cpqc">CVE-2024-32975</a></strong>: (CVSS Score 5.9, Moderate): Vulnerability in QUIC stack that can lead to abnormal process termination.</p>
+</li>
+<li>
+<p><strong><a href="https://github.com/envoyproxy/envoy/security/advisories/GHSA-7wp5-c2vq-4f8m">CVE-2024-32976</a></strong>: (CVSS Score 7.5, High): Vulnerability in <code>Brotli</code> decompressor that can lead to infinite loop.</p>
+</li>
+<li>
+<p><strong><a href="https://github.com/envoyproxy/envoy/security/advisories/GHSA-hww5-43gv-35jv">CVE-2024-34362</a></strong>: (CVSS Score 5.9, Moderate): Vulnerability in QUIC stack that can lead to abnormal process termination.</p>
+</li>
+<li>
+<p><strong><a href="https://github.com/envoyproxy/envoy/security/advisories/GHSA-g979-ph9j-5gg4">CVE-2024-34363</a></strong>: (CVSS Score 7.5, High): Vulnerability in Envoy access log JSON formatter, that can lead to abnormal process termination.</p>
+</li>
+<li>
+<p><strong><a href="https://github.com/envoyproxy/envoy/security/advisories/GHSA-xcj3-h7vf-fw26">CVE-2024-34364</a></strong>: (CVSS Score 5.7, Moderate): Unbounded memory consumption in <code>ext_proc</code> and <code>ext_authz</code>.</p>
+</li>
+</ul>
+<h2 id="am-i-impacted">Am I Impacted?</h2>
+<p>If you are using JSON access log formatting in Istio 1.22, you are impacted, please upgrade as soon as possible. The request smuggling will also affect users of Websockets.</p>
+]]></description><pubDate>Tue, 04 Jun 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/security/istio-security-2024-004/</link><guid isPermaLink="true">https://istio.io/latest//news/security/istio-security-2024-004/</guid><category>CVE</category></item><item><title>Announcing Istio 1.22.1</title><description><![CDATA[<p>This release implements the security updates described in our 4th of June post, <a href="/news/security/istio-security-2024-004/"><code>ISTIO-SECURITY-2024-004</code></a> along with bug fixes to improve robustness.</p>
+<p>This release note describes what’s different between Istio 1.22.0 and 1.22.1.</p>
+<div class="relnote-actions call-to-action">
+        <a class="entry" href="/latest/news/releases/1.22.x/announcing-1.22/upgrade-notes/">
+            <h5>BEFORE YOU UPGRADE</h5>
+            <p>Things to know and prepare before upgrading.</p>
+        </a>
+            <a class="update-notice entry"
+                data-title='Update Notice'
+                data-downloadhref="https://github.com/istio/istio/releases/tag/1.22.1"
+                data-downloadbuttontext="DOWNLOAD 1.22.1"
+                data-updateadvice='Before you download 1.22.1, you should know that there&#39;s a newer patch release with the latest bug fixes and perf improvements.'
+                data-updatebutton='LEARN ABOUT ISTIO 1.22.2'
+                data-updatehref="/latest/news/releases/1.22.x/announcing-1.22.2/">
+                <h5>DOWNLOAD</h5>
+                <p>Download and install this release.</p>
+            </a>
+    <a class="entry" href="https://istio.io/docs">
+        <h5>DOCS</h5>
+        <p>Visit the documentation for this release.</p>
+    </a>
+        <a class="entry" href="https://github.com/istio/istio/compare/1.22.0...1.22.1">
+            <h5>SOURCE CHANGES</h5>
+            <p>Inspect the full set of source code changes.</p>
+        </a>
+</div>
+<h2 id="changes">Changes</h2>
+<ul>
+<li>
+<p><strong>Added</strong> a new, optional experimental admission policy that only allows stable features/fields to be used in Istio APIs when using a remote Istiod cluster.
+(<a href="https://github.com/istio/enhancements/issues/173">Issue #173</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> adding of pod IPs to the host&rsquo;s <code>ipset</code> to explicitly fail instead of silently overwriting.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue causing <code>outboundstatname</code> in MeshConfig to not be honored for subset clusters.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> custom injection of the <code>istio-proxy</code> container not working properly when <code>SecurityContext.RunAs</code> fields were set.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> returning 503 errors by auto-passthrough gateways created after enabling mTLS.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> <code>serviceRegistry</code> orders influence the proxy labels, so we put the Kubernetes registry in front.
+(<a href="https://github.com/istio/istio/issues/50968">Issue #50968</a>)</p>
+</li>
+</ul>
+]]></description><pubDate>Tue, 04 Jun 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.22.x/announcing-1.22.1/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.22.x/announcing-1.22.1/</guid></item><item><title>Announcing Istio 1.21.3</title><description><![CDATA[<p>This release implements the security updates described in our 4th of June post, <a href="/news/security/istio-security-2024-004/"><code>ISTIO-SECURITY-2024-004</code></a> along with bug fixes to improve robustness.</p>
+<p>This release note describes what’s different between Istio 1.21.2 and 1.21.3.</p>
+<div class="relnote-actions call-to-action">
+        <a class="entry" href="/latest/news/releases/1.21.x/announcing-1.21/upgrade-notes/">
+            <h5>BEFORE YOU UPGRADE</h5>
+            <p>Things to know and prepare before upgrading.</p>
+        </a>
+            <a class="update-notice entry"
+                data-title='Update Notice'
+                data-downloadhref="https://github.com/istio/istio/releases/tag/1.21.3"
+                data-downloadbuttontext="DOWNLOAD 1.21.3"
+                data-updateadvice='Before you download 1.21.3, you should know that there&#39;s a newer patch release with the latest bug fixes and perf improvements.'
+                data-updatebutton='LEARN ABOUT ISTIO 1.21.4'
+                data-updatehref="/latest/news/releases/1.21.x/announcing-1.21.4/">
+                <h5>DOWNLOAD</h5>
+                <p>Download and install this release.</p>
+            </a>
+    <a class="entry" href="https://archive.istio.io/v1.21/docs">
+        <h5>DOCS</h5>
+        <p>Visit the documentation for this release.</p>
+    </a>
+        <a class="entry" href="https://github.com/istio/istio/compare/1.21.2...1.21.3">
+            <h5>SOURCE CHANGES</h5>
+            <p>Inspect the full set of source code changes.</p>
+        </a>
+</div>
+<h2 id="changes">Changes</h2>
+<ul>
+<li>
+<p><strong>Fixed</strong> building of EDS-typed cluster endpoints with domain address.
+(<a href="https://github.com/istio/istio/issues/50688">Issue #50688</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> custom injection of the <code>istio-proxy</code> container not working properly when <code>SecurityContext.RunAs</code> fields were set.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a regression in Istio 1.21.0 causing <code>VirtualService</code>s routing to <code>ExternalName</code> services to not work when
+<code>ENABLE_EXTERNAL_NAME_ALIAS=false</code> was configured.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> list matching for the audience claims in JWT tokens.
+(<a href="https://github.com/istio/istio/issues/49913">Issue #49913</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a behavioral change in Istio 1.20 that caused merging of <code>ServiceEntries</code> with the same hostname and port names
+to give unexpected results.
+(<a href="https://github.com/istio/istio/issues/50478">Issue #50478</a>)</p>
+</li>
+</ul>
+]]></description><pubDate>Tue, 04 Jun 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.21.x/announcing-1.21.3/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.21.x/announcing-1.21.3/</guid></item><item><title>Announcing Istio 1.20.7</title><description><![CDATA[<p>This release implements the security updates described in our 4th of June post, <a href="/news/security/istio-security-2024-004/"><code>ISTIO-SECURITY-2024-004</code></a> along with bug fixes to improve robustness.</p>
+<p>This release note describes what’s different between Istio 1.20.6 and 1.20.7.</p>
+<div class="relnote-actions call-to-action">
+        <a class="entry" href="/latest/news/releases/1.20.x/announcing-1.20/upgrade-notes/">
+            <h5>BEFORE YOU UPGRADE</h5>
+            <p>Things to know and prepare before upgrading.</p>
+        </a>
+            <a class="update-notice entry"
+                data-title='Update Notice'
+                data-downloadhref="https://github.com/istio/istio/releases/tag/1.20.7"
+                data-downloadbuttontext="DOWNLOAD 1.20.7"
+                data-updateadvice='Before you download 1.20.7, you should know that there&#39;s a newer patch release with the latest bug fixes and perf improvements.'
+                data-updatebutton='LEARN ABOUT ISTIO 1.20.8'
+                data-updatehref="/latest/news/releases/1.20.x/announcing-1.20.8/">
+                <h5>DOWNLOAD</h5>
+                <p>Download and install this release.</p>
+            </a>
+    <a class="entry" href="https://archive.istio.io/v1.20/docs">
+        <h5>DOCS</h5>
+        <p>Visit the documentation for this release.</p>
+    </a>
+        <a class="entry" href="https://github.com/istio/istio/compare/1.20.6...1.20.7">
+            <h5>SOURCE CHANGES</h5>
+            <p>Inspect the full set of source code changes.</p>
+        </a>
+</div>
+<h2 id="changes">Changes</h2>
+<ul>
+<li>
+<p><strong>Fixed</strong> building of EDS-typed cluster endpoints with domain address.
+(<a href="https://github.com/istio/istio/issues/50688">Issue #50688</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> custom injection of the <code>istio-proxy</code> container not working properly when <code>SecurityContext.RunAs</code> fields were set.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a regression in Istio 1.21.0 causing <code>VirtualService</code>s routing to <code>ExternalName</code> services to not work when
+<code>ENABLE_EXTERNAL_NAME_ALIAS=false</code> was configured.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a behavioral change in Istio 1.20 that caused merging of <code>ServiceEntries</code> with the same hostname and port names
+to give unexpected results.
+(<a href="https://github.com/istio/istio/issues/50478">Issue #50478</a>)</p>
+</li>
+</ul>
+]]></description><pubDate>Tue, 04 Jun 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.20.x/announcing-1.20.7/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.20.x/announcing-1.20.7/</guid></item><item><title>Support for Istio 1.20 ends on June 25, 2024</title><description><![CDATA[<p>According to Istio&rsquo;s <a href="/docs/releases/supported-releases/#support-policy">support policy</a>, minor releases like 1.20 are supported until six weeks after the N+2 minor release (1.22 in this case). <a href="/news/releases/1.22.x/announcing-1.22/">Istio 1.22 was released on May 13th, 2024</a>, and support for 1.20 will end on June 25th, 2024.</p>
+<p>At that point we will stop back-porting fixes for security issues and critical bugs to 1.20, so we encourage you to upgrade to the latest version of Istio (1.22.2). If you don&rsquo;t do this you may put yourself in the position of having to do a major upgrade on a short timeframe to pick up a critical fix.</p>
+<p>We care about you and your clusters, so please be kind to yourself and upgrade.</p>
+]]></description><pubDate>Fri, 24 May 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/support/announcing-1.20-eol/</link><guid isPermaLink="true">https://istio.io/latest//news/support/announcing-1.20-eol/</guid></item><item><title>Announcing Istio 1.22.0</title><description><![CDATA[<p>We are pleased to announce the release of Istio 1.22 - one of the largest and most impactful releases we&rsquo;ve ever launched. Thank you to all our contributors, testers, users and enthusiasts for helping us get the 1.22.0 release published.</p>
+<p>We would like to thank the Release Managers for this release, <strong>Jianpeng He</strong> from Tetrate, <strong>Sumit Vij</strong> from Credit Karma and <strong>Zhonghu Xu</strong> from Huawei. Once again, the release managers owe a debt of gratitude to Test &amp; Release WG lead Eric Van Norman for his help and guidance; more on him later.</p>
+<div class="relnote-actions call-to-action">
+        <a class="entry" href="./change-notes">
+            <h5>CHANGE NOTES</h5>
+            <p>Get a detailed list of what&#39;s changed.</p>
+        </a>
+        <a class="entry" href="/latest/news/releases/1.22.x/announcing-1.22/upgrade-notes/">
+            <h5>BEFORE YOU UPGRADE</h5>
+            <p>Things to know and prepare before upgrading.</p>
+        </a>
+            <a class="update-notice entry"
+                data-title='Update Notice'
+                data-downloadhref="https://github.com/istio/istio/releases/tag/1.22.0"
+                data-downloadbuttontext="DOWNLOAD 1.22.0"
+                data-updateadvice='Before you download 1.22, you should know that there&#39;s a newer patch release with the latest bug fixes and perf improvements.'
+                data-updatebutton='LEARN ABOUT ISTIO 1.22.2'
+                data-updatehref="/latest/news/releases/1.22.x/announcing-1.22.2/">
+                <h5>DOWNLOAD</h5>
+                <p>Download and install this release.</p>
+            </a>
+    <a class="entry" href="https://istio.io/docs">
+        <h5>DOCS</h5>
+        <p>Visit the documentation for this release.</p>
+    </a>
+</div>
+<div>
+    <aside class="callout tip">
+        <div class="type">
+            <svg class="large-icon"><use xlink:href="/img/icons.svg#callout-tip"/></svg>
+        </div>
+        <div class="content">Istio 1.22.0 is officially supported on Kubernetes versions <code>1.27</code> to <code>1.30</code>.</div>
+    </aside>
+</div>
+<h2 id="whats-new">What&rsquo;s new</h2>
+<h3 id="ambient-mode-now-in-beta">Ambient mode now in Beta</h3>
+<p>Istio’s ambient mode is designed for simplified operations without requiring changes or restarts to your application. It introduces lightweight, shared node proxies and optional Layer 7 per-workload proxies, thus removing the need for traditional sidecars from the data plane. Compared to sidecar mode, ambient mode reduces memory overhead and CPU usage by over 90% in many cases.</p>
+<p>Under development since 2022, the Beta release status indicates ambient mode’s features and stability are ready for production workloads with appropriate precautions. <a href="/blog/2024/ambient-reaches-beta/">Our ambient mode blog post has all the details</a>.</p>
+<h3 id="istio-apis-promoted-to-v1">Istio APIs promoted to <code>v1</code></h3>
+<p>Istio provides APIs that are crucial for ensuring the robust security, seamless connectivity, and effective observability of services within the service mesh. These APIs are used on thousands of clusters across the world, securing and enhancing critical infrastructure. Most of the features powered by these APIs have been <a href="/docs/releases/feature-stages/">considered stable</a> for some time, but the API version has remained at <code>v1beta1</code>. As a reflection of the stability, adoption, and value of these resources, the Istio community has decided to promote these APIs to <code>v1</code> in Istio 1.22. Learn about what this means in <a href="/blog/2024/v1-apis/">a blog post introducing the v1 APIs</a>.</p>
+<h3 id="gateway-api-now-stable-for-service-mesh">Gateway API now Stable for service mesh</h3>
+<p>We are thrilled to announce that Service Mesh support for the Gateway API is now officially marked as &ldquo;Stable&rdquo;! With the release of Gateway API v1.1 and its support in Istio 1.22, you can make use of Kubernetes&rsquo; next-generation traffic management APIs for both ingress (&ldquo;north-south&rdquo;) and service mesh (&ldquo;east-west&rdquo;) use cases. Read more about the improvements in <a href="/blog/2024/gateway-mesh-ga/">our Gateway API v1.1 blog</a>.</p>
+<h3 id="delta-xds-now-on-by-default">Delta xDS now on by default</h3>
+<p>Configuration is distributed to Istio’s Envoy sidecars (as well as ztunnel and waypoints) using the xDS protocol. Traditionally, this has been through a &ldquo;state of the world&rdquo; design, where if one out of a thousand services is modified, Istio would send information about all 1,000 services to every sidecar. This was very costly in terms of CPU usage (both in the control plane, and aggregated across the sidecars) and network throughput.</p>
+<p>To improve performance, we implemented the <a href="https://www.envoyproxy.io/docs/envoy/latest/api-docs/xds_protocol#incremental-xds">delta (or incremental) xDS APIs</a>, which sends only <em>changed</em> configurations. We have worked hard over the past 3 years to ensure that the outcome with delta xDS is provably the same as using the state of the world system. and it has been a supported option in the last few Istio releases. In 1.22, we have made it the default. To learn more about the development of this feature, check out <a href="https://www.youtube.com/watch?v=LOm1ptEWx_Y">this EnvoyCon talk</a>.</p>
+<h3 id="path-templating-in-authorization-policy">Path templating in Authorization Policy</h3>
+<p>Up until now, you have had to list every path to which you wanted to apply an <code>AuthorizationPolicy</code> object. Istio 1.22 takes advantage of a new feature in Envoy allowing you to specify <a href="/docs/reference/config/security/authorization-policy/#Operation">template wildcards</a> to match of a path.</p>
+<p>You can now safely allow path matches like <code>/tenants/{*}/application_forms/guest</code> — a <a href="https://github.com/istio/istio/issues/16585">long-requested feature</a>!</p>
+<p>Special thanks to <a href="https://github.com/mstrYoda">Emre Savcı</a> from Trendyol for building a prototype, and for never giving up.</p>
+<h2 id="a-thank-you">A thank you</h2>
+<p>Finally, we would like to take this opportunity to congratulate <a href="https://github.com/ericvn">Eric Van Norman</a> on the eve of his retirement, after 34 years at IBM.</p>
+<p>Eric is a much respected member of the Istio community. Joining the project in early 2019, he served as a Release Manager for Istio 1.4, a maintainer in the Documentation working group, the lead of the Test and Release working group, and was an obvious choice to join the Technical Oversight Committee in 2021.</p>
+<p>Much of Eric’s development work is behind-the-scenes, making sure the various pipelines that build and test Istio’s releases and documentation continue to operate and improve. Indeed, Eric is the <a href="https://istio.devstats.cncf.io/d/66/developer-activity-counts-by-companies?orgId=1&var-period_name=Last%20decade&var-metric=contributions&var-repogroup_name=All&var-country_name=All&var-companies=All">second largest contributor</a> to Istio on GitHub.</p>
+<p>While Eric will be stepping down from the TOC, he has promised to stay around in the community - although we may have to change from Slack to ham radio to reach him!</p>
+<h2 id="upgrading-to-122">Upgrading to 1.22</h2>
+<p>We would like to hear from you regarding your experience upgrading to Istio 1.22. You can provide feedback
+in the <a href="https://istio.slack.com/archives/C06PU4H4EMR"><code>#release-1.22</code></a> channel in our <a href="https://slack.istio.io/">Slack workspace</a>.</p>
+<p>Would you like to contribute directly to Istio? Find and join one of
+our <a href="https://github.com/istio/community/blob/master/WORKING-GROUPS.md">Working Groups</a> and help us improve.</p>
+]]></description><pubDate>Mon, 13 May 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.22.x/announcing-1.22/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.22.x/announcing-1.22/</guid></item><item><title>Istio 1.22 Upgrade Notes</title><description><![CDATA[<p>When you upgrade from Istio 1.21.x to Istio 1.22.0, you need to consider the changes on this page.
+These notes detail the changes which purposefully break backwards compatibility with Istio 1.21.x.
+The notes also mention changes which preserve backwards compatibility while introducing new behavior.
+Changes are only included if the new behavior would be unexpected to a user of Istio 1.21.x.</p>
+<h2 id="delta-xds-on-by-default">Delta xDS on by default</h2>
+<p>In previous versions, Istio used the &ldquo;State of the world&rdquo; xDS protocol to configure Envoy.
+In this release, the <a href="https://www.envoyproxy.io/docs/envoy/latest/api-docs/xds_protocol#incremental-xds">&ldquo;Delta&rdquo;</a> xDS protocol is enabled by default.</p>
+<p>This should be an internal implementation detail, but because this controls the core configuration protocol in Istio,
+an upgrade notice is present in an abundance of caution.</p>
+<p>The expected impacts of this change is improved performance of configuration distribution.
+This may result in reduced CPU and memory utilization in Istiod and proxies, as well as less network traffic between the two.
+Note that while this release changes the <em>protocol</em> to be incremental, Istio does not yet send perfect minimal incremental updates.
+However, there are already optimizations in place for a variety of critical code paths, and this change enables us to continue optimizations.</p>
+<p>If you experience unexpected impacts of this change, please set the <code>ISTIO_DELTA_XDS=false</code> environment variable in proxies
+and file a GitHub issue.</p>
+<h2 id="default-tracing-to-zipkinistio-systemsvc-removed">Default tracing to <code>zipkin.istio-system.svc</code> removed</h2>
+<p>In previous versions of Istio, tracing was automatically configured to send traces to <code>zipkin.istio-system.svc</code>.
+This default setting has been removed; users will need to explicitly configure where to send traces moving forward.</p>
+<p><code>istioctl x precheck --from-version=1.21</code> can automatically detect if you may be impacted by this change.</p>
+<p>If you previously had tracing enabled implicitly, you can enable it by doing one of:</p>
+<ul>
+<li>Installing with <code>--set compatibilityVersion=1.21</code>.</li>
+<li>Following <a href="/docs/tasks/observability/distributed-tracing/telemetry-api/">Configure tracing with Telemetry API</a>.</li>
+</ul>
+<h2 id="default-value-of-the-feature-flag-enhanced_resource_scoping-to-true">Default value of the feature flag <code>ENHANCED_RESOURCE_SCOPING</code> to true</h2>
+<p><code>ENHANCED_RESOURCE_SCOPING</code> is enabled by default. This means that the pilot will processes only the Istio Custom Resource configurations that are in
+scope of what is specified from <code>meshConfig.discoverySelectors</code>. Root-ca certificate distribution is also affected.</p>
+<p>If this is not desired, use the new <code>compatibilityVersion</code> feature to fallback to old behavior.</p>
+<h2 id="serviceentry-with-resolution-none-now-respects-targetport"><code>ServiceEntry</code> with <code>resolution: NONE</code> now respects <code>targetPort</code></h2>
+<p><code>ServiceEntry</code> with <code>resolution: NONE</code> previously ignored any <code>targetPort</code> specifier.
+In this release, the <code>targetPort</code> is now respected.
+If undesired set <code>--compatibilityVersion=1.21</code> to revert to the old behavior, or remove the <code>targetPort</code> specification.</p>
+<h2 id="new-ambient-mode-waypoint-attachment-method">New ambient mode waypoint attachment method</h2>
+<p>Waypoints in Istio&rsquo;s ambient mode no longer use the original service account or namespace attachment semantics. If you were using a namespace-scope waypoint previously migration should be fairly straight forward. Label your namespace with the appropriate waypoint and it should function in a similar way. Please check the <a href="/docs/ambient/usage/l7-features/#targeting-policies-or-routing-rules">doc</a>.
+If you were using service account attachment there will be more to understand.</p>
+<p>Under the old waypoint logic all types of traffic, both addressed to a service as well as addressed to a workload, were treated similarly because there wasn&rsquo;t a good way to properly associate a waypoint to a service. With the new attachment this limitation has been resolved. This includes adding a distinction between service addressed and workload addressed traffic. Annotating a service, or service-like kind, will redirect traffic which is service addressed to your waypoint. Likewise annotating a workload will redirect workload addressed traffic. It is therefore important to understand how consumers address your providers and select a waypoint attachment method which corresponds to this method of access.</p>
+]]></description><pubDate>Mon, 13 May 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.22.x/announcing-1.22/upgrade-notes/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.22.x/announcing-1.22/upgrade-notes/</guid></item><item><title>Istio 1.22.0 Change Notes</title><description><![CDATA[<h2 id="deprecation-notices">Deprecation Notices</h2>
+<p>These notices describe functionality that will be removed in a future release according to <a href="/docs/releases/feature-stages/#feature-phase-definition">Istio&rsquo;s deprecation policy</a>. Please consider upgrading your environment to remove the deprecated functionality.</p>
+<ul>
+<li><strong>Deprecated</strong> usage of <code>values.istio_cni</code> in favor of <code>values.pilot.cni</code>.
+(<a href="https://github.com/istio/istio/issues/49290">Issue #49290</a>)</li>
+</ul>
+<h2 id="traffic-management">Traffic Management</h2>
+<ul>
+<li>
+<p><strong>Improved</strong> <code>ServiceEntry</code> with <code>resolution: NONE</code> to respect <code>targetPort</code>, if specified.
+This is particularly useful when doing TLS origination, allowing to set <code>port:80, targetPort: 443</code>.
+If undesired, set <code>--compatibilityVersion=1.21</code> to revert to the old behavior or remove the <code>targetPort</code> specification.</p>
+</li>
+<li>
+<p><strong>Improved</strong> XDS generation to do utilize fewer resources when possible, sometimes omitting a response entirely.
+This can be disabled by the <code>PILOT_PARTIAL_FULL_PUSHES=false</code> environment variable, if necessary.
+(<a href="https://github.com/istio/istio/issues/37989">Issue #37989</a>),(<a href="https://github.com/istio/istio/issues/37974">Issue #37974</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> support for skipping the initial installation of the CNI entirely.</p>
+</li>
+<li>
+<p><strong>Added</strong> a node taint controller to istiod which removes the <code>cni.istio.io/not-ready</code> taint from a node once the Istio CNI pod is ready on that node.
+(<a href="https://github.com/istio/istio/issues/48818">Issue #48818</a>),(<a href="https://github.com/istio/istio/issues/48286">Issue #48286</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> endpoints acked generation to the proxy distribution report available through the pilot debug API <code>/debug/config_distribution</code>.
+(<a href="https://github.com/istio/istio/issues/48985">Issue #48985</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> support for configuring waypoint proxies for Services.</p>
+</li>
+<li>
+<p><strong>Added</strong> capability to annotate pods, services, namespaces and other similar kinds with an annotation, <code>istio.io/use-waypoint</code>, to specify a waypoint in the form <code>[&lt;namespace name&gt;/]&lt;waypoint name&gt;</code>. This replaces the old requirement for waypoints either being scoped to the entire namespace or to a single service account. Opting out of a waypoint can also be done with a value of <code>#none</code> to allow a namespace-wide waypoint where specific pods or services are not guarded by a waypoint allowing greater flexibility in waypoint specification and use.
+(<a href="https://github.com/istio/istio/issues/49436">Issue #49436</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> support for the <code>istio.io/waypoint-for</code> annotations in waypoint proxies.
+(<a href="https://github.com/istio/istio/issues/49851">Issue #49851</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> a check to prevent creation of ztunnel config when user has specified a gateway as <code>targetRef</code> in their AuthorizationPolicy.
+(<a href="https://github.com/istio/istio/issues/50110">Issue #50110</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> the annotation <code>networking.istio.io/address-type</code> to allow <code>istio</code> class Gateways to use <code>ClusterIP</code> for status addresses.</p>
+</li>
+<li>
+<p><strong>Added</strong> the ability to annotate workloads or services with <code>istio.io/use-waypoint</code> pointing to Gateways of arbitrary gateway classes.
+These changes allow configuring a standard Istio gateway as a waypoint.
+For this to work, it must be configured as a <code>ClusterIP</code> Service with
+redirection enabled. This is colloquially referred to as a &ldquo;gateway
+sandwich&rdquo; where the ztunnel layer handles mTLS.
+(<a href="https://github.com/istio/istio/issues/48362">Issue #48362</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> functionality to enroll individual pods into ambient by labeling them with <code>istio.io/dataplane-mode=ambient</code>.
+(<a href="https://github.com/istio/istio/issues/50355">Issue #50355</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> the ability to allow pods to be opted out of ambient redirection by using the <code>istio.io/dataplane-mode=none</code> label.
+(<a href="https://github.com/istio/istio/issues/50736">Issue #50736</a>)</p>
+</li>
+<li>
+<p><strong>Removed</strong> the ability to opt-out pods from ambient redirection using the <code>ambient.istio.io/redirection=disabled</code> annotation, as that is a status annotation reserved for the CNI.
+(<a href="https://github.com/istio/istio/issues/50736">Issue #50736</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> an environment variable for istiod <code>PILOT_GATEWAY_API_DEFAULT_GATEWAYCLASS_NAME</code> that allows overriding the name of the default <code>GatewayClass</code> Gateway API resource. The default value is <code>istio</code>.</p>
+</li>
+<li>
+<p><strong>Added</strong> an environment variable for istiod <code>PILOT_GATEWAY_API_CONTROLLER_NAME</code> that allows overriding the name of the Istio Gateway API controller as exposed in the <code>spec.controllerName</code> field in the <code>GatewayClass</code> resource. The default value is <code>istio.io/gateway-controller</code>.</p>
+</li>
+<li>
+<p><strong>Added</strong> support for using the PROXY Protocol for outbound traffic. By specifying <code>proxyProtocol</code> in a <code>DestinationRule.trafficPolicy</code>,
+the sidecar will send PROXY Protocol headers to the upstream service. This feature is not supported with HBONE proxy for now.</p>
+</li>
+<li>
+<p><strong>Added</strong> validation checks to reject <code>DestinationRules</code> with duplicate subset names.</p>
+</li>
+<li>
+<p><strong>Added</strong> field <code>supportedFeatures</code> on a Gateway API&rsquo;s class status before the controller accepts the Gateway class.
+(<a href="https://github.com/kubernetes-sigs/gateway-api/issues/2162">Issue #2162</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> checking services&rsquo; <code>Resolution</code>, <code>LabelSelector</code>, <code>ServiceRegistry</code>, and namespace when merging services during <code>SidecarScope</code> construction.</p>
+</li>
+<li>
+<p><strong>Enabled</strong> <a href="https://www.envoyproxy.io/docs/envoy/latest/api-docs/xds_protocol#incremental-xds">Delta xDS</a> by default. See upgrade notes for more information.
+(<a href="https://github.com/istio/istio/issues/47949">Issue #47949</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where the Kubernetes gateway was not working correctly with the namespace-scoped waypoint proxy.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where the delta ADS client received a response which contained <code>RemoveResources</code>.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue that when using <code>withoutHeaders</code> to configure route matching rules in <code>VirtualService</code>.
+If the fields specified in <code>withoutHeaders</code> do not exist in the request header, Istio cannot match the request.
+(<a href="https://github.com/istio/istio/issues/49537">Issue #49537</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where the priority of envoy filters is ignored when they are in root namespace and proxy namespace.
+(<a href="https://github.com/istio/istio/issues/49555">Issue #49555</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where <code>--log_as_json</code> option did not work for the <code>istio-init</code> container.
+(<a href="https://github.com/istio/istio/issues/44352">Issue #44352</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue with massive Virtual IPs reshuffling when adding or removing a duplicated host.
+(<a href="https://github.com/istio/istio/issues/49965">Issue #49965</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> Gateway status addresses receiving Service VIPs from outside the cluster.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> annotation <code>use-waypoint</code> to be a label, for consistency.
+(<a href="https://github.com/istio/istio/issues/50572">Issue #50572</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> build EDS-typed cluster endpoints with domain address.
+(<a href="https://github.com/istio/istio/issues/50688">Issue #50688</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a bug where injection template incorrectly evaluated when <code>InboundTrafficPolicy</code> was set to &ldquo;localhost&rdquo;.
+(<a href="https://github.com/istio/istio/issues/50700">Issue #50700</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> added server-side keepalive to waypoint HBONE endpoints.
+(<a href="https://github.com/istio/istio/issues/50737">Issue #50737</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> empty prefix match in <code>HTTPMatchRequest</code> not being rejected by the validating webhook.
+(<a href="https://github.com/istio/istio/issues/48534">Issue #48534</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a behavioral change in Istio 1.20 that caused merging of <code>ServiceEntries</code> with the same hostname and port names
+to give unexpected results.
+(<a href="https://github.com/istio/istio/issues/50478">Issue #50478</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a bug when a Sidecar resource not merging ports correctly when it is configured with multiple egress listeners with different ports of a Kubernetes service. This lead to creating only one Cluster with the first port, and the second port was ignored.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue causing routes to be overwritten by other virtual services.</p>
+</li>
+<li>
+<p><strong>Removed</strong> the <code>values.cni.privileged</code> flag from <code>istio-cni</code> node agent chart in favor of feature-specific permissions.
+(<a href="https://github.com/istio/istio/issues/49004">Issue #49004</a>)</p>
+</li>
+<li>
+<p><strong>Removed</strong> the <code>PILOT_ENABLE_HEADLESS_SERVICE_POD_LISTENERS</code> feature flag.</p>
+</li>
+<li>
+<p><strong>Removed</strong> the <code>PILOT_ENABLE_INBOUND_PASSTHROUGH</code> setting, which has been enabled-by-default for the past 8 releases.
+This feature can now be configured using a new <a href="https://github.com/istio/api/blob/9911a0a6990a18a45ed1b00559156dcc7e836e52/mesh/v1alpha1/config.proto#L203">Inbound Traffic Policy Mode</a>.</p>
+</li>
+</ul>
+<h2 id="security">Security</h2>
+<ul>
+<li>
+<p><strong>Updated</strong> the default value of the feature flag <code>ENABLE_AUTO_ENHANCED_RESOURCE_SCOPING</code> to <code>true</code>.</p>
+</li>
+<li>
+<p><strong>Added</strong> support for path templating in <code>AuthorizationPolicy</code>. See Envoy URI template <a href="https://www.envoyproxy.io/docs/envoy/latest/api-v3/extensions/path/match/uri_template/v3/uri_template_match.proto">docs</a>.
+(<a href="https://github.com/istio/istio/issues/16585">Issue #16585</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> support for customizing the connection timeout setting when resolving <code>jwksUri</code>.
+(<a href="https://github.com/istio/istio/issues/47328">Issue #47328</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> support for Istio CA to handle node authorization for CSRs with impersonating the identity of remote clusters.
+This could help Istio CA to authenticate ztunnel in remote clusters in an external control plane scenario.
+(<a href="https://github.com/istio/istio/issues/47489">Issue #47489</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> an environment variable <code>METRICS_LOCALHOST_ACCESS_ONLY</code> for disabling metrics endpoint from outside of the pod, to allow only localhost access. User can set this with command arguments
+<code>--set values.pilot.env.METRICS_LOCALHOST_ACCESS_ONLY=true</code> for control plane and <code>--set meshConfig.defaultConfig.proxyMetadata.METRICS_LOCALHOST_ACCESS_ONLY=true</code> for proxy during <code>istioctl</code> installation.</p>
+</li>
+<li>
+<p><strong>Added</strong> Certificate Revocation List (CRL) support for peer certificate validation based on file paths specified in <code>ClientTLSSettings</code> in destination rule for Sidecars, and in <code>ServerTLSSettings</code> in Gateway for Gateways.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> list matching for the audience claims in JWT tokens.
+(<a href="https://github.com/istio/istio/issues/49913">Issue #49913</a>)</p>
+</li>
+<li>
+<p><strong>Removed</strong> the <code>first-party-jwt</code> legacy option for <code>values.global.jwtPolicy</code>. Support for the more secure <code>third-party-jwt</code>
+has been default for many years and is supported in all Kubernetes platforms.</p>
+</li>
+</ul>
+<h2 id="telemetry">Telemetry</h2>
+<ul>
+<li>
+<p><strong>Improved</strong> JSON access logs to emit keys in a consistent order.</p>
+</li>
+<li>
+<p><strong>Added</strong> option to export OpenTelemetry traces via HTTP.
+(<a href="https://istio.io/latest/docs/reference/config/istio.mesh.v1alpha1/#MeshConfig-ExtensionProvider-OpenTelemetryTracingProvider">reference</a>) (<a href="https://github.com/istio/istio/issues/47835">Issue #47835</a>)</p>
+</li>
+<li>
+<p><strong>Enabled</strong> configuring Dynatrace Sampler as the <code>OpenTelemetryTracingProvider</code> in <code>MeshConfig</code>.
+(<a href="https://github.com/istio/istio/issues/50001">Issue #50001</a>)</p>
+</li>
+<li>
+<p><strong>Enabled</strong> configuring Resource Detectors as the <code>OpenTelemetryTracingProvider</code> in <code>MeshConfig</code>.
+(<a href="https://github.com/istio/istio/issues/48885">Issue #48885</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where <code>TraceId</code> was not propagated when using OpenTelemetry access logger.
+(<a href="https://github.com/istio/istio/issues/49911">Issue #49911</a>)</p>
+</li>
+<li>
+<p><strong>Removed</strong> default tracing configuration that enables tracing to <code>zipkin.istio-system.svc</code>. See upgrade notes for more information.</p>
+</li>
+</ul>
+<h2 id="extensibility">Extensibility</h2>
+<ul>
+<li><strong>Improved</strong> using the tag-stripped URL and checksum as a Wasm module cache key, where the tagged URL is separately cached.
+This may increase the chance of cache hits (e.g., trying to find the same image with both of the tagged and digest URLs.)
+In addition, this will be a base to implement <code>ImagePullPolicy</code>.</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<ul>
+<li>
+<p><strong>Improved</strong> Helm value field names to configure whether an existing CNI install
+will be used. Instead of <code>values.istio_cni</code> the enablement fields will be in
+<code>values.pilot.cni</code>, as istiod is the affected component.
+The new setting is more clear than having <code>values.cni</code> for install config and <code>values.istio_cni</code>
+for enablement in istiod. The old <code>values.istio_cni</code> fields will still be supported
+for at least two releases.
+(<a href="https://github.com/istio/istio/issues/49290">Issue #49290</a>)</p>
+</li>
+<li>
+<p><strong>Improved</strong> the <code>meshConfig.defaultConfig.proxyMetadata</code> field to do a deep merge when overridden, rather than replacing all values.</p>
+</li>
+<li>
+<p><strong>Added</strong> the ability to add customized annotations to istiod service account resource through the Helm chart.</p>
+</li>
+<li>
+<p><strong>Added</strong> the <code>openshift-ambient</code> profile.
+(<a href="https://github.com/istio/istio/issues/42341">Issue #42341</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> a new, optional experimental admission policy that only allows stable features/fields to be used in Istio APIs.
+(<a href="https://github.com/istio/enhancements/issues/173">Issue #173</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> support for configuring CA bundles for validation and injection webhooks.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> gathering <code>pprof</code> data from the local ztunnel admin endpoint, which would fail due to the lack of a writable in-container <code>/tmp</code>.
+(<a href="https://github.com/istio/istio/issues/50060">Issue #50060</a>)</p>
+</li>
+<li>
+<p><strong>Removed</strong> deprecated <code>external</code> profile. Please use the <code>remote</code> profile instead for installation.
+(<a href="https://github.com/istio/istio/issues/48634">Issue #48634</a>)</p>
+</li>
+</ul>
+<h2 id="istioctl">istioctl</h2>
+<ul>
+<li>
+<p><strong>Added</strong> the <code>istioctl proxy-status</code> command, which is the promoted <code>istioctl experimental proxy-status</code> command. The old <code>istioctl proxy-status</code> command has been removed.
+This promotion should not result in any loss of functionality. However, the request is now sent based on xDS instead of HTTP, and we have introduced a set of new xDS-based flags to target the control plane.</p>
+</li>
+<li>
+<p><strong>Added</strong> support for multi-cluster analysis in <code>istioctl analyze</code> command when there are remote cluster secrets set up through <a href="/docs/setup/install/multicluster/">Install Multicluster</a>.</p>
+</li>
+<li>
+<p><strong>Added</strong> a new <code>istioctl dashboard proxy</code> command, which can be used to show the admin UI of different proxy pods, for example: Envoy, ztunnel, and waypoint.</p>
+</li>
+<li>
+<p><strong>Added</strong> the <code>--proxy</code> option to <code>istioctl experimental wait</code> command.
+(<a href="https://github.com/istio/istio/issues/48696">Issue #48696</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> namespace filtering to <code>istioctl proxy-config workload</code> command using the <code>--workloads-namespace</code> flag to display workloads in the specified namespace.</p>
+</li>
+<li>
+<p><strong>Added</strong> the <code>istioctl dashboard istio-debug</code> command to display the Istio debug endpoints dashboard.</p>
+</li>
+<li>
+<p><strong>Added</strong> the <code>istioctl experimental describe</code> command to support displaying the details of policies for <code>PortLevelSettings</code>.
+(<a href="https://github.com/istio/istio/issues/49802">Issue #49802</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> ability to define the traffic address type (service, workload, all or none) for waypoints via the <code>--for</code> flag when using the <code>istioctl experimental waypoint apply</code> command.
+(<a href="https://github.com/istio/istio/issues/49896">Issue #49896</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> the ability to name waypoints through <code>istioctl</code> via the <code>--name</code> flag on the waypoint command.
+(<a href="https://github.com/istio/istio/issues/49915">Issue #49915</a>), (<a href="https://github.com/istio/istio/issues/50173">Issue #50173</a>)</p>
+</li>
+<li>
+<p><strong>Removed</strong> the ability to specify a service account for the waypoint by deleting the <code>--service-account</code> flag on the waypoint command.
+(<a href="https://github.com/istio/istio/issues/49915">Issue #49915</a>), (<a href="https://github.com/istio/istio/issues/50173">Issue #50173</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> the ability to enroll a waypoint proxy in the waypoint&rsquo;s namespace through <code>istioctl</code> via the <code>--enroll-namespace</code> flag on the waypoint command.
+(<a href="https://github.com/istio/istio/issues/50248">Issue #50248</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> the <code>istioctl ztunnel-config</code> command. This allow users to view ztunnel configuration information via the <code>istioctl ztunnel-config workload</code> command.
+(<a href="https://github.com/istio/istio/issues/49841">Issue #49841</a>)</p>
+</li>
+<li>
+<p><strong>Removed</strong> the workload flag from proxy-config command. Use <code>istioctl ztunnel-config workload</code> command to view ztunnel configuration information instead.
+(<a href="https://github.com/istio/istio/issues/49841">Issue #49841</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> a warning when using <code>istioctl experimental waypoint apply --enroll-namespace</code> and the namespace is not labeled for ambient redirection.
+(<a href="https://github.com/istio/istio/issues/50396">Issue #50396</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> the <code>--for</code> flag to <code>istioctl experimental waypoint generate</code> command so that the user can preview the YAML before they apply it.
+(<a href="https://github.com/istio/istio/issues/50790">Issue #50790</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> an experimental OpenShift Kubernetes platform profile to <code>istioctl</code>. To install with the OpenShift profile, use <code>istioctl install --set profile=openshift</code>.
+See <a href="https://istio.io/docs/setup/platform-setup/openshift/">OpenShift Platform Setup</a> and <a href="https://istio.io/docs/setup/install/istioctl/#install-a-different-profile">Install OpenShift using <code>istioctl</code></a> documents for more information.</p>
+</li>
+<li>
+<p><strong>Added</strong> the flag <code>--proxy-admin-port</code> to the command <code>istioctl experimental envoy-stats</code> to set a custom proxy admin port.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where the <code>istioctl experimental proxy-status &lt;pod&gt;</code> compare command was not working due to unknown configs.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> the <code>istioctl describe</code> command not displaying Ingress information under non <code>istio-system</code> namespaces.
+(<a href="https://github.com/istio/istio/issues/50074">Issue #50074</a>)</p>
+</li>
+</ul>
+]]></description><pubDate>Mon, 13 May 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.22.x/announcing-1.22/change-notes/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.22.x/announcing-1.22/change-notes/</guid></item><item><title>Support for Istio 1.19 has ended</title><description><![CDATA[<p>As <a href="/news/support/announcing-1.19-eol/">previously announced</a>, support for Istio 1.19 has now officially ended.</p>
+<p>At this point we will no longer back-port fixes for security issues and critical bugs to 1.19. We highly recommend that
+you upgrade to the latest version of Istio (1.22.2) if you haven&rsquo;t already.</p>
+]]></description><pubDate>Wed, 24 Apr 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/support/announcing-1.19-eol-final/</link><guid isPermaLink="true">https://istio.io/latest//news/support/announcing-1.19-eol-final/</guid></item><item><title>ISTIO-SECURITY-2024-003</title><description><![CDATA[
+<table>
+    <thead>
+        <tr>
+            <th colspan="2">Disclosure Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>CVE(s)</td>
+            <td>
+                    <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-32475">CVE-2024-32475</a><br>
+            </td>
+        </tr>
+        <tr>
+            <td>CVSS Impact Score</td>
+            <td>7.5 <a href="https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator?vector=AV%3aN%2fAC%3aL%2fPR%3aN%2fUI%3aN%2fS%3aU%2fC%3aN%2fI%3aN%2fA%3aH&version=3.1">AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H</a></td>
+        </tr>
+        <tr>
+            <td>Affected Releases</td>
+            <td>
+                    All releases prior to 1.19.0<br>
+                    1.19.0 to 1.19.9<br>
+                    1.20.0 to 1.20.5<br>
+                    1.21.0 to 1.21.1<br>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<h2 id="cve">CVE</h2>
+<h3 id="envoy-cves">Envoy CVEs</h3>
+<ul>
+<li><strong><a href="https://github.com/envoyproxy/envoy/security/advisories/GHSA-3mh5-6q8v-25wj">CVE-2024-32475</a></strong>: (CVSS Score 7.5, High): Abnormal termination when using <code>auto_sni</code> with <code>:authority</code> header longer than 255 characters.</li>
+</ul>
+<h2 id="am-i-impacted">Am I Impacted?</h2>
+<p>You are impacted if you enabled the <code>auto_sni</code> feature of Envoy, are using Istio versions 1.21.0 or above where this was enabled by default, or
+are using an Egress Gateway.</p>
+]]></description><pubDate>Mon, 22 Apr 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/security/istio-security-2024-003/</link><guid isPermaLink="true">https://istio.io/latest//news/security/istio-security-2024-003/</guid><category>CVE</category></item><item><title>Announcing Istio 1.21.2</title><description><![CDATA[<p>This release implements the security updates described in our 22nd of April post, <a href="/news/security/istio-security-2024-003/"><code>ISTIO-SECURITY-2024-003</code></a> along with bug fixes to improve robustness.</p>
+<p>This release note describes what’s different between Istio 1.21.1 and 1.21.2.</p>
+<div class="relnote-actions call-to-action">
+        <a class="entry" href="/latest/news/releases/1.21.x/announcing-1.21/upgrade-notes/">
+            <h5>BEFORE YOU UPGRADE</h5>
+            <p>Things to know and prepare before upgrading.</p>
+        </a>
+            <a class="update-notice entry"
+                data-title='Update Notice'
+                data-downloadhref="https://github.com/istio/istio/releases/tag/1.21.2"
+                data-downloadbuttontext="DOWNLOAD 1.21.2"
+                data-updateadvice='Before you download 1.21.2, you should know that there&#39;s a newer patch release with the latest bug fixes and perf improvements.'
+                data-updatebutton='LEARN ABOUT ISTIO 1.21.4'
+                data-updatehref="/latest/news/releases/1.21.x/announcing-1.21.4/">
+                <h5>DOWNLOAD</h5>
+                <p>Download and install this release.</p>
+            </a>
+    <a class="entry" href="https://archive.istio.io/v1.21/docs">
+        <h5>DOCS</h5>
+        <p>Visit the documentation for this release.</p>
+    </a>
+        <a class="entry" href="https://github.com/istio/istio/compare/1.21.1...1.21.2">
+            <h5>SOURCE CHANGES</h5>
+            <p>Inspect the full set of source code changes.</p>
+        </a>
+</div>
+<h2 id="changes">Changes</h2>
+<ul>
+<li>
+<p><strong>Added</strong> <code>pprof</code> endpoints to profile the CNI pod (on port 9867).
+(<a href="https://github.com/istio/istio/issues/49053">Issue #49053</a>)</p>
+</li>
+<li>
+<p><strong>Improved</strong> CNI memory usage by avoiding keeping large files in memory.
+(<a href="https://github.com/istio/istio/issues/49053">Issue #49053</a>)</p>
+</li>
+</ul>
+]]></description><pubDate>Mon, 22 Apr 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.21.x/announcing-1.21.2/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.21.x/announcing-1.21.2/</guid></item><item><title>Announcing Istio 1.20.6</title><description><![CDATA[<p>This release implements the security updates described in our 22nd of April post, <a href="/news/security/istio-security-2024-003/"><code>ISTIO-SECURITY-2024-003</code></a> along with bug fixes to improve robustness.</p>
+<p>This release note describes what’s different between Istio 1.20.5 and 1.20.6.</p>
+<div class="relnote-actions call-to-action">
+        <a class="entry" href="/latest/news/releases/1.20.x/announcing-1.20/upgrade-notes/">
+            <h5>BEFORE YOU UPGRADE</h5>
+            <p>Things to know and prepare before upgrading.</p>
+        </a>
+            <a class="update-notice entry"
+                data-title='Update Notice'
+                data-downloadhref="https://github.com/istio/istio/releases/tag/1.20.6"
+                data-downloadbuttontext="DOWNLOAD 1.20.6"
+                data-updateadvice='Before you download 1.20.6, you should know that there&#39;s a newer patch release with the latest bug fixes and perf improvements.'
+                data-updatebutton='LEARN ABOUT ISTIO 1.20.8'
+                data-updatehref="/latest/news/releases/1.20.x/announcing-1.20.8/">
+                <h5>DOWNLOAD</h5>
+                <p>Download and install this release.</p>
+            </a>
+    <a class="entry" href="https://archive.istio.io/v1.20/docs">
+        <h5>DOCS</h5>
+        <p>Visit the documentation for this release.</p>
+    </a>
+        <a class="entry" href="https://github.com/istio/istio/compare/1.20.5...1.20.6">
+            <h5>SOURCE CHANGES</h5>
+            <p>Inspect the full set of source code changes.</p>
+        </a>
+</div>
+<h2 id="changes">Changes</h2>
+<ul>
+<li>
+<p><strong>Added</strong> <code>pprof</code> endpoints to profile the CNI pod (on port 9867).
+(<a href="https://github.com/istio/istio/issues/49053">Issue #49053</a>)</p>
+</li>
+<li>
+<p><strong>Improved</strong> CNI memory usage by avoiding keeping large files in memory.
+(<a href="https://github.com/istio/istio/issues/49053">Issue #49053</a>)</p>
+</li>
+</ul>
+]]></description><pubDate>Mon, 22 Apr 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.20.x/announcing-1.20.6/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.20.x/announcing-1.20.6/</guid></item><item><title>Announcing Istio 1.19.10</title><description><![CDATA[<p>This release implements the security updates described in our 22nd of April post, <a href="/news/security/istio-security-2024-003/"><code>ISTIO-SECURITY-2024-003</code></a>.</p>
+<p>This release note describes what’s different between Istio 1.19.9 and 1.19.10.</p>
+<div class="relnote-actions call-to-action">
+        <a class="entry" href="/latest/news/releases/1.19.x/announcing-1.19/upgrade-notes/">
+            <h5>BEFORE YOU UPGRADE</h5>
+            <p>Things to know and prepare before upgrading.</p>
+        </a>
+            <a class="entry" href="https://github.com/istio/istio/releases/tag/1.19.10">
+                <h5>DOWNLOAD</h5>
+                <p>Download and install this release.</p>
+            </a>
+    <a class="entry" href="https://archive.istio.io/v1.19/docs">
+        <h5>DOCS</h5>
+        <p>Visit the documentation for this release.</p>
+    </a>
+        <a class="entry" href="https://github.com/istio/istio/compare/1.19.9...1.19.10">
+            <h5>SOURCE CHANGES</h5>
+            <p>Inspect the full set of source code changes.</p>
+        </a>
+</div>
+<h2 id="changes">Changes</h2>
+<p>This release fixes the Envoy CVE mentioned above. No other changes in this release.</p>
+]]></description><pubDate>Mon, 22 Apr 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.19.x/announcing-1.19.10/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.19.x/announcing-1.19.10/</guid></item><item><title>ISTIO-SECURITY-2024-002</title><description><![CDATA[
+<table>
+    <thead>
+        <tr>
+            <th colspan="2">Disclosure Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>CVE(s)</td>
+            <td>
+                    <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-27919">CVE-2024-27919</a><br>
+                    <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-30255">CVE-2024-30255</a><br>
+                    <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-45288">CVE-2023-45288</a><br>
+            </td>
+        </tr>
+        <tr>
+            <td>CVSS Impact Score</td>
+            <td>7.5 <a href="https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator?vector=AV%3aN%2fAC%3aL%2fPR%3aN%2fUI%3aN%2fS%3aU%2fC%3aN%2fI%3aN%2fA%3aH&version=3.1">AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H</a></td>
+        </tr>
+        <tr>
+            <td>Affected Releases</td>
+            <td>
+                    All releases prior to 1.19.0<br>
+                    1.19.0 to 1.19.8<br>
+                    1.20.0 to 1.20.4<br>
+                    1.21.0<br>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<h2 id="cve">CVE</h2>
+<h3 id="envoy-cves">Envoy CVEs</h3>
+<ul>
+<li><strong><a href="https://github.com/envoyproxy/envoy/security/advisories/GHSA-gghf-vfxp-799r">CVE-2024-27919</a></strong>: (CVSS Score 7.5, High): HTTP/2: memory exhaustion due to CONTINUATION frame flood.</li>
+<li><strong><a href="https://github.com/envoyproxy/envoy/security/advisories/GHSA-j654-3ccm-vfmm">CVE-2024-30255</a></strong>: (CVSS Score 5.3, Moderate): HTTP/2: CPU exhaustion due to CONTINUATION frame flood.</li>
+</ul>
+<h3 id="go-cves">Go CVEs</h3>
+<p><em>NOTE</em>: At the time of publishing, the CVE was not yet scored or vectored.</p>
+<ul>
+<li><strong><a href="https://nvd.nist.gov/vuln/detail/CVE-2023-45288">CVE-2023-45288</a></strong>: (CVSS Score Unpublished): HTTP/2 CONTINUATION frames can be utilized for DoS attacks.</li>
+</ul>
+<h2 id="am-i-impacted">Am I Impacted?</h2>
+<p>You are impacted if you accept HTTP/2 traffic from untrusted sources, which applies to most users. This especially applies if you use a Gateway exposed on the public internet.</p>
+]]></description><pubDate>Mon, 08 Apr 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/security/istio-security-2024-002/</link><guid isPermaLink="true">https://istio.io/latest//news/security/istio-security-2024-002/</guid><category>CVE</category></item><item><title>Announcing Istio 1.21.1</title><description><![CDATA[<p>This release implements the security updates described in our 8th of April post, <a href="/news/security/istio-security-2024-002/"><code>ISTIO-SECURITY-2024-002</code></a> along with bug fixes to improve robustness.</p>
+<p>This release note describes what’s different between Istio 1.21.0 and 1.21.1.</p>
+<div class="relnote-actions call-to-action">
+        <a class="entry" href="/latest/news/releases/1.21.x/announcing-1.21/upgrade-notes/">
+            <h5>BEFORE YOU UPGRADE</h5>
+            <p>Things to know and prepare before upgrading.</p>
+        </a>
+            <a class="update-notice entry"
+                data-title='Update Notice'
+                data-downloadhref="https://github.com/istio/istio/releases/tag/1.21.1"
+                data-downloadbuttontext="DOWNLOAD 1.21.1"
+                data-updateadvice='Before you download 1.21.1, you should know that there&#39;s a newer patch release with the latest bug fixes and perf improvements.'
+                data-updatebutton='LEARN ABOUT ISTIO 1.21.4'
+                data-updatehref="/latest/news/releases/1.21.x/announcing-1.21.4/">
+                <h5>DOWNLOAD</h5>
+                <p>Download and install this release.</p>
+            </a>
+    <a class="entry" href="https://archive.istio.io/v1.21/docs">
+        <h5>DOCS</h5>
+        <p>Visit the documentation for this release.</p>
+    </a>
+        <a class="entry" href="https://github.com/istio/istio/compare/1.21.0...1.21.1">
+            <h5>SOURCE CHANGES</h5>
+            <p>Inspect the full set of source code changes.</p>
+        </a>
+</div>
+<h2 id="changes">Changes</h2>
+<ul>
+<li>
+<p><strong>Fixed</strong> a bug where <code>VirtualService</code>s containing duplicate hosts with different cases would cause routes to be rejected by Envoy.
+(<a href="https://github.com/istio/istio/issues/49638">Issue #49638</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where commands relying on Envoy config dump would not work due to the presence of ECDS config.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where telemetry <code>EnvoyFilter</code> resources were not correctly pruned during the installation process.
+(<a href="https://github.com/istio/istio/issues/48126">Issue #48126</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where pilot CPU consumption was abnormally high when the in-cluster analysis was enabled.
+(<a href="https://github.com/istio/istio/issues/49340">Issue #49340</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where updating a <code>ServiceEntry</code>&rsquo;s <code>TargetPort</code> would not trigger an xDS push.
+(<a href="https://github.com/istio/istio/issues/49878">Issue #49878</a>)</p>
+</li>
+</ul>
+]]></description><pubDate>Mon, 08 Apr 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.21.x/announcing-1.21.1/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.21.x/announcing-1.21.1/</guid></item><item><title>Announcing Istio 1.20.5</title><description><![CDATA[<p>This release implements the security updates described in our 8th of April post, <a href="/news/security/istio-security-2024-002/"><code>ISTIO-SECURITY-2024-002</code></a> along with bug fixes to improve robustness.</p>
+<p>This release note describes what’s different between Istio 1.20.4 and 1.20.5.</p>
+<div class="relnote-actions call-to-action">
+        <a class="entry" href="/latest/news/releases/1.20.x/announcing-1.20/upgrade-notes/">
+            <h5>BEFORE YOU UPGRADE</h5>
+            <p>Things to know and prepare before upgrading.</p>
+        </a>
+            <a class="update-notice entry"
+                data-title='Update Notice'
+                data-downloadhref="https://github.com/istio/istio/releases/tag/1.20.5"
+                data-downloadbuttontext="DOWNLOAD 1.20.5"
+                data-updateadvice='Before you download 1.20.5, you should know that there&#39;s a newer patch release with the latest bug fixes and perf improvements.'
+                data-updatebutton='LEARN ABOUT ISTIO 1.20.8'
+                data-updatehref="/latest/news/releases/1.20.x/announcing-1.20.8/">
+                <h5>DOWNLOAD</h5>
+                <p>Download and install this release.</p>
+            </a>
+    <a class="entry" href="https://archive.istio.io/v1.20/docs">
+        <h5>DOCS</h5>
+        <p>Visit the documentation for this release.</p>
+    </a>
+        <a class="entry" href="https://github.com/istio/istio/compare/1.20.4...1.20.5">
+            <h5>SOURCE CHANGES</h5>
+            <p>Inspect the full set of source code changes.</p>
+        </a>
+</div>
+<h2 id="changes">Changes</h2>
+<ul>
+<li>
+<p><strong>Fixed</strong> a bug where <code>VirtualService</code>s containing duplicate hosts with different cases would cause routes to be rejected by Envoy.
+(<a href="https://github.com/istio/istio/issues/49638">Issue #49638</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where commands relying on Envoy config dump would not work due to the presence of ECDS config.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where telemetry <code>EnvoyFilter</code> resources were not correctly pruned during the installation process.
+(<a href="https://github.com/istio/istio/issues/48126">Issue #48126</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where pilot CPU consumption was abnormally high when the in-cluster analysis was enabled.
+(<a href="https://github.com/istio/istio/issues/49340">Issue #49340</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where updating a <code>ServiceEntry</code>&rsquo;s <code>TargetPort</code> would not trigger an xDS push.
+(<a href="https://github.com/istio/istio/issues/49878">Issue #49878</a>)</p>
+</li>
+</ul>
+]]></description><pubDate>Mon, 08 Apr 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.20.x/announcing-1.20.5/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.20.x/announcing-1.20.5/</guid></item><item><title>Announcing Istio 1.19.9</title><description><![CDATA[<p>This release implements the security updates described in our 8th of April post, <a href="/news/security/istio-security-2024-002/"><code>ISTIO-SECURITY-2024-002</code></a> along with bug fixes to improve robustness.</p>
+<p>This release note describes what’s different between Istio 1.19.8 and 1.19.9.</p>
+<div class="relnote-actions call-to-action">
+        <a class="entry" href="/latest/news/releases/1.19.x/announcing-1.19/upgrade-notes/">
+            <h5>BEFORE YOU UPGRADE</h5>
+            <p>Things to know and prepare before upgrading.</p>
+        </a>
+            <a class="update-notice entry"
+                data-title='Update Notice'
+                data-downloadhref="https://github.com/istio/istio/releases/tag/1.19.9"
+                data-downloadbuttontext="DOWNLOAD 1.19.9"
+                data-updateadvice='Before you download 1.19.9, you should know that there&#39;s a newer patch release with the latest bug fixes and perf improvements.'
+                data-updatebutton='LEARN ABOUT ISTIO 1.19.10'
+                data-updatehref="/latest/news/releases/1.19.x/announcing-1.19.10/">
+                <h5>DOWNLOAD</h5>
+                <p>Download and install this release.</p>
+            </a>
+    <a class="entry" href="https://archive.istio.io/v1.19/docs">
+        <h5>DOCS</h5>
+        <p>Visit the documentation for this release.</p>
+    </a>
+        <a class="entry" href="https://github.com/istio/istio/compare/1.19.8...1.19.9">
+            <h5>SOURCE CHANGES</h5>
+            <p>Inspect the full set of source code changes.</p>
+        </a>
+</div>
+<h2 id="changes">Changes</h2>
+<ul>
+<li><strong>Fixed</strong> an issue where updating a <code>ServiceEntry</code>&rsquo;s <code>TargetPort</code> would not trigger an xDS push.
+(<a href="https://github.com/istio/istio/issues/49878">Issue #49878</a>)</li>
+</ul>
+]]></description><pubDate>Mon, 08 Apr 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.19.x/announcing-1.19.9/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.19.x/announcing-1.19.9/</guid></item><item><title>Support for Istio 1.19 ends on April 24, 2024</title><description><![CDATA[<p>According to Istio&rsquo;s <a href="/docs/releases/supported-releases/#support-policy">support policy</a>, minor releases like 1.19 are supported until six weeks after the N+2 minor release (1.21 in this case). <a href="/news/releases/1.21.x/announcing-1.21/">Istio 1.21 was released on March 13th, 2024</a>, and support for 1.19 will end on April 24th, 2024.</p>
+<p>At that point we will stop back-porting fixes for security issues and critical bugs to 1.19, so we encourage you to upgrade to the latest version of Istio (1.22.2). If you don&rsquo;t do this you may put yourself in the position of having to do a major upgrade on a short timeframe to pick up a critical fix.</p>
+<p>We care about you and your clusters, so please be kind to yourself and upgrade.</p>
+]]></description><pubDate>Wed, 27 Mar 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/support/announcing-1.19-eol/</link><guid isPermaLink="true">https://istio.io/latest//news/support/announcing-1.19-eol/</guid></item><item><title>Announcing Istio 1.20.4</title><description><![CDATA[<p>This release note describes what’s different between Istio 1.20.3 and 1.20.4.</p>
+<div class="relnote-actions call-to-action">
+        <a class="entry" href="/latest/news/releases/1.20.x/announcing-1.20/upgrade-notes/">
+            <h5>BEFORE YOU UPGRADE</h5>
+            <p>Things to know and prepare before upgrading.</p>
+        </a>
+            <a class="update-notice entry"
+                data-title='Update Notice'
+                data-downloadhref="https://github.com/istio/istio/releases/tag/1.20.4"
+                data-downloadbuttontext="DOWNLOAD 1.20.4"
+                data-updateadvice='Before you download 1.20.4, you should know that there&#39;s a newer patch release with the latest bug fixes and perf improvements.'
+                data-updatebutton='LEARN ABOUT ISTIO 1.20.8'
+                data-updatehref="/latest/news/releases/1.20.x/announcing-1.20.8/">
+                <h5>DOWNLOAD</h5>
+                <p>Download and install this release.</p>
+            </a>
+    <a class="entry" href="https://archive.istio.io/v1.20/docs">
+        <h5>DOCS</h5>
+        <p>Visit the documentation for this release.</p>
+    </a>
+        <a class="entry" href="https://github.com/istio/istio/compare/1.20.3...1.20.4">
+            <h5>SOURCE CHANGES</h5>
+            <p>Inspect the full set of source code changes.</p>
+        </a>
+</div>
+<h2 id="changes">Changes</h2>
+<ul>
+<li>
+<p><strong>Added</strong> an environment variable <code>COMPLIANCE_POLICY</code> to Istio components for
+enforcing TLS restriction for compliance with FIPS. When set to <code>fips-140-2</code>
+on the Istiod container, the Istio Proxy container, and all other Istio
+components, the TLS version is restricted to v1.2. The cipher suites are limited to a subset
+of <code>ECDHE-ECDSA-AES128-GCM-SHA256</code>, <code>ECDHE-RSA-AES128-GCM-SHA256</code>,
+<code>ECDHE-ECDSA-AES256-GCM-SHA384</code>, <code>ECDHE-RSA-AES256-GCM-SHA384</code>, and ECDH
+curves to <code>P-256</code>.</p>
+<p>These restrictions apply on the following data paths:</p>
+<ul>
+<li>mTLS communication between Envoy proxies;</li>
+<li>regular TLS on the downstream and the upstream of Envoy proxies (e.g. gateway);</li>
+<li>Google gRPC side requests from Envoy proxies (e.g. Stackdriver extensions);</li>
+<li>Istiod xDS server;</li>
+<li>Istiod injection and validation webhook servers.</li>
+</ul>
+<p>The restrictions are not applied on the following data paths:</p>
+<ul>
+<li>Istiod to Kubernetes API server;</li>
+<li>JWK fetch from Istiod;</li>
+<li>Wasm image and URL fetch from Istio Proxy containers;</li>
+<li>ztunnel.</li>
+</ul>
+<p>Note that Istio injector will propagate the value of <code>COMPLIANCE_POLICY</code> to the
+injected proxy container, when set.
+(<a href="https://github.com/istio/istio/issues/49081">Issue #49081</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where the local client contained incorrect entries in the local DNS name
+table. (<a href="https://github.com/istio/istio/issues/47340">Issue #47340</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a bug that made <code>PeerAuthentication</code> too restrictive in ambient mode.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a bug where <code>VirtualService</code> containing wildcard hosts that aren&rsquo;t present in the service registry are
+ignored.
+(<a href="https://github.com/istio/istio/issues/49364">Issue #49364</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where <code>istioctl precheck</code> inaccurately reports the IST0141 message related to resource permissions.
+(<a href="https://github.com/istio/istio/issues/49379">Issue #49379</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a bug for IPv6 only clusters that prevented ServiceEntry-based listeners from having correct SNI matches.
+(<a href="https://github.com/istio/istio/issues/49476">Issue #49476</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a bug when there is more than one service with the same host name within the same namespace,
+a <code>STRICT_DNS cluster without endpoints</code> error could occur.
+(<a href="https://github.com/istio/istio/issues/49489">Issue #49489</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue that when using a delegate in a <code>VirtualService</code>, the effective <code>VirtualService</code> may not be
+consistent with expectations due to a sorting error.
+(<a href="https://github.com/istio/istio/issues/49539">Issue #49539</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a bug where specifying a URI regex <code>.*</code> match within a <code>VirtualService</code> HTTP route did not short-circuit the
+subsequent HTTP routes.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where <code>Endpoint</code> and <code>Service</code> in the istiod-remote chart did not respect the revision value.
+(<a href="https://github.com/istio/istio/issues/47552">Issue #47552</a>)</p>
+</li>
+</ul>
+]]></description><pubDate>Thu, 14 Mar 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.20.x/announcing-1.20.4/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.20.x/announcing-1.20.4/</guid></item><item><title>Announcing Istio 1.19.8</title><description><![CDATA[<p>This release note describes what’s different between Istio 1.19.7 and 1.19.8.</p>
+<div class="relnote-actions call-to-action">
+        <a class="entry" href="/latest/news/releases/1.19.x/announcing-1.19/upgrade-notes/">
+            <h5>BEFORE YOU UPGRADE</h5>
+            <p>Things to know and prepare before upgrading.</p>
+        </a>
+            <a class="update-notice entry"
+                data-title='Update Notice'
+                data-downloadhref="https://github.com/istio/istio/releases/tag/1.19.8"
+                data-downloadbuttontext="DOWNLOAD 1.19.8"
+                data-updateadvice='Before you download 1.19.8, you should know that there&#39;s a newer patch release with the latest bug fixes and perf improvements.'
+                data-updatebutton='LEARN ABOUT ISTIO 1.19.10'
+                data-updatehref="/latest/news/releases/1.19.x/announcing-1.19.10/">
+                <h5>DOWNLOAD</h5>
+                <p>Download and install this release.</p>
+            </a>
+    <a class="entry" href="https://archive.istio.io/v1.19/docs">
+        <h5>DOCS</h5>
+        <p>Visit the documentation for this release.</p>
+    </a>
+        <a class="entry" href="https://github.com/istio/istio/compare/1.19.7...1.19.8">
+            <h5>SOURCE CHANGES</h5>
+            <p>Inspect the full set of source code changes.</p>
+        </a>
+</div>
+<h2 id="changes">Changes</h2>
+<ul>
+<li>
+<p><strong>Added</strong> an environment variable <code>COMPLIANCE_POLICY</code> to Istio components for
+enforcing TLS restriction for compliance with FIPS. When set to <code>fips-140-2</code>
+on the Istiod container, the Istio Proxy container, and all other Istio
+components, the TLS version is restricted to v1.2. The cipher suites are limited to a subset
+of <code>ECDHE-ECDSA-AES128-GCM-SHA256</code>, <code>ECDHE-RSA-AES128-GCM-SHA256</code>,
+<code>ECDHE-ECDSA-AES256-GCM-SHA384</code>, <code>ECDHE-RSA-AES256-GCM-SHA384</code>, and ECDH
+curves to <code>P-256</code>.</p>
+<p>These restrictions apply on the following data paths:</p>
+<ul>
+<li>mTLS communication between Envoy proxies;</li>
+<li>regular TLS on the downstream and the upstream of Envoy proxies (e.g. gateway);</li>
+<li>Google gRPC side requests from Envoy proxies (e.g. Stackdriver extensions);</li>
+<li>Istiod xDS server;</li>
+<li>Istiod injection and validation webhook servers.</li>
+</ul>
+<p>The restrictions are not applied on the following data paths:</p>
+<ul>
+<li>Istiod to Kubernetes API server;</li>
+<li>JWK fetch from Istiod;</li>
+<li>Wasm image and URL fetch from Istio Proxy containers;</li>
+<li>ztunnel.</li>
+</ul>
+<p>Note that Istio injector will propagate the value of <code>COMPLIANCE_POLICY</code> to the
+injected proxy container, when set.
+(<a href="https://github.com/istio/istio/issues/49081">Issue #49081</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where the local client contained incorrect entries in the local DNS name
+table. (<a href="https://github.com/istio/istio/issues/47340">Issue #47340</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a bug where <code>VirtualService</code> containing wildcard hosts that aren&rsquo;t present in the service registry are
+ignored.
+(<a href="https://github.com/istio/istio/issues/49364">Issue #49364</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where <code>istioctl precheck</code> inaccurately reports the IST0141 message related to resource permissions.
+(<a href="https://github.com/istio/istio/issues/49379">Issue #49379</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue that when using a delegate in a <code>VirtualService</code>, the effective <code>VirtualService</code> may not be
+consistent with expectations due to a sorting error.
+(<a href="https://github.com/istio/istio/issues/49539">Issue #49539</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a bug where specifying a URI regex <code>.*</code> match within a <code>VirtualService</code> HTTP route did not short-circuit the
+subsequent HTTP routes.</p>
+</li>
+</ul>
+]]></description><pubDate>Thu, 14 Mar 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.19.x/announcing-1.19.8/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.19.x/announcing-1.19.8/</guid></item><item><title>Announcing Istio 1.21.0</title><description><![CDATA[<p>We are pleased to announce the release of Istio 1.21. This is the first Istio release of 2024. We would like to thank the
+entire Istio community for helping get the 1.21.0 release published. We would like to thank the Release Managers for
+this release, <code>Aryan Gupta</code> from Google, <code>Jianpeng He</code> from Tetrate, and <code>Sumit Vij</code>. The release
+managers would once again like to thank the Test &amp; Release WG lead Eric Van Norman (IBM) for his help and guidance
+throughout the release cycle. We would also like to thank the maintainers of the Istio work groups and the broader Istio
+community for helping us throughout the release process with timely feedback, reviews, community testing and for all
+your support to help ensure a timely release.</p>
+<div class="relnote-actions call-to-action">
+        <a class="entry" href="./change-notes">
+            <h5>CHANGE NOTES</h5>
+            <p>Get a detailed list of what&#39;s changed.</p>
+        </a>
+        <a class="entry" href="/latest/news/releases/1.21.x/announcing-1.21/upgrade-notes/">
+            <h5>BEFORE YOU UPGRADE</h5>
+            <p>Things to know and prepare before upgrading.</p>
+        </a>
+            <a class="update-notice entry"
+                data-title='Update Notice'
+                data-downloadhref="https://github.com/istio/istio/releases/tag/1.21.0"
+                data-downloadbuttontext="DOWNLOAD 1.21.0"
+                data-updateadvice='Before you download 1.21, you should know that there&#39;s a newer patch release with the latest bug fixes and perf improvements.'
+                data-updatebutton='LEARN ABOUT ISTIO 1.21.4'
+                data-updatehref="/latest/news/releases/1.21.x/announcing-1.21.4/">
+                <h5>DOWNLOAD</h5>
+                <p>Download and install this release.</p>
+            </a>
+    <a class="entry" href="https://archive.istio.io/v1.21/docs">
+        <h5>DOCS</h5>
+        <p>Visit the documentation for this release.</p>
+    </a>
+</div>
+<div>
+    <aside class="callout tip">
+        <div class="type">
+            <svg class="large-icon"><use xlink:href="/img/icons.svg#callout-tip"/></svg>
+        </div>
+        <div class="content">Istio 1.21.0 is officially supported on Kubernetes versions <code>1.26</code> to <code>1.29</code>.</div>
+    </aside>
+</div>
+<h2 id="whats-new">What&rsquo;s new</h2>
+<h3 id="easing-upgrades-with-compatibility-versions">Easing upgrades with compatibility versions</h3>
+<p>Istio 1.21 introduces a new concept known as
+<a href="/docs/setup/additional-setup/compatibility-versions/">compatibility versions</a>.</p>
+<p>Compatibility versions solve a long running problem in Istio: as time
+passes, changes to the behavior of Istio may be desired to fix bugs,
+improve integration with the rest of the
+ecosystem, improve security, or fix surprising behaviors. However, even
+the smallest
+behavioral changes can cause issues on upgrade for a project like
+Istio deployed across
+thousands of companies in production. At best, this makes upgrades
+more challenging - at
+worst, it pushes users to not upgrade at all!</p>
+<p>With compatibility versions, behavioral changes are decoupled from the Istio version. For
+example, if you want to upgrade to Istio 1.21 but don&rsquo;t want to adopt the changes
+introduced yet, simply install with <code>--set compatibilityVersion=1.20</code> to retain the 1.20
+behavior.</p>
+<p>Not sure if you need the old behavior? Not a problem, <code>istioctl</code> can tell you!</p>
+<pre><code class='language-shell' data-expandlinks='true' data-repo='istio' >$ istioctl experimental precheck --from-version 1.21
+Warning [IST0168] (DestinationRule default/tls) The configuration &#34;ENABLE_AUTO_SNI&#34;
+changed in release 1.20: previously, no SNI would be set; now it will be automatically
+set. Or, install with `--set compatibilityVersion=1.20` to retain the old default.
+Error: Issues found when checking the cluster. Istio may not be safe to install or upgrade.
+See https://istio.io/v1.21/docs/reference/config/analysis for more information about
+causes and resolutions.
+</code></pre>
+<p>In this release, the following changes are gated behind compatibility versions:</p>
+<ul>
+<li>Improved <code>ExternalName</code> service support</li>
+<li>Automatic SNI for <code>SIMPLE</code> TLS origination in <code>DestinationRule</code></li>
+<li>Default-on TLS verification for TLS origination in <code>DestinationRule</code></li>
+</ul>
+<p><code>istioctl experimental precheck</code> can detect possibly impacted resources for all of these changes. For
+more info on these changes, see the
+<a href="/news/releases/1.21.x/announcing-1.21/upgrade-notes/">Upgrade Notes</a>.</p>
+<p>Istio joins related projects like <a href="https://github.com/kubernetes/enhancements/blob/master/keps/sig-architecture/4330-compatibility-versions/README.md">Kubernetes</a> and <a href="https://go.dev/blog/compat">Go</a> who have introduced
+similar features.</p>
+<h3 id="binary-size-reductions">Binary size reductions</h3>
+<p>With each release, Istio gets faster, more reliable, and more stable, and this release is
+no different. In this release, binary sizes have dropped across the board, with roughly
+10MB smaller binaries.</p>
+<p>This is especially important with the sidecar, because its deployed alongside every
+workload. Coming in at 25% smaller, the sidecar image can be pulled faster improving pod
+startup times. Additionally, the reduced binary size typically results in a 5MB RAM
+reduction - across many pods, this quickly adds up to cost savings.</p>
+<h3 id="support-for-all-cnis-in-ambient-mode">Support for all CNIs in ambient mode</h3>
+<p>Our new <a href="/blog/2022/introducing-ambient-mesh/">ambient mode</a> now works across all Kubernetes platforms and CNI implementations. Ambient mode has been tested with GKE, AKS, and EKS and all the CNI implementations they offer, 3rd-party CNIs like Calico and Cilium, and platforms like OpenShift, all with solid results. The engineering challenges behind this fix were described in <a href="/blog/2024/inpod-traffic-redirection-ambient/">a recent blog post</a>.</p>
+<p>Ambient mode is targeted to move to Beta in the upcoming Istio 1.22.</p>
+<h2 id="upgrading-to-121">Upgrading to 1.21</h2>
+<p>We would like to hear from you regarding your experience upgrading to Istio 1.21. You can provide feedback
+in the #release-1.21 channel in our <a href="https://slack.istio.io/">Slack workspace</a>.</p>
+<p>Would you like to contribute directly to Istio? Find and join one of
+our <a href="https://github.com/istio/community/blob/master/WORKING-GROUPS.md">Working Groups</a> and help us improve.</p>
+]]></description><pubDate>Wed, 13 Mar 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.21.x/announcing-1.21/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.21.x/announcing-1.21/</guid></item><item><title>Istio 1.21 Upgrade Notes</title><description><![CDATA[<p>When you upgrade from Istio 1.20.x to Istio 1.21.0, you need to consider the changes on this page.
+These notes detail the changes which purposefully break backwards compatibility with Istio 1.20.x.
+The notes also mention changes which preserve backwards compatibility while introducing new behavior.
+Changes are only included if the new behavior would be unexpected to a user of Istio 1.20.x.</p>
+<h2 id="default-value-of-the-feature-flag-enable_auto_sni-to-true">Default value of the feature flag <code>ENABLE_AUTO_SNI</code> to true</h2>
+<p><a href="https://www.envoyproxy.io/docs/envoy/latest/api-v3/config/core/v3/protocol.proto#envoy-v3-api-field-config-core-v3-upstreamhttpprotocoloptions-auto-sni">auto-sni</a>
+is enabled by default. This means SNI will be set automatically based on the downstream HTTP host/authority header if <code>DestinationRule</code> does not explicitly set the same.</p>
+<p>If this is not desired, use the new <code>compatibilityVersion</code> feature to fallback to old behavior.</p>
+<h2 id="default-value-of-the-feature-flag-verify_cert_at_client-is-set-to-true">Default value of the feature flag <code>VERIFY_CERT_AT_CLIENT</code> is set to true</h2>
+<p>This means server certificates will be automatically verified using the OS CA certificates when not using a DestinationRule <code>caCertificates</code> field.
+If this is not desired, use the new <code>compatibilityVersion</code> feature to fallback to old behavior, or use the <code>insecureSkipVerify</code>
+field in DestinationRule to skip the verification.</p>
+<h2 id="externalname-support-changes"><code>ExternalName</code> support changes</h2>
+<p>Kubernetes <code>ExternalName</code> <code>Service</code>s allow users to create new DNS entries. For example, you can create an <code>example</code> service
+that points to <code>example.com</code>. This is implemented by a DNS <code>CNAME</code> redirect.</p>
+<p>In Istio, the implementation of <code>ExternalName</code>, historically, was substantially different. Each <code>ExternalName</code> represented its own
+service, and traffic matching the service was sent to the configured DNS name.</p>
+<p>This caused a few issues:</p>
+<ul>
+<li>Ports are required in Istio, but not in Kubernetes. This can result in broken traffic if ports are not configured as Istio expects, despite them working without Istio.</li>
+<li>Ports not declared as <code>HTTP</code> would match <em>all</em> traffic on that port, making it easy to accidentally send all traffic on a port to the wrong place.</li>
+<li>Because the destination DNS name is treated as opaque, we cannot apply Istio policies to it as expected. For example, if I point
+an external name at another in-cluster Service (for example, <code>example.default.svc.cluster.local</code>), mTLS would not be used.</li>
+</ul>
+<p><code>ExternalName</code> support has been revamped to fix these problems. <code>ExternalName</code>s are now simply treated as aliases.
+Wherever we would match <code>Host: &lt;concrete service&gt;</code> we additionally will match <code>Host: &lt;external name service&gt;</code>.
+Note that the primary implementation of <code>ExternalName</code> &ndash; DNS &ndash; is handled outside of Istio in the Kubernetes DNS implementation, and remains unchanged.</p>
+<p>If you are using <code>ExternalName</code> with Istio, please be advised of the following behavioral changes:</p>
+<ul>
+<li>The <code>ports</code> field is no longer needed, matching Kubernetes behavior. If it is set, it will have no impact.</li>
+<li><code>VirtualServices</code> that route to an <code>ExternalName</code> service will no longer work unless the referenced service exists (as a Service or ServiceEntry).</li>
+<li><code>DestinationRule</code> can no longer apply to <code>ExternalName</code> services. Instead, create rules where the <code>host</code> references service.</li>
+</ul>
+<p>To opt-out, the <code>ENABLE_EXTERNAL_NAME_ALIAS=false</code> environment variable can be set.</p>
+<p>Note: the same change was introduced in the previous release, but off by default. This release turns the flag on by default.</p>
+<h2 id="gateway-name-label-modified">Gateway Name label modified</h2>
+<p>If you are using the <a href="https://gateway-api.sigs.k8s.io/references/spec/#gateway.networking.k8s.io%2fv1.Gateway">Kubernetes Gateway</a>
+to manage your Istio gateways, the label key used to identify the
+gateway name is changing from <code>istio.io/gateway-name</code> to
+<code>gateway.networking.k8s.io/gateway-name</code>.
+The old label will continue to be appended to the relevant label sets
+for backwards compatibility, but it will be removed in a future
+release.
+Furthermore, istiod&rsquo;s gateway controller will automatically detect
+and continue to use the old label for label selectors belonging
+to existing <code>Deployment</code> and <code>Service</code> resources.</p>
+<p>Therefore, once you&rsquo;ve completed your Istio upgrade, you can change the label selector in <code>Deployment</code> and <code>Service</code> resources whenever you are ready to use the new label.</p>
+<p>Additionally, please upgrade any other policies, resources, or scripts that rely on the old label.</p>
+]]></description><pubDate>Wed, 13 Mar 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.21.x/announcing-1.21/upgrade-notes/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.21.x/announcing-1.21/upgrade-notes/</guid></item><item><title>Istio 1.21.0 Change Notes</title><description><![CDATA[<h2 id="traffic-management">Traffic Management</h2>
+<ul>
+<li>
+<p><strong>Improved</strong> pilot-agent to return the HTTP probe body and status code from the probe setting in the container.</p>
+</li>
+<li>
+<p><strong>Improved</strong> support for <code>ExternalName</code> services. See Upgrade Notes for more information.</p>
+</li>
+<li>
+<p><strong>Improved</strong> the variables <code>PILOT_MAX_REQUESTS_PER_SECOND</code> (which rate limits the incoming requests, previously defaulted to 25.0)
+and <code>PILOT_PUSH_THROTTLE</code> (which limits the number of concurrent responses, previously defaulted to 100) to automatically scale with the
+CPU size Istiod is running on if not explicitly configured.</p>
+</li>
+<li>
+<p><strong>Added</strong> the ability to configure the IPv4 loopback CIDR used by <code>istio-iptables</code> in various firewall rules.
+(<a href="https://github.com/istio/istio/issues/47211">Issue #47211</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> support for automatically setting default network for workloads if they are added to the ambient mesh before the network topology is set.
+Before, when you set <code>topology.istio.io/network</code> on your Istio root namespace, you needed to manually rollout the ambient workloads to make the network change take effect.
+Now, the network of ambient workloads will be automatically updated even if they do not have a network label.
+Note that if your ztunnel is not in the same network as what you set in the <code>topology.istio.io/network</code> label in your Istio
+root namespace, your ambient workloads will not be able to communicate with each other.</p>
+</li>
+<li>
+<p><strong>Added</strong> namespace discovery selector support on gateway deployment controller. It is protected under <code>ENABLE_ENHANCED_RESOURCE_SCOPING</code>.
+When enabled, the gateway controller will only watch the k8s gateways that match the selector. Note it will affect both gateway and waypoint deployment.</p>
+</li>
+<li>
+<p><strong>Added</strong> support for the delta ADS client.</p>
+</li>
+<li>
+<p><strong>Added</strong> support for concurrent <code>SidecarScope</code> conversion. You can use <code>PILOT_CONVERT_SIDECAR_SCOPE_CONCURRENCY</code> to adjust the number of concurrent executions.
+Its default value is 1 and will not be executed concurrently.
+When <code>initSidecarScopes</code> consumes a lot of time and you want to reduce time consumption by increasing CPU consumption,
+you can increase the number of concurrent executions by increasing the value of <code>PILOT_CONVERT_SIDECAR_SCOPE_CONCURRENCY</code>.</p>
+</li>
+<li>
+<p><strong>Added</strong> support for setting the <code>:authority</code> header in virtual service&rsquo;s <code>HTTPRouteDestination</code>. Now, we support host rewrite for both <code>host</code> and <code>:authority</code>.</p>
+</li>
+<li>
+<p><strong>Added</strong> prefixes to the <code>WasmPlugin</code> resource name.</p>
+</li>
+<li>
+<p><strong>Added</strong> support for setting <code>idle_timeout</code> in <code>TcpProxy</code> filters for outbound traffic.</p>
+</li>
+<li>
+<p><strong>Added</strong> support for <a href="https://gateway-api.sigs.k8s.io/geps/gep-1762/">In-Cluster Gateway Deployments</a>.
+Deployments now have both <code>istio.io/gateway-name</code> and <code>gateway.networking.k8s.io/gateway-name</code> labels like Pods and Services.</p>
+</li>
+<li>
+<p><strong>Added</strong> support for max concurrent streams settings in the <code>DestinationRule</code>s HTTP traffic policy for HTTP2 connections.
+(<a href="https://github.com/istio/istio/issues/47166">Issue #47166</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> support for setting TCP idle timeout for HTTP services.</p>
+</li>
+<li>
+<p><strong>Added</strong> connection pool settings to the <code>Sidecar</code> API to enable configuring the inbound connection pool for sidecars in the mesh. Previously, the <code>DestinationRule</code>&rsquo;s connection pool settings applied to both client and server sidecars. Using the updated <code>Sidecar</code> API, it&rsquo;s now possible to configure the server&rsquo;s connection pool separately from the clients&rsquo; in the mesh.
+(<a href="https://istio.io/latest/docs/reference/config/networking/sidecar/#Sidecar-inbound_connection_pool">reference</a>) (<a href="https://github.com/istio/istio/issues/32130">Issue #32130</a>),(<a href="https://github.com/istio/istio/issues/41235">Issue #41235</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> <code>idle_timeout</code> to the TCP settings in the <code>DestinationRule</code> API to enable configuring idle timeout per <code>TcpProxy</code> filter.</p>
+</li>
+<li>
+<p><strong>Enabled</strong> the Envoy configuration to use an endpoint cache when there is a delay in sending endpoint configurations from Istiod when a cluster is updated.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a bug where overlapping wildcard hosts in a <code>VirtualService</code> would produce incorrect routing configuration when wildcard services were selected (e.g. in <code>ServiceEntries</code>).
+(<a href="https://github.com/istio/istio/issues/45415">Issue #45415</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where the <code>WasmPlugin</code> resource was not correctly applied to the waypoint.
+(<a href="https://github.com/istio/istio/issues/47227">Issue #47227</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where sometimes the network of waypoint was not properly configured.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where the <code>pilot-agent istio-clean-iptables</code> command was not able to clean up the iptables rules generated for the Istio DNS proxy.
+(<a href="https://github.com/istio/istio/issues/47957">Issue #47957</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> slow cleanup of auto-registered <code>WorkloadEntry</code> resources when auto-registration and cleanup would occur
+shortly after the initial <code>WorkloadGroup</code> creation.
+(<a href="https://github.com/istio/istio/issues/44640">Issue #44640</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where Istio was performing additional XDS pushes for <code>StatefulSets</code>/headless <code>Service</code> endpoints while scaling.  (<a href="https://github.com/istio/istio/issues/48207">Issue #48207</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a memory leak caused when a remote cluster is deleted or <code>kubeConfig</code> is rotated.
+(<a href="https://github.com/istio/istio/issues/48224">Issue #48224</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where if a <code>DestinationRule</code>&rsquo;s <code>exportTo</code> includes a workload&rsquo;s current namespace (not &lsquo;.&rsquo;), other namespaces are ignored from <code>exportTo</code>.
+(<a href="https://github.com/istio/istio/issues/48349">Issue #48349</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where the QUIC listeners were not correctly created when dual-stack is enabled.
+(<a href="https://github.com/istio/istio/issues/48336">Issue #48336</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where <code>convertToEnvoyFilterWrapper</code> returned an invalid patch that could cause a null pointer exception when it was applied.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where updating a Service&rsquo;s <code>targetPort</code> does not trigger an xDS push.
+(<a href="https://github.com/istio/istio/issues/48580">Issue #48580</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where in-cluster analysis was unnecessarily performed when there was no configuration change.
+(<a href="https://github.com/istio/istio/issues/48665">Issue #48665</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a bug that results in the incorrect generation of
+configurations for pods without associated services, which includes
+all services within the same namespace. This can occasionally lead
+to conflicting inbound listeners error.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where new endpoints may not be sent to proxies.
+(<a href="https://github.com/istio/istio/issues/48373">Issue #48373</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> Gateway API <code>AllowedRoutes</code> handling for <code>NotIn</code> and <code>DoesNotExist</code> label selector match expressions.
+(<a href="https://github.com/istio/istio/issues/48044">Issue #48044</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> <code>VirtualService</code> HTTP header present match not working when <code>header-name: {}</code> is set.
+(<a href="https://github.com/istio/istio/issues/47341">Issue #47341</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> multi-cluster leader election not prioritizing local over remote leader.
+(<a href="https://github.com/istio/istio/issues/47901">Issue #47901</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a memory leak when <code>hostNetwork</code> Pods scale up and down.
+(<a href="https://github.com/istio/istio/issues/47893">Issue #47893</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a memory leak when <code>WorkloadEntries</code> change their IP address.
+(<a href="https://github.com/istio/istio/issues/47893">Issue #47893</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a memory leak when a <code>ServiceEntry</code> is removed.
+(<a href="https://github.com/istio/istio/issues/47893">Issue #47893</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a bug when there is more than one service with the
+same host name within the same namespace, a
+<code>STRICT_DNS cluster without endpoints</code> error could occur.
+(<a href="https://github.com/istio/istio/issues/49489">Issue #49489</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue that when using a delegate in
+a <code>VirtualService</code>, the effective <code>VirtualService</code> may not
+be consistent with expectations due to a sorting error.
+(<a href="https://github.com/istio/istio/issues/49539">Issue #49539</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a bug where specifying a URI regex <code>.*</code> match within a <code>VirtualService</code> HTTP route did not short-circuit the subsequent HTTP routes.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> sending stale name table when pure HTTP headless service endpoints are changed.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a bug for IPv6 only clusters that
+prevented ServiceEntry-based listeners from having correct
+SNI matches.
+(<a href="https://github.com/istio/istio/issues/49476">Issue #49476</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where the local client contained incorrect entries in the local DNS name table.
+(<a href="https://github.com/istio/istio/issues/47340">Issue #47340</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a bug where <code>VirtualService</code> containing wildcard hosts that aren&rsquo;t present in the service registry are ignored.
+(<a href="https://github.com/istio/istio/issues/49364">Issue #49364</a>)</p>
+</li>
+<li>
+<p><strong>Upgraded</strong> ambient traffic capture and redirection compatibility by switching to an in-pod mechanism.
+(<a href="https://github.com/istio/istio/issues/48212">Issue #48212</a>)</p>
+</li>
+<li>
+<p><strong>Removed</strong> the <code>PILOT_ENABLE_INBOUND_PASSTHROUGH</code> environment variable, which has been enabled-by-default for the past 8 releases.</p>
+</li>
+</ul>
+<h2 id="security">Security</h2>
+<ul>
+<li>
+<p><strong>Improved</strong> request JWT authentication to use the upstream Envoy JWT filter
+instead of the custom Istio Proxy filter. Because the new upstream JWT filter
+capabilities are needed, the feature is gated for the proxies that support
+them. Note that a custom Envoy or Wasm filter that used <code>istio_authn</code> dynamic
+metadata key needs to be updated to use <code>envoy.filters.http.jwt_authn</code>
+dynamic metadata key.</p>
+</li>
+<li>
+<p><strong>Updated</strong> the default value of the feature flag <code>ENABLE_AUTO_SNI</code> to <code>true</code>. If undesired, please use the new <code>compatibilityVersion</code> feature to fallback to old behavior.</p>
+</li>
+<li>
+<p><strong>Updated</strong> the default value of the feature flag <code>VERIFY_CERT_AT_CLIENT</code> to <code>true</code>.
+This means server certificates will be automatically verified using the OS CA certificates when not using a <code>DestinationRule</code> <code>caCertificates</code> field.
+If undesired, please use the new <code>compatibilityVersion</code> feature
+to fallback to old behavior, or <code>insecureSkipVerify</code> field
+in <code>DestinationRule</code> to skip the verification.</p>
+</li>
+<li>
+<p><strong>Added</strong> an environment variable <code>COMPLIANCE_POLICY</code> to
+Istio components for enforcing TLS restriction for compliance
+with FIPS. When set to <code>fips-140-2</code> on the Istiod container,
+the Istio Proxy container, and all other Istio components,
+TLS version is restricted to <code>v1.2</code>, the cipher suites to a
+subset of <code>ECDHE-ECDSA-AES128-GCM-SHA256</code>,<code>ECDHE-RSA-AES128-GCM-SHA256</code>,
+<code>ECDHE-ECDSA-AES256-GCM-SHA384</code>, <code>ECDHE-RSA-AES256-GCM-SHA384</code>,
+and ECDH curves to <code>P-256</code>.</p>
+<p>These restrictions apply on the following data paths:</p>
+<ul>
+<li>mTLS communication between Envoy proxies.</li>
+<li>regular TLS on the downstream and the upstream of Envoy proxies
+(e.g. gateway)</li>
+<li>Google gRPC side requests from Envoy proxies
+(e.g. Stackdriver extensions).</li>
+<li>Istiod xDS server.</li>
+<li>Istiod injection and validation webhook servers.</li>
+</ul>
+<p>The restrictions are not applied on the following data paths:</p>
+<ul>
+<li>Istiod to Kubernetes API server.</li>
+<li>JWK fetch from Istiod.</li>
+<li>Wasm image and URL fetch from Istio Proxy containers.</li>
+<li>ztunnel.</li>
+</ul>
+<p>Note that Istio injector will propagate the value of <code>COMPLIANCE_POLICY</code> to the injected proxy container, when set. (<a href="https://github.com/istio/istio/issues/49081">Issue #49081</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> the ability for waypoints to run as non-root.
+(<a href="https://github.com/istio/istio/issues/46592">Issue #46592</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> a <code>fallback</code> field for <code>PrivateKeyProvider</code> to support falling back to the default BoringSSL implementation if the private key provider isn’t available.</p>
+</li>
+<li>
+<p><strong>Added</strong> support to retrieve JWT from cookies.
+(<a href="https://github.com/istio/istio/issues/47847">Issue #47847</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a bug that made <code>PeerAuthentication</code> too restrictive in
+ambient mode.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where <code>auto-san-validation</code> was enabled even
+when SNI was explicitly set in the <code>DestinationRule</code>.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where gateways were unable to fetch JWKS from <code>jwksUri</code> in <code>RequestAuthentication</code> when <code>PILOT_FILTER_GATEWAY_CLUSTER_CONFIG</code>
+was enabled and <code>PILOT_JWT_ENABLE_REMOTE_JWKS</code> was set to
+<code>hybrid</code>/<code>true</code>/<code>envoy</code>.</p>
+</li>
+</ul>
+<h2 id="telemetry">Telemetry</h2>
+<ul>
+<li>
+<p><strong>Improved</strong> JSON access logs to emit keys in a stable ordering.</p>
+</li>
+<li>
+<p><strong>Added</strong> support for <code>brotli</code>, <code>gzip</code>, and <code>zstd</code> compression for the Envoy stats endpoint.
+(<a href="https://github.com/istio/istio/issues/30987">Issue #30987</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> the <code>istio.cluster_id</code> tag to all tracing spans.
+(<a href="https://github.com/istio/istio/issues/48336">Issue #48336</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a bug where <code>destination_cluster</code> reported by client proxies was occasionally incorrect
+when accessing workloads in a different network.</p>
+</li>
+<li>
+<p><strong>Removed</strong> legacy <code>EnvoyFilter</code> implementation for Telemetry. For the majority of users, this change has no impact, and
+was already enabled in previous releases. However, the following fields are no longer respected: <code>prometheus.configOverride</code>,
+<code>stackdriver.configOverride</code>, <code>stackdriver.disableOutbound</code>, <code>stackdriver.outboundAccessLogging</code>.</p>
+</li>
+</ul>
+<h2 id="extensibility">Extensibility</h2>
+<ul>
+<li>
+<p><strong>Added</strong> support for outbound traffic using the PROXY Protocol. By specifying <code>proxyProtocol</code> in a <code>DestinationRule</code> <code>trafficPolicy</code>,
+the sidecar will send PROXY Protocol headers to the upstream service. This feature is not supported for HBONE proxy at the present time.</p>
+</li>
+<li>
+<p><strong>Added</strong> support for matching <code>ApplicationProtocols</code> in an <code>EnvoyFilter</code>.</p>
+</li>
+<li>
+<p><strong>Removed</strong> support for the <code>policy/v1beta1</code> API version of <code>PodDisruptionBudget</code>.</p>
+</li>
+<li>
+<p><strong>Removed</strong> using the <code>BOOTSTRAP_XDS_AGENT</code> experimental feature to
+apply <code>BOOTSTRAP</code> <code>EnvoyFilter</code> patches at startup.</p>
+</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<ul>
+<li>
+<p><strong>Improved</strong> aborting graceful termination logic if the Envoy
+process terminates early.
+(<a href="https://github.com/istio/istio/issues/36686">Issue #36686</a>)</p>
+</li>
+<li>
+<p><strong>Updated</strong> Kiali addon to version v1.79.0.</p>
+</li>
+<li>
+<p><strong>Added</strong> configurable scaling behavior for Gateway HPA in the Helm chart.
+(<a href="https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#configurable-scaling-behavior">usage</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> <code>allocateLoadBalancerNodePorts</code> config option to the Gateway chart.
+(<a href="https://github.com/istio/istio/issues/48751">Issue #48751</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> a message to indicate the default webhook shifting from a revisioned installation to a default installation.
+(<a href="https://github.com/istio/istio/issues/48643">Issue #48643</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> the <code>affinity</code> field to Istiod Deployment. This field is used to control the scheduling of Istiod pods.</p>
+</li>
+<li>
+<p><strong>Added</strong> <code>tolerations</code> field to Istiod Deployment. This field is used to control the scheduling of Istiod pods.</p>
+</li>
+<li>
+<p><strong>Added</strong> support for &ldquo;profiles&rdquo; to Helm installation. Try it out with <code>--set profile=demo</code>!
+(<a href="https://github.com/istio/istio/issues/47838">Issue #47838</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> the setting <code>priorityClassName: system-node-critical</code> to the ztunnel DaemonSet template to ensure it is running on all nodes.
+(<a href="https://github.com/istio/istio/issues/47867">Issue #47867</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where the webhook generated with <code>istioctl tag set</code> is unexpectedly removed by the installer.
+(<a href="https://github.com/istio/istio/issues/47423">Issue #47423</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where uninstalling Istio didn&rsquo;t prune all the resources created by custom files.
+(<a href="https://github.com/istio/istio/issues/47960">Issue #47960</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where injection failed when the name of the Pod or its custom owner exceeded 63 characters.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue causing Istio CNI to stop functioning on minimal/locked down nodes (such as no <code>sh</code> binary).
+The new logic runs with no external dependencies, and will attempt
+to continue if errors are encountered (which could be caused by things
+like SELinux rules).
+In particular, this fixes running Istio on Bottlerocket nodes.
+(<a href="https://github.com/istio/istio/issues/48746">Issue #48746</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> custom injection of the <code>istio-proxy</code> container not
+working on OpenShift because of the way OpenShift sets pods&rsquo;
+<code>SecurityContext.RunAs</code> field.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> veth lookup for ztunnel pod on OpenShift where default CNIs
+do not create routes for each veth interface.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where installing with Stackdriver and having
+custom configs would lead to Stackdriver not being enabled.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where Endpoint and Service in the istiod-remote chart did not respect the revision value.
+(<a href="https://github.com/istio/istio/issues/47552">Issue #47552</a>)</p>
+</li>
+<li>
+<p><strong>Removed</strong> support for <code>.Values.cni.psp_cluster_role</code> as part of installation, as <code>PodSecurityPolicy</code> was <a href="https://kubernetes.io/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/">deprecated</a>.</p>
+</li>
+<li>
+<p><strong>Removed</strong> the <code>istioctl experimental revision</code> command. Revisions can be inspected by the stable <code>istioctl tag list</code> command.</p>
+</li>
+<li>
+<p><strong>Removed</strong> the <code>installed-state</code> <code>IstioOperator</code> that was created when running <code>istioctl install</code>. This previously provided only a snapshot
+of what was installed.
+However, it was a common source of confusion (as users would change it and nothing would happen), and did not reliably represent the current state.
+As there is no <code>IstioOperator</code> needed for these usages anymore, <code>istioctl install</code> and <code>helm install</code> no longer install the <code>IstioOperator</code> CRD.
+Note this only impacts <code>istioctl install</code>, not the in-cluster operator.</p>
+</li>
+</ul>
+<h2 id="istioctl">istioctl</h2>
+<ul>
+<li>
+<p><strong>Improved</strong> injector list to exclude ambient namespaces.</p>
+</li>
+<li>
+<p><strong>Improved</strong> <code>bug-report</code> performance by reducing the amount of calls to the k8s API. The pod/node details included in the report will look different, but contain the same information.</p>
+</li>
+<li>
+<p><strong>Improved</strong> <code>istioctl bug-report</code> to sort gathered events by creation date.</p>
+</li>
+<li>
+<p><strong>Updated</strong> <code>verify-install</code> to not require a IstioOperator file, since it is now removed from the installation process.</p>
+</li>
+<li>
+<p><strong>Added</strong> support for deleting multiple waypoints at once via <code>istioctl experimental waypoint delete &lt;waypoint1&gt; &lt;waypoint2&gt; ...</code>.</p>
+</li>
+<li>
+<p><strong>Added</strong> the <code>--all</code> flag to <code>istioctl experimental waypoint delete</code> to delete all waypoint resources in a given namespace.</p>
+</li>
+<li>
+<p><strong>Added</strong> an analyzer to warn users if they set the <code>selector</code> field instead of the <code>targetRef</code> field for specific Istio resources, which will cause the resource to be ineffective.
+(<a href="https://github.com/istio/istio/issues/48273">Issue #48273</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> message IST0167 to warn users that policies, such as Sidecar, will have no impact when applied to ambient namespaces.
+(<a href="https://github.com/istio/istio/issues/48105">Issue #48105</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> bootstrap summary to all config dumps&rsquo; summary.</p>
+</li>
+<li>
+<p><strong>Added</strong> completion for Kubernetes pods for some commands that can select pods, such as <code>istioctl proxy-status &lt;pod&gt;</code>.</p>
+</li>
+<li>
+<p><strong>Added</strong> <code>--wait</code> option to the <code>istioctl experimental waypoint apply</code> command.
+(<a href="https://github.com/istio/istio/issues/46297">Issue #46297</a>)</p>
+</li>
+<li>
+<p><strong>Added</strong> <code>path_separated_prefix</code> to the MATCH column in the output of <code>proxy-config routes</code> command.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where sometimes control plane revisions and proxy versions were not obtained in the bug report.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where <code>istioctl tag list</code> command didn&rsquo;t accept <code>--output</code> flag.
+(<a href="https://github.com/istio/istio/issues/47696">Issue #47696</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where the default namespace of Envoy and proxy dashboard command was not set to the actual default namespace.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where the IST0158 message was incorrectly reported when the <code>imageType</code> field was set to <code>distroless</code> in mesh config.
+(<a href="https://github.com/istio/istio/issues/47964">Issue #47964</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where <code>istioctl experimental version</code> has no proxy info shown.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where the IST0158 message was incorrectly reported when the <code>imageType</code> field was set by the <code>ProxyConfig</code> resource, or the resource annotation <code>proxy.istio.io/config</code>.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where <code>proxy-config ecds</code> didn&rsquo;t show all of <code>EcdsConfigDump</code>.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> injector list having duplicated namespaces shown for the same injector hook.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> <code>analyze</code> not working correctly when analyzing files containing resources that already exist in the cluster.
+(<a href="https://github.com/istio/istio/issues/44844">Issue #44844</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> <code>analyze</code> where it was reporting errors for empty files.
+(<a href="https://github.com/istio/istio/issues/45653">Issue #45653</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where the External Control Plane Analyzer was not working in some remote control plane setups.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where <code>istioctl precheck</code> inaccurately reports the IST0141 message related to resource permissions.
+(<a href="https://github.com/istio/istio/issues/49379">Issue #49379</a>)</p>
+</li>
+<li>
+<p><strong>Removed</strong> the <code>--rps-limit</code> flag for <code>istioctl bug-report</code> and <strong>added</strong> the <code>--rq-concurrency</code> flag.
+The bug reporter will now limit request concurrency instead of limiting request rate to the Kube
+API.</p>
+</li>
+</ul>
+<h2 id="documentation-changes">Documentation changes</h2>
+<ul>
+<li><strong>Fixed</strong> <code>httpbin</code> sample manifests to deploy correctly on OpenShift.</li>
+</ul>
+]]></description><pubDate>Wed, 13 Mar 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.21.x/announcing-1.21/change-notes/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.21.x/announcing-1.21/change-notes/</guid></item><item><title>ISTIO-SECURITY-2024-001</title><description><![CDATA[
+<table>
+    <thead>
+        <tr>
+            <th colspan="2">Disclosure Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>CVE(s)</td>
+            <td>
+                    <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-23322">CVE-2024-23322</a><br>
+                    <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-23323">CVE-2024-23323</a><br>
+                    <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-23324">CVE-2024-23324</a><br>
+                    <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-23325">CVE-2024-23325</a><br>
+                    <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-23327">CVE-2024-23327</a><br>
+            </td>
+        </tr>
+        <tr>
+            <td>CVSS Impact Score</td>
+            <td>8.6 <a href="https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator?vector=AV%3aN%2fAC%3aL%2fPR%3aN%2fUI%3aN%2fS%3aC%2fC%3aH%2fI%3aN%2fA%3aN&version=3.1">AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N</a></td>
+        </tr>
+        <tr>
+            <td>Affected Releases</td>
+            <td>
+                    All releases prior to 1.19.0<br>
+                    1.19.0 to 1.19.6<br>
+                    1.20.0 to 1.20.2<br>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<h2 id="cve">CVE</h2>
+<h3 id="envoy-cves">Envoy CVEs</h3>
+<p><strong>Note</strong>: At the time of publishing, the below security advisories have not yet been published, but should be published shortly.</p>
+<ul>
+<li><strong><a href="https://github.com/envoyproxy/envoy/security/advisories/GHSA-6p83-mfmh-qv38">CVE-2024-23322</a></strong>: (CVSS Score 7.5, High): Envoy crashes when idle and request per try timeout occur within the backoff interval.</li>
+<li><strong><a href="https://github.com/envoyproxy/envoy/security/advisories/GHSA-x278-4w4x-r7ch">CVE-2024-23323</a></strong>: (CVSS Score 4.3, Moderate): Excessive CPU usage when URI template matcher is configured using regex.</li>
+<li><strong><a href="https://github.com/envoyproxy/envoy/security/advisories/GHSA-gq3v-vvhj-96j6">CVE-2024-23324</a></strong>: (CVSS Score 8.6, High): Ext auth can be bypassed when Proxy protocol filter sets invalid UTF-8 metadata.</li>
+<li><strong><a href="https://github.com/envoyproxy/envoy/security/advisories/GHSA-5m7c-mrwr-pm26">CVE-2024-23325</a></strong>: (CVSS Score 7.5, High): Envoy crashes when using an address type that isn&rsquo;t supported by the OS.</li>
+<li><strong><a href="https://github.com/envoyproxy/envoy/security/advisories/GHSA-4h5x-x9vh-m29j">CVE-2024-23327</a></strong>: (CVSS Score 7.5, High): Crash in proxy protocol when command type of LOCAL.</li>
+</ul>
+<h2 id="am-i-impacted">Am I Impacted?</h2>
+<p>The majority of exploitable behavior is related to the use of PROXY Protocol, primarily used in gateway scenarios. If you or your users have PROXY Protocol enabled, either via <code>EnvoyFilter</code> or <a href="/docs/ops/configuration/traffic-management/network-topologies/#proxy-protocol">proxy config</a> annotations, there is potential exposure.</p>
+<p>Aside from the use of PROXY protocol, the usage of the <code>%DOWNSTREAM_PEER_IP_SAN%</code> <a href="https://www.envoyproxy.io/docs/envoy/latest/configuration/observability/access_log/usage.html#command-operators">command operator</a> for access logs has potential exposure.</p>
+]]></description><pubDate>Fri, 09 Feb 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/security/istio-security-2024-001/</link><guid isPermaLink="true">https://istio.io/latest//news/security/istio-security-2024-001/</guid><category>CVE</category></item><item><title>Announcing Istio 1.20.3</title><description><![CDATA[<p>This release implements the security updates described in our February 8th post, <a href="/news/security/istio-security-2024-001/"><code>ISTIO-SECURITY-2024-001</code></a> along with bug fixes to improve robustness.</p>
+<p>This release note describes what’s different between Istio 1.20.2 and 1.20.3.</p>
+<div class="relnote-actions call-to-action">
+        <a class="entry" href="/latest/news/releases/1.20.x/announcing-1.20/upgrade-notes/">
+            <h5>BEFORE YOU UPGRADE</h5>
+            <p>Things to know and prepare before upgrading.</p>
+        </a>
+            <a class="update-notice entry"
+                data-title='Update Notice'
+                data-downloadhref="https://github.com/istio/istio/releases/tag/1.20.3"
+                data-downloadbuttontext="DOWNLOAD 1.20.3"
+                data-updateadvice='Before you download 1.20.3, you should know that there&#39;s a newer patch release with the latest bug fixes and perf improvements.'
+                data-updatebutton='LEARN ABOUT ISTIO 1.20.8'
+                data-updatehref="/latest/news/releases/1.20.x/announcing-1.20.8/">
+                <h5>DOWNLOAD</h5>
+                <p>Download and install this release.</p>
+            </a>
+    <a class="entry" href="https://archive.istio.io/v1.20/docs">
+        <h5>DOCS</h5>
+        <p>Visit the documentation for this release.</p>
+    </a>
+        <a class="entry" href="https://github.com/istio/istio/compare/1.20.2...1.20.3">
+            <h5>SOURCE CHANGES</h5>
+            <p>Inspect the full set of source code changes.</p>
+        </a>
+</div>
+<h2 id="changes">Changes</h2>
+<ul>
+<li>
+<p><strong>Improved</strong> graceful termination abort logic when the Envoy process terminates early.  (<a href="https://github.com/istio/istio/issues/36686">Issue #36686</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where updating a service&rsquo;s <code>TargetPort</code> does not trigger an xDS push.  (<a href="https://github.com/istio/istio/issues/48580">Issue #48580</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where in-cluster analysis was unnecessarily performed when there&rsquo;s no configuration change.
+(<a href="https://github.com/istio/istio/issues/48665">Issue #48665</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where the webhook generated with <code>istioctl tag set</code> is unexpectedly removed by the installer.
+(<a href="https://github.com/istio/istio/issues/47423">Issue #47423</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a bug that results in the incorrect generation of configurations for pods without associated services, which includes all services within the same namespace. This can occasionally lead to conflicting inbound listeners error.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a bug that made <code>PeerAuthentication</code> too restrictive in ambient mode.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue causing Istio CNI to stop functioning on minimal/locked down nodes (such as no <code>sh</code> binary).
+The new logic runs with no external dependencies, and will attempt to continue if errors are encountered (which could be caused by things like SELinux rules).
+In particular, this fixes running Istio on Bottlerocket nodes.
+(<a href="https://github.com/istio/istio/issues/48746">Issue #48746</a>)</p>
+</li>
+</ul>
+]]></description><pubDate>Fri, 09 Feb 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.20.x/announcing-1.20.3/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.20.x/announcing-1.20.3/</guid></item><item><title>Announcing Istio 1.19.7</title><description><![CDATA[<p>This release implements the security updates described in our February 8th post, <a href="/news/security/istio-security-2024-001/"><code>ISTIO-SECURITY-2024-001</code></a> along with bug fixes to improve robustness.</p>
+<p>This release note describes what’s different between Istio 1.19.6 and 1.19.7.</p>
+<div class="relnote-actions call-to-action">
+        <a class="entry" href="/latest/news/releases/1.19.x/announcing-1.19/upgrade-notes/">
+            <h5>BEFORE YOU UPGRADE</h5>
+            <p>Things to know and prepare before upgrading.</p>
+        </a>
+            <a class="update-notice entry"
+                data-title='Update Notice'
+                data-downloadhref="https://github.com/istio/istio/releases/tag/1.19.7"
+                data-downloadbuttontext="DOWNLOAD 1.19.7"
+                data-updateadvice='Before you download 1.19.7, you should know that there&#39;s a newer patch release with the latest bug fixes and perf improvements.'
+                data-updatebutton='LEARN ABOUT ISTIO 1.19.10'
+                data-updatehref="/latest/news/releases/1.19.x/announcing-1.19.10/">
+                <h5>DOWNLOAD</h5>
+                <p>Download and install this release.</p>
+            </a>
+    <a class="entry" href="https://archive.istio.io/v1.19/docs">
+        <h5>DOCS</h5>
+        <p>Visit the documentation for this release.</p>
+    </a>
+        <a class="entry" href="https://github.com/istio/istio/compare/1.19.6...1.19.7">
+            <h5>SOURCE CHANGES</h5>
+            <p>Inspect the full set of source code changes.</p>
+        </a>
+</div>
+<h2 id="changes">Changes</h2>
+<ul>
+<li>
+<p><strong>Fixed</strong> an issue where updating a service&rsquo;s <code>TargetPort</code> does not trigger an xDS push.  (<a href="https://github.com/istio/istio/issues/48580">Issue #48580</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where the webhook generated with <code>istioctl tag set</code> is unexpectedly removed by the installer.
+(<a href="https://github.com/istio/istio/issues/47423">Issue #47423</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a bug that results in the incorrect generation of configurations for pods without associated services, which includes all services within the same namespace. This can occasionally lead to conflicting inbound listeners error.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a bug that made <code>PeerAuthentication</code> too restrictive in ambient mode.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue causing Istio CNI to stop functioning on minimal/locked down nodes (such as no <code>sh</code> binary).
+The new logic runs with no external dependencies, and will attempt to continue if errors are encountered (which could be caused by things like SELinux rules).
+In particular, this fixes running Istio on Bottlerocket nodes.
+(<a href="https://github.com/istio/istio/issues/48746">Issue #48746</a>)</p>
+</li>
+</ul>
+]]></description><pubDate>Fri, 09 Feb 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.19.x/announcing-1.19.7/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.19.x/announcing-1.19.7/</guid></item><item><title>Announcing Istio 1.20.2</title><description><![CDATA[<p>This release note describes what’s different between Istio 1.20.1 and 1.20.2.</p>
+<div class="relnote-actions call-to-action">
+        <a class="entry" href="/latest/news/releases/1.20.x/announcing-1.20/upgrade-notes/">
+            <h5>BEFORE YOU UPGRADE</h5>
+            <p>Things to know and prepare before upgrading.</p>
+        </a>
+            <a class="update-notice entry"
+                data-title='Update Notice'
+                data-downloadhref="https://github.com/istio/istio/releases/tag/1.20.2"
+                data-downloadbuttontext="DOWNLOAD 1.20.2"
+                data-updateadvice='Before you download 1.20.2, you should know that there&#39;s a newer patch release with the latest bug fixes and perf improvements.'
+                data-updatebutton='LEARN ABOUT ISTIO 1.20.8'
+                data-updatehref="/latest/news/releases/1.20.x/announcing-1.20.8/">
+                <h5>DOWNLOAD</h5>
+                <p>Download and install this release.</p>
+            </a>
+    <a class="entry" href="https://archive.istio.io/v1.20/docs">
+        <h5>DOCS</h5>
+        <p>Visit the documentation for this release.</p>
+    </a>
+        <a class="entry" href="https://github.com/istio/istio/compare/1.20.1...1.20.2">
+            <h5>SOURCE CHANGES</h5>
+            <p>Inspect the full set of source code changes.</p>
+        </a>
+</div>
+<h2 id="changes">Changes</h2>
+<ul>
+<li>
+<p><strong>Added</strong> configurable scaling behavior for Gateway <code>HorizontalPodAutoscaler</code> in the helm chart.
+(<a href="https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#configurable-scaling-behavior">usage</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a bug where overlapping wildcard hosts in a <code>VirtualService</code> produces incorrect routing configurations
+when wildcard services were selected (e.g. in <code>ServiceEntry</code>).
+(<a href="https://github.com/istio/istio/issues/45415">Issue #45415</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where Istio was performing additional XDS pushes for <code>StatefulSets</code> and headless <code>Service</code>
+endpoints while scaling.
+(<a href="https://github.com/istio/istio/issues/48207">Issue #48207</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where the Istio injection webhook may be modified in dry-run mode.
+(<a href="https://github.com/istio/istio/issues/48241">Issue #48241</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue if <code>DestinationRule</code>&rsquo;s <code>exportTo</code> includes workload&rsquo;s current namespace (not &lsquo;.&rsquo;), other namespaces
+are ignored from <code>exportTo</code>.
+(<a href="https://github.com/istio/istio/issues/48349">Issue #48349</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where the QUIC listeners were not correctly created when dual-stack is enabled.
+(<a href="https://github.com/istio/istio/issues/48336">Issue #48336</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where <code>istioctl proxy-config ecds</code> didn&rsquo;t display all <code>EcdsConfigDump</code>.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where new endpoints may not be sent to proxies.
+(<a href="https://github.com/istio/istio/issues/48373">Issue #48373</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where installing with Stackdriver and using custom configurations would prevent Stackdriver from
+being enabled.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where long-lived connections, TCP bytes and gRPC, could result in a proxy memory leak.</p>
+</li>
+</ul>
+]]></description><pubDate>Tue, 09 Jan 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.20.x/announcing-1.20.2/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.20.x/announcing-1.20.2/</guid></item><item><title>Announcing Istio 1.19.6</title><description><![CDATA[<p>This release note describes what’s different between Istio 1.19.5 and 1.19.6.</p>
+<div class="relnote-actions call-to-action">
+        <a class="entry" href="/latest/news/releases/1.19.x/announcing-1.19/upgrade-notes/">
+            <h5>BEFORE YOU UPGRADE</h5>
+            <p>Things to know and prepare before upgrading.</p>
+        </a>
+            <a class="update-notice entry"
+                data-title='Update Notice'
+                data-downloadhref="https://github.com/istio/istio/releases/tag/1.19.6"
+                data-downloadbuttontext="DOWNLOAD 1.19.6"
+                data-updateadvice='Before you download 1.19.6, you should know that there&#39;s a newer patch release with the latest bug fixes and perf improvements.'
+                data-updatebutton='LEARN ABOUT ISTIO 1.19.10'
+                data-updatehref="/latest/news/releases/1.19.x/announcing-1.19.10/">
+                <h5>DOWNLOAD</h5>
+                <p>Download and install this release.</p>
+            </a>
+    <a class="entry" href="https://archive.istio.io/v1.19/docs">
+        <h5>DOCS</h5>
+        <p>Visit the documentation for this release.</p>
+    </a>
+        <a class="entry" href="https://github.com/istio/istio/compare/1.19.5...1.19.6">
+            <h5>SOURCE CHANGES</h5>
+            <p>Inspect the full set of source code changes.</p>
+        </a>
+</div>
+<h2 id="changes">Changes</h2>
+<ul>
+<li>
+<p><strong>Fixed</strong> a bug where overlapping wildcard hosts in a <code>VirtualService</code> produces incorrect routing configurations
+when wildcard services were selected (e.g. in <code>ServiceEntry</code>).
+(<a href="https://github.com/istio/istio/issues/45415">Issue #45415</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where the Istio injection webhook may be modified in dry-run mode.
+(<a href="https://github.com/istio/istio/issues/48241">Issue #48241</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where the QUIC listeners were not correctly created when dual-stack is enabled.
+(<a href="https://github.com/istio/istio/issues/48336">Issue #48336</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where <code>istioctl proxy-config ecds</code> didn&rsquo;t display all <code>EcdsConfigDump</code>.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where new endpoints may not be sent to proxies.
+(<a href="https://github.com/istio/istio/issues/48373">Issue #48373</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where installing with Stackdriver and using custom configurations would prevent Stackdriver from being
+enabled.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where long-lived connections, TCP bytes and gRPC, could result in a proxy memory leak.</p>
+</li>
+</ul>
+]]></description><pubDate>Fri, 05 Jan 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.19.x/announcing-1.19.6/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.19.x/announcing-1.19.6/</guid></item><item><title>Support for Istio 1.18 has ended</title><description><![CDATA[<p>As <a href="/news/support/announcing-1.18-eol/">previously announced</a>, support for Istio 1.18 has now officially ended.</p>
+<p>At this point we will no longer back-port fixes for security issues and critical bugs to 1.18. We highly recommend that
+you upgrade to the latest version of Istio (1.22.2) if you haven&rsquo;t already.</p>
+]]></description><pubDate>Thu, 04 Jan 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/support/announcing-1.18-eol-final/</link><guid isPermaLink="true">https://istio.io/latest//news/support/announcing-1.18-eol-final/</guid></item><item><title>Announcing Istio 1.18.7</title><description><![CDATA[<p>This release contains bug fixes to improve robustness.</p>
+<p>This release note describes what’s different between Istio 1.18.6 and 1.18.7.</p>
+<div class="relnote-actions call-to-action">
+        <a class="entry" href="/latest/news/releases/1.18.x/announcing-1.18/upgrade-notes/">
+            <h5>BEFORE YOU UPGRADE</h5>
+            <p>Things to know and prepare before upgrading.</p>
+        </a>
+            <a class="entry" href="https://github.com/istio/istio/releases/tag/1.18.7">
+                <h5>DOWNLOAD</h5>
+                <p>Download and install this release.</p>
+            </a>
+    <a class="entry" href="https://archive.istio.io/v1.18/docs">
+        <h5>DOCS</h5>
+        <p>Visit the documentation for this release.</p>
+    </a>
+        <a class="entry" href="https://github.com/istio/istio/compare/1.18.6...1.18.7">
+            <h5>SOURCE CHANGES</h5>
+            <p>Inspect the full set of source code changes.</p>
+        </a>
+</div>
+<h2 id="changes">Changes</h2>
+<ul>
+<li>
+<p><strong>Fixed</strong> a bug where overlapping wildcard hosts in a <code>VirtualService</code> produces incorrect routing configurations
+when wildcard services were selected (e.g. in <code>ServiceEntry</code>).
+(<a href="https://github.com/istio/istio/issues/45415">Issue #45415</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where <code>istioctl proxy-config ecds</code> didn&rsquo;t display all <code>EcdsConfigDump</code>.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where new endpoints may not be sent to proxies.
+(<a href="https://github.com/istio/istio/issues/48373">Issue #48373</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where installing with Stackdriver and using custom configurations would prevent Stackdriver from being
+enabled.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where long-lived connections, TCP bytes and gRPC, could result in a proxy memory leak.</p>
+</li>
+</ul>
+]]></description><pubDate>Thu, 04 Jan 2024 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.18.x/announcing-1.18.7/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.18.x/announcing-1.18.7/</guid></item><item><title>ISTIO-SECURITY-2023-005</title><description><![CDATA[
+<table>
+    <thead>
+        <tr>
+            <th colspan="2">Disclosure Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>CVE(s)</td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>CVSS Impact Score</td>
+            <td>N/A <a href="https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator?vector=N%2fA&version=3.1">N/A</a></td>
+        </tr>
+        <tr>
+            <td>Affected Releases</td>
+            <td>
+                    All releases prior to 1.18.0<br>
+                    1.18.0 to 1.18.5<br>
+                    1.19.0 to 1.19.4<br>
+                    1.20.0<br>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<p>The Istio Security Committee were recently made aware of a potential scenario where the Istio CNI could be used as an attack vector on an already compromised node due to its high level of permissions.  The vector involves abusing the <code>istio-cni-repair-role</code> <code>ClusterRole</code> on a compromised node to expand the scope of the compromise from local to the node to a cluster-wide compromise.</p>
+<p>The Istio maintainers are, therefore, gradually rolling out a change to the above <code>ClusterRole</code> that reduces the permissions to close this potential attack vector. In the patched versions, roles are limited to the bare minimum requirements based on the <a href="/docs/setup/additional-setup/cni/#race-condition--mitigation">repair mode selected</a>. Previously, regardless of the configuration all roles were granted, and the roles that were granted were excessive.</p>
+<p>An additional option can further mitigate any potential attacks, by completely removing the need for Istio CNI to have custom RBAC permissions; due to the possible risks associated with this new method, it is only enabled by default on Istio 1.21+. See below for the configuration options available, and roles required:</p>
+<table>
+<thead>
+<tr>
+<th>Configuration</th>
+<th>Roles</th>
+<th>Behavior on Error</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>values.cni.repair.deletePods</code></td>
+<td>DELETE pods</td>
+<td>Pods are deleted, when rescheduled they will have the correct configuration.</td>
+<td>Default in 1.20 and older</td>
+</tr>
+<tr>
+<td><code>values.cni.repair.labelPods</code></td>
+<td>UPDATE pods</td>
+<td>Pods are only labeled.  User will need to take manual action to resolve.</td>
+<td></td>
+</tr>
+<tr>
+<td><code>values.cni.repair.repairPods</code></td>
+<td>None</td>
+<td>Pods are dynamically reconfigured to have appropriate configuration. When the container restarts, the pod will continue normal execution.</td>
+<td>Default in 1.21 and newer</td>
+</tr>
+</tbody>
+</table>
+<p>The Istio Security Committee would like to thank <code>Yuval Avrahami</code> for disclosing this issue and working with us on the resolution.</p>
+]]></description><pubDate>Tue, 12 Dec 2023 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/security/istio-security-2023-005/</link><guid isPermaLink="true">https://istio.io/latest//news/security/istio-security-2023-005/</guid><category>CVE</category></item><item><title>Announcing Istio 1.20.1</title><description><![CDATA[<p>This release implements the security updates described in our Dec 12th post, <a href="/news/security/istio-security-2023-005/"><code>ISTIO-SECURITY-2023-005</code></a> along with bug fixes to improve robustness.</p>
+<p>This release note describes what’s different between Istio 1.20.0 and 1.20.1.</p>
+<div class="relnote-actions call-to-action">
+        <a class="entry" href="/latest/news/releases/1.20.x/announcing-1.20/upgrade-notes/">
+            <h5>BEFORE YOU UPGRADE</h5>
+            <p>Things to know and prepare before upgrading.</p>
+        </a>
+            <a class="update-notice entry"
+                data-title='Update Notice'
+                data-downloadhref="https://github.com/istio/istio/releases/tag/1.20.1"
+                data-downloadbuttontext="DOWNLOAD 1.20.1"
+                data-updateadvice='Before you download 1.20.1, you should know that there&#39;s a newer patch release with the latest bug fixes and perf improvements.'
+                data-updatebutton='LEARN ABOUT ISTIO 1.20.8'
+                data-updatehref="/latest/news/releases/1.20.x/announcing-1.20.8/">
+                <h5>DOWNLOAD</h5>
+                <p>Download and install this release.</p>
+            </a>
+    <a class="entry" href="https://archive.istio.io/v1.20/docs">
+        <h5>DOCS</h5>
+        <p>Visit the documentation for this release.</p>
+    </a>
+        <a class="entry" href="https://github.com/istio/istio/compare/1.20.0...1.20.1">
+            <h5>SOURCE CHANGES</h5>
+            <p>Inspect the full set of source code changes.</p>
+        </a>
+</div>
+<h2 id="changes">Changes</h2>
+<ul>
+<li>
+<p><strong>Fixed</strong> an issue where the webhook generated by <code>istioctl tag set</code> was unexpectedly being removed by the installer.
+(<a href="https://github.com/istio/istio/issues/47423">Issue #47423</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where the <code>istioctl tag list</code> command did not accept the <code>--output</code> flag.
+(<a href="https://github.com/istio/istio/issues/47696">Issue #47696</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where custom injection of the <code>istio-proxy</code> container was not working on OpenShift, due to how
+OpenShift sets the pod&rsquo;s <code>SecurityContext.RunAs</code> field.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where <code>VirtualService</code> HTTP header present match was not working when <code>header-name: {}</code> was set.
+(<a href="https://github.com/istio/istio/issues/47341">Issue #47341</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> multi-cluster leader election not being able to prioritize local over remote leaders.
+(<a href="https://github.com/istio/istio/issues/47901">Issue #47901</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a memory leak when <code>hostNetwork</code> pods scaled up and down.
+(<a href="https://github.com/istio/istio/issues/47893">Issue #47893</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a memory leak when <code>WorkloadEntries</code> changed their IP address.
+(<a href="https://github.com/istio/istio/issues/47893">Issue #47893</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a memory leak when a <code>ServiceEntry</code> was removed.
+(<a href="https://github.com/istio/istio/issues/47893">Issue #47893</a>)</p>
+</li>
+<li>
+<p><strong>Improved</strong> <code>istioctl bug-report</code> performance by reducing the number of calls to the Kubernetes API. The included
+pod/node details in the report remain comprehensive but will be presented differently.</p>
+</li>
+<li>
+<p><strong>Removed</strong> the <code>--rps-limit</code> flag for <code>istioctl bug-report</code> and <strong>added</strong> the <code>--rq-concurrency</code> flag.
+This change enables the bug reporter to limit request concurrency rather than the request rate to the Kubernetes API.</p>
+</li>
+</ul>
+<h2 id="security-update">Security update</h2>
+<ul>
+<li>Changes to Istio CNI Permissions as described in <a href="/news/security/istio-security-2023-005/"><code>ISTIO-SECURITY-2023-005</code></a>.</li>
+</ul>
+]]></description><pubDate>Tue, 12 Dec 2023 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.20.x/announcing-1.20.1/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.20.x/announcing-1.20.1/</guid></item><item><title>Announcing Istio 1.19.5</title><description><![CDATA[<p>This release implements the security updates described in our Dec 12th post, <a href="/news/security/istio-security-2023-005/"><code>ISTIO-SECURITY-2023-005</code></a> along with bug fixes to improve robustness.</p>
+<p>This release note describes what’s different between Istio 1.19.4 and 1.19.5.</p>
+<div class="relnote-actions call-to-action">
+        <a class="entry" href="/latest/news/releases/1.19.x/announcing-1.19/upgrade-notes/">
+            <h5>BEFORE YOU UPGRADE</h5>
+            <p>Things to know and prepare before upgrading.</p>
+        </a>
+            <a class="update-notice entry"
+                data-title='Update Notice'
+                data-downloadhref="https://github.com/istio/istio/releases/tag/1.19.5"
+                data-downloadbuttontext="DOWNLOAD 1.19.5"
+                data-updateadvice='Before you download 1.19.5, you should know that there&#39;s a newer patch release with the latest bug fixes and perf improvements.'
+                data-updatebutton='LEARN ABOUT ISTIO 1.19.10'
+                data-updatehref="/latest/news/releases/1.19.x/announcing-1.19.10/">
+                <h5>DOWNLOAD</h5>
+                <p>Download and install this release.</p>
+            </a>
+    <a class="entry" href="https://archive.istio.io/v1.19/docs">
+        <h5>DOCS</h5>
+        <p>Visit the documentation for this release.</p>
+    </a>
+        <a class="entry" href="https://github.com/istio/istio/compare/1.19.4...1.19.5">
+            <h5>SOURCE CHANGES</h5>
+            <p>Inspect the full set of source code changes.</p>
+        </a>
+</div>
+<h2 id="changes">Changes</h2>
+<ul>
+<li>
+<p><strong>Fixed</strong> an issue where the webhook generated with <code>istioctl tag set</code> is unexpectedly being removed by the installer.
+(<a href="https://github.com/istio/istio/issues/47423">Issue #47423</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where multi-cluster leader election cannot prioritize local over remote leaders.
+(<a href="https://github.com/istio/istio/issues/47901">Issue #47901</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a memory leak when <code>hostNetwork</code> pods scale up and down.
+(<a href="https://github.com/istio/istio/issues/47893">Issue #47893</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a memory leak when <code>WorkloadEntries</code> change their IP address.
+(<a href="https://github.com/istio/istio/issues/47893">Issue #47893</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a memory leak when a <code>ServiceEntry</code> is removed.
+(<a href="https://github.com/istio/istio/issues/47893">Issue #47893</a>)</p>
+</li>
+</ul>
+<h2 id="security-update">Security update</h2>
+<ul>
+<li>Changes to Istio CNI Permissions as described in <a href="/news/security/istio-security-2023-005/"><code>ISTIO-SECURITY-2023-005</code></a>.</li>
+</ul>
+]]></description><pubDate>Tue, 12 Dec 2023 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.19.x/announcing-1.19.5/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.19.x/announcing-1.19.5/</guid></item><item><title>Announcing Istio 1.18.6</title><description><![CDATA[<p>This release implements the security updates described in our Dec 12th post, <a href="/news/security/istio-security-2023-005/"><code>ISTIO-SECURITY-2023-005</code></a> along with bug fixes to improve robustness.</p>
+<p>This release note describes what’s different between Istio 1.18.5 and 1.18.6. This is the last planned release for Istio 1.18, for more details see our Nov 29th <a href="/news/support/announcing-1.18-eol/">end of support announcement</a>.</p>
+<div class="relnote-actions call-to-action">
+        <a class="entry" href="/latest/news/releases/1.18.x/announcing-1.18/upgrade-notes/">
+            <h5>BEFORE YOU UPGRADE</h5>
+            <p>Things to know and prepare before upgrading.</p>
+        </a>
+            <a class="update-notice entry"
+                data-title='Update Notice'
+                data-downloadhref="https://github.com/istio/istio/releases/tag/1.18.6"
+                data-downloadbuttontext="DOWNLOAD 1.18.6"
+                data-updateadvice='Before you download 1.18.6, you should know that there&#39;s a newer patch release with the latest bug fixes and perf improvements.'
+                data-updatebutton='LEARN ABOUT ISTIO 1.18.7'
+                data-updatehref="/latest/news/releases/1.18.x/announcing-1.18.7/">
+                <h5>DOWNLOAD</h5>
+                <p>Download and install this release.</p>
+            </a>
+    <a class="entry" href="https://archive.istio.io/v1.18/docs">
+        <h5>DOCS</h5>
+        <p>Visit the documentation for this release.</p>
+    </a>
+        <a class="entry" href="https://github.com/istio/istio/compare/1.18.5...1.18.6">
+            <h5>SOURCE CHANGES</h5>
+            <p>Inspect the full set of source code changes.</p>
+        </a>
+</div>
+<h2 id="changes">Changes</h2>
+<ul>
+<li>
+<p><strong>Improved</strong> <code>iptables</code> locking. The new implementation uses <code>iptables</code> builtin lock waiting when needed, and disables locking entirely when not needed.</p>
+</li>
+<li>
+<p><strong>Fixed</strong> DNS Proxy resolution for wildcard <code>ServiceEntry</code> with the search domain suffix for glibc-based containers.
+(<a href="https://github.com/istio/istio/issues/47264">Issue #47264</a>),(<a href="https://github.com/istio/istio/issues/31250">Issue #31250</a>),(<a href="https://github.com/istio/istio/issues/33360">Issue #33360</a>),(<a href="https://github.com/istio/istio/issues/30531">Issue #30531</a>),(<a href="https://github.com/istio/istio/issues/38484">Issue #38484</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where using a sidecar resource using <code>IstioIngressListener.defaultEndpoint</code> cannot use [::1]:PORT if the default IP addressing is not IPv6.
+(<a href="https://github.com/istio/istio/issues/47412">Issue #47412</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where <code>istioctl proxy-config</code> fails to process a config dump from a file if EDS endpoints were not provided.
+(<a href="https://github.com/istio/istio/issues/47505">Issue #47505</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue where <code>VirtualService</code> HTTP header present match was not working when <code>header-name: {}</code> was set.
+(<a href="https://github.com/istio/istio/issues/47341">Issue #47341</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a null traversal issue when using <code>datadog</code> or <code>stackdriver</code> with no tracing options.
+(<a href="https://github.com/istio/istio/issues/45855">Issue #45855</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> multi-cluster leader election not being able to prioritize local over remote leaders.
+(<a href="https://github.com/istio/istio/issues/47901">Issue #47901</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> clients being able to communicate with hosts defined in ServiceEntries over IPv6 when installed in dual-stack mode.
+(<a href="https://github.com/istio/istio/issues/46743">Issue #46743</a>),(<a href="https://github.com/istio/istio/issues/47406">Issue #47406</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> an issue causing traffic to terminating headless service instances to not function correctly.
+(<a href="https://github.com/istio/istio/issues/47348">Issue #47348</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a memory leak when <code>hostNetwork</code> pods scale up and down.
+(<a href="https://github.com/istio/istio/issues/47893">Issue #47893</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a memory leak when <code>WorkloadEntries</code> change their IP address.
+(<a href="https://github.com/istio/istio/issues/47893">Issue #47893</a>)</p>
+</li>
+<li>
+<p><strong>Fixed</strong> a memory leak when a <code>ServiceEntry</code> is removed.
+(<a href="https://github.com/istio/istio/issues/47893">Issue #47893</a>)</p>
+</li>
+</ul>
+<h2 id="security-update">Security update</h2>
+<ul>
+<li>Changes to Istio CNI Permissions as described in <a href="/news/security/istio-security-2023-005/"><code>ISTIO-SECURITY-2023-005</code></a>.</li>
+</ul>
+]]></description><pubDate>Tue, 12 Dec 2023 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/releases/1.18.x/announcing-1.18.6/</link><guid isPermaLink="true">https://istio.io/latest//news/releases/1.18.x/announcing-1.18.6/</guid></item><item><title>Support for Istio 1.18 ends on December 26, 2023</title><description><![CDATA[<p>According to Istio&rsquo;s <a href="/docs/releases/supported-releases/#support-policy">support policy</a>, minor releases like 1.18 are supported until six weeks after the N+2 minor release (1.20 in this case). <a href="/news/releases/1.20.x/announcing-1.20/">Istio 1.20 was released on November 14th, 2023</a>, and support for 1.18 will end on December 26th, 2023.</p>
+<p>At that point we will stop back-porting fixes for security issues and critical bugs to 1.18, so we encourage you to upgrade to the latest version of Istio (1.22.2). If you don&rsquo;t do this you may put yourself in the position of having to do a major upgrade on a short timeframe to pick up a critical fix.</p>
+<p>We care about you and your clusters, so please be kind to yourself and upgrade.</p>
+]]></description><pubDate>Wed, 29 Nov 2023 00:00:00 +0000</pubDate><link>https://istio.io/latest//news/support/announcing-1.18-eol/</link><guid isPermaLink="true">https://istio.io/latest//news/support/announcing-1.18-eol/</guid></item></channel></rss>

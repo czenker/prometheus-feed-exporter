@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Security Threats - Aqua</title>
+	<atom:link href="https://www.aquasec.com/tag/security-threats/feed/" rel="self" type="application/rss+xml" />
+	<link>https://www.aquasec.com/tag/security-threats/</link>
+	<description>Cloud Native Security, Container Security &#38; Serverless Security</description>
+	<lastBuildDate>Wed, 10 Jul 2024 13:49:18 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.5.5</generator>
+	<item>
+		<title>Linguistic Lumberjack: Understanding CVE-2024-4323 in Fluent Bit</title>
+		<link>https://www.aquasec.com/blog/linguistic-lumberjack-understanding-cve-2024-4323-in-fluent-bit/</link>
+		
+		<dc:creator><![CDATA[Aqua Security]]></dc:creator>
+		<pubDate>Fri, 24 May 2024 22:18:42 +0000</pubDate>
+				<category><![CDATA[SECURITY RESEARCH]]></category>
+		<category><![CDATA[Security Threats]]></category>
+		<category><![CDATA[Software Supply Chain Security]]></category>
+		<guid isPermaLink="false">https://www.aquasec.com/?p=20293</guid>
+
+					<description><![CDATA[<div class="hs-featured-image-wrapper"><a href="https://www.aquasec.com/blog/linguistic-lumberjack-understanding-cve-2024-4323-in-fluent-bit/" title="Linguistic Lumberjack: Understanding CVE-2024-4323 in Fluent Bit" class="hs-featured-image-link"><img src="https://www.aquasec.com/wp-content/uploads/2024/05/blog-main-Fluent-Bit-1200x628-2024.jpg" alt="Linguistic Lumberjack: Understanding CVE-2024-4323 in Fluent Bit" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"></a></div>Linguistic Lumberjack is a new critical severity vulnerability (CVE-2024-4323) that affects Fluent Bit versions 2.0.7 through 3.0.3. The vulnerability involves a memory corruption error, potentially leading to denial of service, information disclosure, or remote code execution.   Fluent Bit is a highly popular open-source data collector and processor designed for handling large volumes of log data&#160;&mldr;]]></description>
+		
+		
+		
+			</item>
+		<item>
+		<title>Employee Personal GitHub Repos Expose Internal Azure and Red Hat Secrets</title>
+		<link>https://www.aquasec.com/blog/github-repos-expose-azure-and-red-hat-secrets/</link>
+		
+		<dc:creator><![CDATA[Aqua Security]]></dc:creator>
+		<pubDate>Thu, 16 May 2024 12:00:48 +0000</pubDate>
+				<category><![CDATA[SECURITY RESEARCH]]></category>
+		<category><![CDATA[Security Threats]]></category>
+		<category><![CDATA[Supply Chain Attacks]]></category>
+		<guid isPermaLink="false">https://www.aquasec.com/?p=19994</guid>
+
+					<description><![CDATA[<div class="hs-featured-image-wrapper"><a href="https://www.aquasec.com/blog/github-repos-expose-azure-and-red-hat-secrets/" title="Employee Personal GitHub Repos Expose Internal Azure and Red Hat Secrets" class="hs-featured-image-link"><img src="https://www.aquasec.com/wp-content/uploads/2024/05/blog-main-shadow-IT-1200x628-2024.jpg" alt="Employee Personal GitHub Repos Expose Internal Azure and Red Hat Secrets" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"></a></div>What happens when employees at some of the world’s largest organizations like Microsoft and RedHat use personal GitHub repos for their side projects? They can unknowingly expose corporate secrets and credentials opening the doors for a security incident. Unfortunately, this isn’t just a hypothetical situation.   In a recent study, we explained how we analyzed&#160;&mldr;]]></description>
+		
+		
+		
+			</item>
+		<item>
+		<title>CVE-2024-3094: Newly Discovered Backdoor in XZ tools</title>
+		<link>https://www.aquasec.com/blog/cve-2024-3094-newly-discovered-backdoor-in-xz-tools/</link>
+		
+		<dc:creator><![CDATA[Aqua Security]]></dc:creator>
+		<pubDate>Mon, 01 Apr 2024 15:49:06 +0000</pubDate>
+				<category><![CDATA[CONTAINER SECURITY]]></category>
+		<category><![CDATA[Security Threats]]></category>
+		<guid isPermaLink="false">https://www.aquasec.com/?p=19576</guid>
+
+					<description><![CDATA[<div class="hs-featured-image-wrapper"><a href="https://www.aquasec.com/blog/cve-2024-3094-newly-discovered-backdoor-in-xz-tools/" title="CVE-2024-3094: Newly Discovered Backdoor in XZ tools" class="hs-featured-image-link"><img src="https://www.aquasec.com/wp-content/uploads/2024/04/Blog-image-Backdoor-in-xz-web-image.jpg" alt="CVE-2024-3094: Newly Discovered Backdoor in XZ tools" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"></a></div>The xz-utils is a popular compression tool used widely across Linux systems, indicating its critical role in the software ecosystem. The xz-utils backdoor, discovered on March 29, 2024, exposes systems to potential backdoor access and remote code execution. It specifically targets versions 5.6.0 and 5.6.1 of xz-utils on systems using glibc, systemd, and patched OpenSSH.&#160;&mldr;]]></description>
+		
+		
+		
+			</item>
+		<item>
+		<title>Mitigating Leaky Vessels Vulnerabilities in runc, BuildKit and Moby with Aqua</title>
+		<link>https://www.aquasec.com/blog/mitigating-leaky-vessels-vulnerabilities-in-runc-buildkit-and-moby-with-aqua/</link>
+		
+		<dc:creator><![CDATA[Aqua Security]]></dc:creator>
+		<pubDate>Thu, 01 Feb 2024 17:36:00 +0000</pubDate>
+				<category><![CDATA[SECURITY RESEARCH]]></category>
+		<category><![CDATA[Security Threats]]></category>
+		<guid isPermaLink="false">https://www.aquasec.com/?p=17192</guid>
+
+					<description><![CDATA[<div class="hs-featured-image-wrapper"><a href="https://www.aquasec.com/blog/mitigating-leaky-vessels-vulnerabilities-in-runc-buildkit-and-moby-with-aqua/" title="Mitigating Leaky Vessels Vulnerabilities in runc, BuildKit and Moby with Aqua" class="hs-featured-image-link"><img src="https://www.aquasec.com/wp-content/uploads/2024/02/Blog-main-image-run-c-kubernetes.jpg" alt="Mitigating Leaky Vessels Vulnerabilities in runc, BuildKit and Moby with Aqua" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"></a></div>On January 31, 2024, researchers revealed the discovery of four severe security vulnerabilities in the container ecosystem. These vulnerabilities, affecting key components including runc, BuildKit, Moby (Docker Engine), and Docker Desktop, pose significant risks to the security and integrity of applications that use containerization applications.   The vulnerabilities become exploitable in scenarios where a user&#160;&mldr;]]></description>
+		
+		
+		
+			</item>
+		<item>
+		<title>HeadCrab 2.0: Evolving Threat in Redis Malware Landscape</title>
+		<link>https://www.aquasec.com/blog/headcrab-2-0-evolving-threat-in-redis-malware-landscape/</link>
+		
+		<dc:creator><![CDATA[Aqua Security]]></dc:creator>
+		<pubDate>Mon, 29 Jan 2024 12:04:58 +0000</pubDate>
+				<category><![CDATA[SECURITY RESEARCH]]></category>
+		<category><![CDATA[Security Threats]]></category>
+		<guid isPermaLink="false">https://www.aquasec.com/?p=17182</guid>
+
+					<description><![CDATA[<div class="hs-featured-image-wrapper"><a href="https://www.aquasec.com/blog/headcrab-2-0-evolving-threat-in-redis-malware-landscape/" title="HeadCrab 2.0: Evolving Threat in Redis Malware Landscape" class="hs-featured-image-link"><img src="https://www.aquasec.com/wp-content/uploads/2024/01/Blog-mian-image-headcrab-2.0.jpg" alt="HeadCrab 2.0: Evolving Threat in Redis Malware Landscape" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"></a></div>At the beginning of 2023, Aqua Nautilus researchers uncovered HeadCrab &#8211; an advanced threat actor utilizing a state-of-the-art, custom-made malware that compromised 1,200 Redis servers. As you know in the ever-evolving world of cybersecurity, threat actors continually adapt and refine their techniques. Recently, our researchers detected a new version of the HeadCrab malware targeting our&#160;&mldr;]]></description>
+		
+		
+		
+			</item>
+		<item>
+		<title>The Gaps in Open Source Governance That Threaten the Software Supply Chain</title>
+		<link>https://www.aquasec.com/blog/the-gaps-in-open-source-governance-that-threaten-the-software-supply-chain/</link>
+		
+		<dc:creator><![CDATA[Aqua Security]]></dc:creator>
+		<pubDate>Tue, 23 Jan 2024 10:56:37 +0000</pubDate>
+				<category><![CDATA[SECURITY RESEARCH]]></category>
+		<category><![CDATA[Container Security]]></category>
+		<category><![CDATA[Security Threats]]></category>
+		<category><![CDATA[Software Supply Chain Security]]></category>
+		<guid isPermaLink="false">https://www.aquasec.com/?p=14142</guid>
+
+					<description><![CDATA[<div class="hs-featured-image-wrapper"><a href="https://www.aquasec.com/blog/the-gaps-in-open-source-governance-that-threaten-the-software-supply-chain/" title="The Gaps in Open Source Governance That Threaten the Software Supply Chain" class="hs-featured-image-link"><img src="https://www.aquasec.com/wp-content/uploads/2024/01/Blog-mian-image-Npm-pt2.jpg" alt="The Gaps in Open Source Governance That Threaten the Software Supply Chain" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"></a></div>The widespread issue of unmaintained and deprecated npm packages recently discovered by Aqua researchers affects more than a fifth of open source packages. Presenting yet another silent example of hidden threats to the software supply chain, it demonstrates how poor operational and structural integrity of dependencies can be just as risky as code vulnerabilities, while&#160;&mldr;]]></description>
+		
+		
+		
+			</item>
+		<item>
+		<title>Deceptive Deprecation: The Truth About npm Deprecated Packages</title>
+		<link>https://www.aquasec.com/blog/deceptive-deprecation-the-truth-about-npm-deprecated-packages/</link>
+		
+		<dc:creator><![CDATA[Aqua Security]]></dc:creator>
+		<pubDate>Thu, 18 Jan 2024 12:17:13 +0000</pubDate>
+				<category><![CDATA[SECURITY RESEARCH]]></category>
+		<category><![CDATA[Security Threats]]></category>
+		<guid isPermaLink="false">https://www.aquasec.com/?p=14080</guid>
+
+					<description><![CDATA[<div class="hs-featured-image-wrapper"><a href="https://www.aquasec.com/blog/deceptive-deprecation-the-truth-about-npm-deprecated-packages/" title="Deceptive Deprecation: The Truth About npm Deprecated Packages" class="hs-featured-image-link"><img src="https://www.aquasec.com/wp-content/uploads/2024/01/Blog-mian-image-Npm-deprecated-packages.jpg" alt="Deceptive Deprecation: The Truth About npm Deprecated Packages" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"></a></div>Researchers at Aqua Nautilus found that 8.2% percent of the most downloaded npm packages are officially deprecated, but due to inconsistent practices in handling package dependencies, the real number is much larger, closer to 21.2%. Moreover, some package maintainers, when confronted with security flaws, deprecate their packages instead of reporting them, getting a CVE assigned&#160;&mldr;]]></description>
+		
+		
+		
+			</item>
+		<item>
+		<title>Apache Applications Targeted by Stealthy Attacker</title>
+		<link>https://www.aquasec.com/blog/threat-alert-apache-applications-targeted-by-stealthy-attacker/</link>
+		
+		<dc:creator><![CDATA[Aqua Security]]></dc:creator>
+		<pubDate>Mon, 08 Jan 2024 10:49:54 +0000</pubDate>
+				<category><![CDATA[SECURITY RESEARCH]]></category>
+		<category><![CDATA[Aqua Security]]></category>
+		<category><![CDATA[Security Threats]]></category>
+		<guid isPermaLink="false">https://www.aquasec.com/?p=14157</guid>
+
+					<description><![CDATA[<div class="hs-featured-image-wrapper"><a href="https://www.aquasec.com/blog/threat-alert-apache-applications-targeted-by-stealthy-attacker/" title="Apache Applications Targeted by Stealthy Attacker" class="hs-featured-image-link"><img src="https://www.aquasec.com/wp-content/uploads/2024/01/Blog-mian-image-Apache-Hadoop.jpg" alt="Apache Applications Targeted by Stealthy Attacker" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"></a></div>Researchers at Aqua Nautilus have uncovered a new attack targeting Apache Hadoop and Flink applications. This attack is particularly intriguing due to the attacker&#8217;s use of packers and rootkits to conceal the malware. The simplicity with which these techniques are employed presents a significant challenge to traditional security defenses. The exploited misconfigurations Apache Hadoop and&#160;&mldr;]]></description>
+		
+		
+		
+			</item>
+		<item>
+		<title>The Ticking Supply Chain Attack Bomb of Exposed Kubernetes Secrets</title>
+		<link>https://www.aquasec.com/blog/the-ticking-supply-chain-attack-bomb-of-exposed-kubernetes-secrets/</link>
+		
+		<dc:creator><![CDATA[Aqua Security]]></dc:creator>
+		<pubDate>Tue, 21 Nov 2023 10:59:32 +0000</pubDate>
+				<category><![CDATA[SECURITY RESEARCH]]></category>
+		<category><![CDATA[Kubernetes Security]]></category>
+		<category><![CDATA[Security Threats]]></category>
+		<guid isPermaLink="false">https://www.aquasec.com/?p=14186</guid>
+
+					<description><![CDATA[Exposed Kubernetes secrets pose a critical threat of supply chain attack. Aqua Nautilus researchers found that the exposed Kubernetes secrets of hundreds of organizations and open-source projects allow access to sensitive environments in the Software Development Life Cycle (SDLC) and open a severe supply chain attack threat. Among the companies were SAP’s Artifacts management system&#160;&mldr;]]></description>
+		
+		
+		
+			</item>
+		<item>
+		<title>50 Shades of Vulnerabilities: Uncovering Flaws in Open-Source Vulnerability Disclosures</title>
+		<link>https://www.aquasec.com/blog/50-shades-of-vulnerabilities-uncovering-flaws-in-open-source-vulnerability-disclosures/</link>
+		
+		<dc:creator><![CDATA[Aqua Security]]></dc:creator>
+		<pubDate>Wed, 08 Nov 2023 11:05:47 +0000</pubDate>
+				<category><![CDATA[SECURITY RESEARCH]]></category>
+		<category><![CDATA[Security Threats]]></category>
+		<guid isPermaLink="false">https://www.aquasec.com/?p=14203</guid>
+
+					<description><![CDATA[<div class="hs-featured-image-wrapper"><a href="https://www.aquasec.com/blog/50-shades-of-vulnerabilities-uncovering-flaws-in-open-source-vulnerability-disclosures/" title="50 Shades of Vulnerabilities: Uncovering Flaws in Open-Source Vulnerability Disclosures" class="hs-featured-image-link"><img src="https://www.aquasec.com/wp-content/uploads/2023/11/Threat-Alert-50-shades-of-vulnerabilities-blog-main-image.jpg" alt="50 Shades of Vulnerabilities: Uncovering Flaws in Open-Source Vulnerability Disclosures" class="hs-featured-image" style="width:auto !important; max-width:50%; float:left; margin:0 15px 15px 0;"></a></div>Aqua Nautilus researchers evaluated the vulnerability disclosure process for tens of thousands of open-source projects and found flaws in the process. These flaws allowed harvesting the vulnerabilities before they were patched and announced. This could enable attackers to exploit security holes before the project&#8217;s users are alerted. By conducting an extensive analysis of commits, pull&#160;&mldr;]]></description>
+		
+		
+		
+			</item>
+	</channel>
+</rss>

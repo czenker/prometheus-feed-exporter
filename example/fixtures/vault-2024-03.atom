@@ -1,0 +1,37 @@
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xml:lang="en-US" xml:base="https://github.com/hashicorp/vault/releases.atom"><entry xmlns="http://www.w3.org/2005/Atom">
+    <id>tag:github.com,2008:Repository/31288958/v1.15.7+ent</id>
+    <updated>2024-03-29T20:11:51+01:00</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/hashicorp/vault/releases/tag/v1.15.7%2Bent"/>
+    <title>v1.15.7+ent</title>
+    <content type="html">&lt;h2&gt;1.15.7 Enterprise&lt;/h2&gt;
+&lt;h3&gt;March 28, 2024&lt;/h3&gt;
+&lt;p&gt;SECURITY:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;auth/cert: validate OCSP response was signed by the expected issuer and serial number matched request [&lt;a href="https://github.com/hashicorp/vault/pull/26091" data-hovercard-type="pull_request" data-hovercard-url="/hashicorp/vault/pull/26091/hovercard"&gt;GH-26091&lt;/a&gt;]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;IMPROVEMENTS:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;auth/cert: Allow validation with OCSP responses with no NextUpdate time [&lt;a href="https://github.com/hashicorp/vault/pull/25912" data-hovercard-type="pull_request" data-hovercard-url="/hashicorp/vault/pull/25912/hovercard"&gt;GH-25912&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core (enterprise): Avoid seal rewrapping in some specific unnecessary cases.&lt;/li&gt;
+&lt;li&gt;core (enterprise): persist seal rewrap status, so rewrap status API is consistent on secondary nodes.&lt;/li&gt;
+&lt;li&gt;ui: remove leading slash from KV version 2 secret paths [&lt;a href="https://github.com/hashicorp/vault/pull/25874" data-hovercard-type="pull_request" data-hovercard-url="/hashicorp/vault/pull/25874/hovercard"&gt;GH-25874&lt;/a&gt;]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;BUG FIXES:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;audit: Operator changes to configured audit headers (via &lt;code&gt;/sys/config/auditing&lt;/code&gt;)&lt;br&gt;
+will now force invalidation and be reloaded from storage when data is replicated&lt;br&gt;
+to other nodes.&lt;/li&gt;
+&lt;li&gt;auth/cert: Address an issue in which OCSP query responses were not cached [&lt;a href="https://github.com/hashicorp/vault/pull/25986" data-hovercard-type="pull_request" data-hovercard-url="/hashicorp/vault/pull/25986/hovercard"&gt;GH-25986&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;auth/cert: Allow cert auth login attempts if ocsp_fail_open is true and OCSP servers are unreachable [&lt;a href="https://github.com/hashicorp/vault/pull/25982" data-hovercard-type="pull_request" data-hovercard-url="/hashicorp/vault/pull/25982/hovercard"&gt;GH-25982&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;cli: fixes plugin register CLI failure to error when plugin image doesn't exist [&lt;a href="https://github.com/hashicorp/vault/pull/24990" data-hovercard-type="pull_request" data-hovercard-url="/hashicorp/vault/pull/24990/hovercard"&gt;GH-24990&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core (enterprise): fix issue where the Seal HA rewrap system may remain running when an active node steps down.&lt;/li&gt;
+&lt;li&gt;core/login: Fixed a potential deadlock when a login fails and user lockout is enabled. [&lt;a href="https://github.com/hashicorp/vault/pull/25697" data-hovercard-type="pull_request" data-hovercard-url="/hashicorp/vault/pull/25697/hovercard"&gt;GH-25697&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;replication (enterprise): fixed data integrity issue with the processing of identity aliases causing duplicates to occur in rare cases&lt;/li&gt;
+&lt;li&gt;ui: Fix kubernetes auth method roles tab [&lt;a href="https://github.com/hashicorp/vault/pull/25999" data-hovercard-type="pull_request" data-hovercard-url="/hashicorp/vault/pull/25999/hovercard"&gt;GH-25999&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: call resultant-acl without namespace header when user mounted at root namespace [&lt;a href="https://github.com/hashicorp/vault/pull/25766" data-hovercard-type="pull_request" data-hovercard-url="/hashicorp/vault/pull/25766/hovercard"&gt;GH-25766&lt;/a&gt;]&lt;/li&gt;
+&lt;/ul&gt;</content>
+    <author>
+      <name>mladlow</name>
+    </author>
+    <media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" height="30" width="30" url="https://avatars.githubusercontent.com/u/9422872?s=60&amp;v=4"/>
+  </entry></feed>

@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xml:lang="en-US">
+  <id>tag:github.com,2008:https://github.com/hashicorp/vault/releases</id>
+  <link type="text/html" rel="alternate" href="https://github.com/hashicorp/vault/releases"/>
+  <link type="application/atom+xml" rel="self" href="https://github.com/hashicorp/vault/releases.atom"/>
+  <title>Release notes from vault</title>
+  <updated>2024-07-05T21:19:12+02:00</updated>
+  <entry>
+    <id>tag:github.com,2008:Repository/31288958/v1.17.2</id>
+    <updated>2024-07-10T15:58:50+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/hashicorp/vault/releases/tag/v1.17.2"/>
+    <title>v1.17.2</title>
+    <content type="html">&lt;p&gt;[VAULT-28674] This is an automated pull request to build all artifact…&lt;/p&gt;
+
+&lt;p&gt;…s for a release (&lt;a class=&quot;issue-link js-issue-link&quot; href=&quot;https://github.com/hashicorp/vault/pull/27702&quot;&gt;#27702&lt;/a&gt;)&lt;/p&gt;</content>
+    <author>
+      <name>hc-github-team-es-release-engineering</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/82989873?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/31288958/v1.17.1</id>
+    <updated>2024-06-27T18:12:33+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/hashicorp/vault/releases/tag/v1.17.1"/>
+    <title>v1.17.1</title>
+    <content type="html">&lt;h2&gt;1.17.1&lt;/h2&gt;
+&lt;h3&gt;June 26, 2024&lt;/h3&gt;
+&lt;p&gt;CHANGES:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;auth/jwt: Update plugin to v0.21.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27498&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27498/hovercard&quot;&gt;GH-27498&lt;/a&gt;]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;IMPROVEMENTS:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;storage/raft: Improve autopilot logging on startup to show config values clearly and avoid spurious logs [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27464&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27464/hovercard&quot;&gt;GH-27464&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui/secrets-sync: Hide Secrets Sync from the sidebar nav if user does not have access to the feature. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27262&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27262/hovercard&quot;&gt;GH-27262&lt;/a&gt;]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;BUG FIXES:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;agent: Fixed an issue causing excessive CPU usage during normal operation [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27518&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27518/hovercard&quot;&gt;GH-27518&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;config: Vault TCP listener config now correctly supports the documented proxy_protocol_behavior&lt;br&gt;
+setting of &#39;deny_unauthorized&#39; [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27459&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27459/hovercard&quot;&gt;GH-27459&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core/audit: Audit logging a Vault request/response checks if the existing context&lt;br&gt;
+is cancelled and will now use a new context with a 5 second timeout.&lt;br&gt;
+If the existing context is cancelled a new context, will be used. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27531&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27531/hovercard&quot;&gt;GH-27531&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;helper/pkcs7: Fix parsing certain messages containing only certificates [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27435&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27435/hovercard&quot;&gt;GH-27435&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;proxy: Fixed an issue causing excessive CPU usage during normal operation [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27518&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27518/hovercard&quot;&gt;GH-27518&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;replication (enterprise): fix cache invalidation issue leading to namespace custom metadata not being shown correctly on performance secondaries&lt;/li&gt;
+&lt;li&gt;secrets-sync (enterprise): Properly remove tags from secrets in AWS when they are removed from the source association&lt;/li&gt;
+&lt;li&gt;secrets-sync (enterprise): Return more accurate error code for invalid connection details&lt;/li&gt;
+&lt;li&gt;secrets-sync (enterprise): Skip invalid GitHub repository names when creating destinations&lt;/li&gt;
+&lt;li&gt;storage/azure: Fix invalid account name initialization bug [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27563&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27563/hovercard&quot;&gt;GH-27563&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;storage/raft (enterprise): Fix issue with namespace cache not getting cleared on snapshot restore, resulting in namespaces not found in the snapshot being inaccurately represented by API responses. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27474&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27474/hovercard&quot;&gt;GH-27474&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Allow creation of session_token type roles for AWS secret backend [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27424&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27424/hovercard&quot;&gt;GH-27424&lt;/a&gt;]&lt;/li&gt;
+&lt;/ul&gt;</content>
+    <author>
+      <name>hc-github-team-es-release-engineering</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/82989873?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/31288958/v1.17.0</id>
+    <updated>2024-06-12T19:12:22+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/hashicorp/vault/releases/tag/v1.17.0"/>
+    <title>v1.17.0</title>
+    <content type="html">&lt;h2&gt;1.17.0&lt;/h2&gt;
+&lt;h3&gt;June 12, 2024&lt;/h3&gt;
+&lt;p&gt;CHANGES:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;api: Upgrade from github.com/go-jose/go-jose/v3 v3.0.3 to github.com/go-jose/go-jose/v4 v4.0.1. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26527&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26527/hovercard&quot;&gt;GH-26527&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;audit: breaking change - Vault now allows audit logs to contain &#39;correlation-id&#39; and &#39;x-correlation-id&#39; headers when they&lt;br&gt;
+are present in the incoming request. By default they are not HMAC&#39;ed (but can be configured to HMAC by Vault Operators). [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26777&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26777/hovercard&quot;&gt;GH-26777&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;auth/alicloud: Update plugin to v0.18.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27133&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27133/hovercard&quot;&gt;GH-27133&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;auth/azure: Update plugin to v0.18.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27146&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27146/hovercard&quot;&gt;GH-27146&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;auth/centrify: Remove the deprecated Centrify auth method plugin [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27130&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27130/hovercard&quot;&gt;GH-27130&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;auth/cf: Update plugin to v0.17.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27161&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27161/hovercard&quot;&gt;GH-27161&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;auth/gcp: Update plugin to v0.18.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27140&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27140/hovercard&quot;&gt;GH-27140&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;auth/jwt: Update plugin to v0.20.2 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26291&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26291/hovercard&quot;&gt;GH-26291&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;auth/jwt: Update plugin to v0.20.3 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26890&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26890/hovercard&quot;&gt;GH-26890&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;auth/kerberos: Update plugin to v0.12.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27177&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27177/hovercard&quot;&gt;GH-27177&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;auth/kubernetes: Update plugin to v0.19.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27186&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27186/hovercard&quot;&gt;GH-27186&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;auth/oci: Update plugin to v0.16.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27142&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27142/hovercard&quot;&gt;GH-27142&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core (enterprise): Seal High Availability (HA) must be enabled by &lt;code&gt;enable_multiseal&lt;/code&gt; in configuration.&lt;/li&gt;
+&lt;li&gt;core/identity: improve performance for secondary nodes receiving identity related updates through replication [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27184&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27184/hovercard&quot;&gt;GH-27184&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core: Bump Go version to 1.22.4&lt;/li&gt;
+&lt;li&gt;core: return an additional &quot;invalid token&quot; error message in 403 response when the provided request token is expired,&lt;br&gt;
+exceeded the number of uses, or is a bogus value [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/25953&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/25953/hovercard&quot;&gt;GH-25953&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;database/couchbase: Update plugin to v0.11.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27145&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27145/hovercard&quot;&gt;GH-27145&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;database/elasticsearch: Update plugin to v0.15.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27136&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27136/hovercard&quot;&gt;GH-27136&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;database/mongodbatlas: Update plugin to v0.12.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27143&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27143/hovercard&quot;&gt;GH-27143&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;database/redis-elasticache: Update plugin to v0.4.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27139&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27139/hovercard&quot;&gt;GH-27139&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;database/redis: Update plugin to v0.3.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27117&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27117/hovercard&quot;&gt;GH-27117&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;database/snowflake: Update plugin to v0.11.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27132&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27132/hovercard&quot;&gt;GH-27132&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;sdk: String templates now have a maximum size of 100,000 characters. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26110&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26110/hovercard&quot;&gt;GH-26110&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;secrets/ad: Update plugin to v0.18.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27172&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27172/hovercard&quot;&gt;GH-27172&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;secrets/alicloud: Update plugin to v0.17.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27134&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27134/hovercard&quot;&gt;GH-27134&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;secrets/azure: Update plugin to v0.17.1 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26528&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26528/hovercard&quot;&gt;GH-26528&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;secrets/azure: Update plugin to v0.19.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27141&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27141/hovercard&quot;&gt;GH-27141&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;secrets/gcp: Update plugin to v0.19.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27164&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27164/hovercard&quot;&gt;GH-27164&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;secrets/gcpkms: Update plugin to v0.17.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27163&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27163/hovercard&quot;&gt;GH-27163&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;secrets/keymgmt (enterprise): Removed &lt;code&gt;namespace&lt;/code&gt; label on the &lt;code&gt;vault.kmse.key.count&lt;/code&gt; metric.&lt;/li&gt;
+&lt;li&gt;secrets/kmip (enterprise): Update plugin to v0.15.0&lt;/li&gt;
+&lt;li&gt;secrets/kubernetes: Update plugin to v0.8.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27187&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27187/hovercard&quot;&gt;GH-27187&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;secrets/kv: Update plugin to v0.18.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26877&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26877/hovercard&quot;&gt;GH-26877&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;secrets/kv: Update plugin to v0.19.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27159&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27159/hovercard&quot;&gt;GH-27159&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;secrets/mongodbatlas: Update plugin to v0.12.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27149&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27149/hovercard&quot;&gt;GH-27149&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;secrets/openldap: Update plugin to v0.13.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27137&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27137/hovercard&quot;&gt;GH-27137&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;secrets/pki: sign-intermediate API will truncate notAfter if calculated to go beyond the signing issuer&#39;s notAfter. Previously the notAfter was permitted to go beyond leading to invalid chains. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26796&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26796/hovercard&quot;&gt;GH-26796&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;secrets/terraform: Update plugin to v0.8.0 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27147&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27147/hovercard&quot;&gt;GH-27147&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui/kubernetes: Update the roles filter-input to use explicit search. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27178&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27178/hovercard&quot;&gt;GH-27178&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Update dependencies including D3 libraries [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26346&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26346/hovercard&quot;&gt;GH-26346&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Upgrade Ember data from 4.11.3 to 4.12.4 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/25272&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/25272/hovercard&quot;&gt;GH-25272&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Upgrade Ember to version 5.4 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26708&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26708/hovercard&quot;&gt;GH-26708&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: deleting a nested secret will no longer redirect you to the nearest path segment [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26845&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26845/hovercard&quot;&gt;GH-26845&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: flash messages render on right side of page [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/25459&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/25459/hovercard&quot;&gt;GH-25459&lt;/a&gt;]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;FEATURES:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;PKI Certificate Metadata (enterprise)&lt;/strong&gt;:  Add Certificate Metadata Functionality to Record and Return Client Information about a Certificate.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Adaptive Overload Protection (enterprise)&lt;/strong&gt;: Adds Adaptive Overload Protection&lt;br&gt;
+for write requests as a Beta feature (disabled by default). This automatically&lt;br&gt;
+prevents overloads caused by too many write requests while maintaining optimal&lt;br&gt;
+throughput for the hardware configuration and workload.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Audit Filtering (enterprise)&lt;/strong&gt; : Audit devices support expression-based filter rules (powered by go-bexpr) to determine which entries are written to the audit log.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;LDAP Secrets engine hierarchical path support&lt;/strong&gt;: Hierarchical path handling is now supported for role and set APIs. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27203&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27203/hovercard&quot;&gt;GH-27203&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Plugin Identity Tokens&lt;/strong&gt;: Adds secret-less configuration of AWS auth engine using web identity federation. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26507&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26507/hovercard&quot;&gt;GH-26507&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Plugin Workload Identity&lt;/strong&gt; (enterprise): Vault can generate identity tokens for plugins to use in workload identity federation auth flows.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Transit AES-CMAC (enterprise)&lt;/strong&gt;: Added support to create and verify AES backed cipher-based message authentication codes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;IMPROVEMENTS:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;activity (enterprise): Change minimum retention window in activity log to 48 months&lt;/li&gt;
+&lt;li&gt;agent: Added a new config option, &lt;code&gt;lease_renewal_threshold&lt;/code&gt;, that controls the refresh rate of non-renewable leases in Agent&#39;s template engine. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/25212&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/25212/hovercard&quot;&gt;GH-25212&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;agent: Agent will re-trigger auto auth if token used for rendering templates has been revoked, has exceeded the number of uses, or is a bogus value. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26172&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26172/hovercard&quot;&gt;GH-26172&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;api: Move CLI token helper functions to importable packages in &lt;code&gt;api&lt;/code&gt; module. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/25744&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/25744/hovercard&quot;&gt;GH-25744&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;audit: timestamps across multiple audit devices for an audit entry will now match. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26088&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26088/hovercard&quot;&gt;GH-26088&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;auth/aws: Add inferred_hostname metadata for IAM AWS authentication method. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/25418&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/25418/hovercard&quot;&gt;GH-25418&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;auth/aws: add canonical ARN as entity alias option [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/22460&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/22460/hovercard&quot;&gt;GH-22460&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;auth/aws: add support for external_ids in AWS assume-role [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26628&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26628/hovercard&quot;&gt;GH-26628&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;auth/cert: Adds support for TLS certificate authenticaion through a reverse proxy that terminates the SSL connection [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/17272&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/17272/hovercard&quot;&gt;GH-17272&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;cli: Add events subscriptions commands&lt;/li&gt;
+&lt;li&gt;command/server: Removed environment variable requirement to generate pprof&lt;br&gt;
+files using SIGUSR2. Added CPU profile support. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/25391&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/25391/hovercard&quot;&gt;GH-25391&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core (enterprise): persist seal rewrap status, so rewrap status API is consistent on secondary nodes.&lt;/li&gt;
+&lt;li&gt;core/activity: Include ACME client metrics to precomputed queries [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26519&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26519/hovercard&quot;&gt;GH-26519&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core/activity: Include ACME clients in activity log responses [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26020&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26020/hovercard&quot;&gt;GH-26020&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core/activity: Include ACME clients in vault operator usage response [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26525&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26525/hovercard&quot;&gt;GH-26525&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core/config: reload service registration configuration on SIGHUP [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/17598&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/17598/hovercard&quot;&gt;GH-17598&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core: add deadlock detection in barrier and sealwrap&lt;/li&gt;
+&lt;li&gt;license utilization reporting (enterprise): Add retention months to license utilization reports.&lt;/li&gt;
+&lt;li&gt;proxy/cache (enterprise): Support new configuration parameter for static secret caching, &lt;code&gt;static_secret_token_capability_refresh_behavior&lt;/code&gt;, to control the behavior when the capability refresh request receives an error from Vault.&lt;/li&gt;
+&lt;li&gt;proxy: Proxy will re-trigger auto auth if the token used for requests has been revoked, has exceeded the number of uses,&lt;br&gt;
+or is an otherwise invalid value. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26307&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26307/hovercard&quot;&gt;GH-26307&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;raft/snapshotagent (enterprise): upgrade raft-snapshotagent to v0.0.0-20221104090112-13395acd02c5&lt;/li&gt;
+&lt;li&gt;replication (enterprise): Add replication heartbeat metric to telemetry&lt;/li&gt;
+&lt;li&gt;replication (enterprise): Periodically write current time on the primary to storage, use that downstream to measure replication lag in time, expose that in health and replication status endpoints. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26406&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26406/hovercard&quot;&gt;GH-26406&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;sdk/decompression: DecompressWithCanary will now chunk the decompression in memory to prevent loading it all at once. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26464&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26464/hovercard&quot;&gt;GH-26464&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;sdk/helper/testcluster: add some new helpers, improve some error messages. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/25329&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/25329/hovercard&quot;&gt;GH-25329&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;sdk/helper/testhelpers: add namespace helpers [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/25270&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/25270/hovercard&quot;&gt;GH-25270&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;secrets-sync (enterprise): Added global config path to the administrative namespace.&lt;/li&gt;
+&lt;li&gt;secrets/pki (enterprise): Disable warnings about unknown parameters to the various CIEPS endpoints&lt;/li&gt;
+&lt;li&gt;secrets/pki: Add a new ACME configuration parameter that allows increasing the maximum TTL for ACME leaf certificates [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26797&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26797/hovercard&quot;&gt;GH-26797&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;secrets/transform (enterprise): Add delete by token and delete by plaintext operations to Tokenization.&lt;/li&gt;
+&lt;li&gt;storage/azure: Perform validation on Azure account name and container name [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26135&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26135/hovercard&quot;&gt;GH-26135&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;storage/raft (enterprise): add support for separate entry size limit for mount&lt;br&gt;
+and namespace table paths in storage to allow increased mount table size without&lt;br&gt;
+allowing other user storage entries to become larger. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/25992&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/25992/hovercard&quot;&gt;GH-25992&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;storage/raft: panic on unknown Raft operations [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/25991&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/25991/hovercard&quot;&gt;GH-25991&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui (enterprise): Allow HVD users to access Secrets Sync. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26841&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26841/hovercard&quot;&gt;GH-26841&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui (enterprise): Update dashboard to make activity log query using the same start time as the metrics overview [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26729&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26729/hovercard&quot;&gt;GH-26729&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui (enterprise): Update filters on the custom messages list view. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26653&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26653/hovercard&quot;&gt;GH-26653&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Allow users to wrap inputted data again instead of resetting form [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27289&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27289/hovercard&quot;&gt;GH-27289&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Display ACME clients on a separate page in the UI. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26020&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26020/hovercard&quot;&gt;GH-26020&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Hide dashboard client count card if user does not have permission to view clients. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26848&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26848/hovercard&quot;&gt;GH-26848&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Show computed values from &lt;code&gt;sys/internal/ui/mounts&lt;/code&gt; endpoint for auth mount configuration view [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26663&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26663/hovercard&quot;&gt;GH-26663&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Update PGP display and show error for Generate Operation Token flow with PGP [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26993&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26993/hovercard&quot;&gt;GH-26993&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Update language in Transit secret engine to reflect that not all keys are for encyryption [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27346&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27346/hovercard&quot;&gt;GH-27346&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Update userpass user form to allow setting &lt;code&gt;password_hash&lt;/code&gt; field. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26577&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26577/hovercard&quot;&gt;GH-26577&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: fixes cases where inputs did not have associated labels [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26263&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26263/hovercard&quot;&gt;GH-26263&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: show banner instead of permission denied error when batch token is expired [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26396&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26396/hovercard&quot;&gt;GH-26396&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;website/docs: Add note about eventual consietency with the MongoDB Atlas database secrets engine [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/24152&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/24152/hovercard&quot;&gt;GH-24152&lt;/a&gt;]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;DEPRECATIONS:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Request Limiter Beta(enterprise): This Beta feature added in 1.16 has been&lt;br&gt;
+superseded by Adaptive Overload Protection and will be removed.&lt;/li&gt;
+&lt;li&gt;secrets/azure: Deprecate field &quot;password_policy&quot; as we are not able to set it anymore with the new MS Graph API. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/25637&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/25637/hovercard&quot;&gt;GH-25637&lt;/a&gt;]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;BUG FIXES:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;activity (enterprise): fix read-only storage error on upgrades&lt;/li&gt;
+&lt;li&gt;agent: Correctly constructs kv-v2 secret paths in nested namespaces. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26863&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26863/hovercard&quot;&gt;GH-26863&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;agent: Fixes a high Vault load issue, by restarting the Conusl template server after backing off instead of immediately. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/25497&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/25497/hovercard&quot;&gt;GH-25497&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;agent: &lt;code&gt;vault.namespace&lt;/code&gt; no longer gets incorrectly overridden by &lt;code&gt;auto_auth.namespace&lt;/code&gt;, if set [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26427&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26427/hovercard&quot;&gt;GH-26427&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;api: fixed a bug where LifetimeWatcher routines weren&#39;t respecting exponential backoff in the presence of unexpected errors [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26383&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26383/hovercard&quot;&gt;GH-26383&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;audit: Operator changes to configured audit headers (via &lt;code&gt;/sys/config/auditing&lt;/code&gt;)&lt;br&gt;
+will now force invalidation and be reloaded from storage when data is replicated&lt;br&gt;
+to other nodes.&lt;/li&gt;
+&lt;li&gt;auth/ldap: Fix login error for group search anonymous bind. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26200&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26200/hovercard&quot;&gt;GH-26200&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;auth/ldap: Fix login error missing entity alias attribute value. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26200&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26200/hovercard&quot;&gt;GH-26200&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;auto-auth: Addressed issue where having no permissions to renew a renewable token caused auto-auth to attempt to renew constantly with no backoff [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26844&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26844/hovercard&quot;&gt;GH-26844&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;cli/debug: Fix resource leak in CLI debug command. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26167&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26167/hovercard&quot;&gt;GH-26167&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;cli: fixed a bug where the Vault CLI would error out if&lt;br&gt;
+HOME was not set. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26243&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26243/hovercard&quot;&gt;GH-26243&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core (enterprise): Fix 403s returned when forwarding invalid token to active node from secondary.&lt;/li&gt;
+&lt;li&gt;core (enterprise): Fix an issue that prevented the seal re-wrap status from reporting that a re-wrap is in progress for up to a second.&lt;/li&gt;
+&lt;li&gt;core (enterprise): fix bug where raft followers disagree with the seal type after returning to one seal from two. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26523&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26523/hovercard&quot;&gt;GH-26523&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core (enterprise): fix issue where the Seal HA rewrap system may remain running when an active node steps down.&lt;/li&gt;
+&lt;li&gt;core/audit: Audit logging a Vault request/response will now use a minimum 5 second context timeout.&lt;br&gt;
+If the existing context deadline occurs later than 5s in the future, it will be used, otherwise a&lt;br&gt;
+new context, separate from the original will be used. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26616&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26616/hovercard&quot;&gt;GH-26616&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core/metrics: store cluster name in unencrypted storage to prevent blank cluster name [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26878&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26878/hovercard&quot;&gt;GH-26878&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core/namespace (enterprise): Privileged namespace paths provided in the &lt;code&gt;administrative_namespace_path&lt;/code&gt; config will now be canonicalized.&lt;/li&gt;
+&lt;li&gt;core/seal: During a seal reload through SIGHUP, only write updated seal barrier on an active node [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26381&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26381/hovercard&quot;&gt;GH-26381&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core/seal: allow overriding of VAULT_GCPCKMS_SEAL_KEY_RING and VAULT_GCPCKMS_SEAL_CRYPTO_KEY environment keys in seal-ha&lt;/li&gt;
+&lt;li&gt;core: Add missing field delegated_auth_accessors to GET /sys/mounts/:path API response [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26876&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26876/hovercard&quot;&gt;GH-26876&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core: Address a data race updating a seal&#39;s last seen healthy time attribute [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27014&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27014/hovercard&quot;&gt;GH-27014&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core: Fix &lt;code&gt;redact_version&lt;/code&gt; listener parameter being ignored for some OpenAPI related endpoints. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26607&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26607/hovercard&quot;&gt;GH-26607&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core: Only reload seal configuration when enable_multiseal is set to true. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26166&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26166/hovercard&quot;&gt;GH-26166&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core: when listener configuration &lt;code&gt;chroot_namespace&lt;/code&gt; is active, Vault will no longer report that the configuration is invalid when Vault is sealed&lt;/li&gt;
+&lt;li&gt;events (enterprise): Fix bug preventing subscribing and receiving events within a namepace.&lt;/li&gt;
+&lt;li&gt;events (enterprise): Terminate WebSocket connection when token is revoked.&lt;/li&gt;
+&lt;li&gt;openapi: Fixing approle reponse duration types [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/25510&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/25510/hovercard&quot;&gt;GH-25510&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;openapi: added the missing migrate parameter for the unseal endpoint in vault/logical_system_paths.go [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/25550&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/25550/hovercard&quot;&gt;GH-25550&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;pki: Fix error in cross-signing using ed25519 keys [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27093&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27093/hovercard&quot;&gt;GH-27093&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;plugin/wif: fix a bug where the namespace was not set for external plugins using workload identity federation [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26384&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26384/hovercard&quot;&gt;GH-26384&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;replication (enterprise): fix &quot;given mount path is not in the same namespace as the request&quot; error that can occur when enabling replication for the first time on a secondary cluster&lt;/li&gt;
+&lt;li&gt;replication (enterprise): fixed data integrity issue with the processing of identity aliases causing duplicates to occur in rare cases&lt;/li&gt;
+&lt;li&gt;router: Fix missing lock in MatchingSystemView. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/25191&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/25191/hovercard&quot;&gt;GH-25191&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;secret/database: Fixed race condition where database mounts may leak connections [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26147&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26147/hovercard&quot;&gt;GH-26147&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;secrets-sync (enterprise): Fixed an issue with syncing to target projects in GCP&lt;/li&gt;
+&lt;li&gt;secrets/azure: Update vault-plugin-secrets-azure to 0.17.2 to include a bug fix for azure role creation [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26896&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26896/hovercard&quot;&gt;GH-26896&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;secrets/pki (enterprise): cert_role parameter within authenticators.cert EST configuration handler could not be set&lt;/li&gt;
+&lt;li&gt;secrets/pki: fixed validation bug which rejected ldap schemed URLs in crl_distribution_points. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26477&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26477/hovercard&quot;&gt;GH-26477&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;secrets/transform (enterprise): Fix a bug preventing the use of alternate schemas on PostgreSQL token stores.&lt;/li&gt;
+&lt;li&gt;secrets/transit: Use &#39;hash_algorithm&#39; parameter if present in HMAC verify requests. Otherwise fall back to deprecated &#39;algorithm&#39; parameter. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27211&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27211/hovercard&quot;&gt;GH-27211&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;storage/raft (enterprise): Fix a bug where autopilot automated upgrades could fail due to using the wrong upgrade version&lt;/li&gt;
+&lt;li&gt;storage/raft (enterprise): Fix a regression introduced in 1.15.8 that causes&lt;br&gt;
+autopilot to fail to discover new server versions and so not trigger an upgrade. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27277&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27277/hovercard&quot;&gt;GH-27277&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;storage/raft: prevent writes from impeding leader transfers, e.g. during automated upgrades [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/25390&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/25390/hovercard&quot;&gt;GH-25390&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;transform (enterprise): guard against a panic looking up a token in exportable mode with barrier storage.&lt;/li&gt;
+&lt;li&gt;ui: Do not show resultant-ACL banner when ancestor namespace grants wildcard access. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27263&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27263/hovercard&quot;&gt;GH-27263&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Fix KVv2 cursor jumping inside json editor after initial input. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27120&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27120/hovercard&quot;&gt;GH-27120&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Fix KVv2 json editor to allow null values. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27094&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27094/hovercard&quot;&gt;GH-27094&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Fix a bug where disabling TTL on the AWS credential form would still send TTL value [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27366&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27366/hovercard&quot;&gt;GH-27366&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Fix broken help link in console for the web command. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26858&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26858/hovercard&quot;&gt;GH-26858&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Fix configuration link from Secret Engine list view for Ember engines. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27131&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27131/hovercard&quot;&gt;GH-27131&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Fix link to v2 generic secrets engine from secrets list page. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27019&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27019/hovercard&quot;&gt;GH-27019&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Prevent perpetual loading screen when Vault needs initialization [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26985&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26985/hovercard&quot;&gt;GH-26985&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Refresh model within a namespace on the Secrets Sync overview page. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26790&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26790/hovercard&quot;&gt;GH-26790&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Remove possibility of returning an undefined timezone from date-format helper [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26693&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26693/hovercard&quot;&gt;GH-26693&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Resolved accessibility issues with Web REPL. Associated label and help text with input, added a conditional to show the console/ui-panel only when toggled open, added keyboard focus trap. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26872&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26872/hovercard&quot;&gt;GH-26872&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: fix issue where a month without new clients breaks the client count dashboard [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27352&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27352/hovercard&quot;&gt;GH-27352&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: fixed a bug where the replication pages did not update display when navigating between DR and performance [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26325&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26325/hovercard&quot;&gt;GH-26325&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: fixes undefined start time in filename for downloaded client count attribution csv [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26485&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26485/hovercard&quot;&gt;GH-26485&lt;/a&gt;]&lt;/li&gt;
+&lt;/ul&gt;</content>
+    <author>
+      <name>hc-github-team-es-release-engineering</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/82989873?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/31288958/ent-changelog-1.15.9</id>
+    <updated>2024-05-31T00:52:32+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/hashicorp/vault/releases/tag/ent-changelog-1.15.9"/>
+    <title>v1.15.9+ent</title>
+    <content type="html">&lt;h2&gt;1.15.9 Enterprise&lt;/h2&gt;
+&lt;h3&gt;May 30, 2024&lt;/h3&gt;
+&lt;p&gt;This release is created to share the Vault Enterprise changelog and notify consumers of availability. The attached source and assets do not include Vault Enterprise code and should not be used in place of official Docker &lt;a href=&quot;https://hub.docker.com/r/hashicorp/vault-enterprise/tags&quot; rel=&quot;nofollow&quot;&gt;images&lt;/a&gt; or &lt;a href=&quot;https://releases.hashicorp.com/vault/&quot; rel=&quot;nofollow&quot;&gt;binaries&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;CHANGES:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;auth/jwt: Update plugin to v0.17.3 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27063&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27063/hovercard&quot;&gt;GH-27063&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core: Bump Go version to 1.22.2.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;IMPROVEMENTS:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;secrets/pki (enterprise): Disable warnings about unknown parameters to the various CIEPS endpoints&lt;/li&gt;
+&lt;li&gt;website/docs: Add note about eventual consietency with the MongoDB Atlas database secrets engine [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/24152&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/24152/hovercard&quot;&gt;GH-24152&lt;/a&gt;]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;BUG FIXES:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;activity (enterprise): fix read-only storage error on upgrades&lt;/li&gt;
+&lt;li&gt;core: Address a data race updating a seal&#39;s last seen healthy time attribute [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27014&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27014/hovercard&quot;&gt;GH-27014&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;pki: Fix error in cross-signing using ed25519 keys [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27093&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27093/hovercard&quot;&gt;GH-27093&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;replication (enterprise): fix &quot;given mount path is not in the same namespace as the request&quot; error that can occur when enabling replication for the first time on a secondary cluster&lt;/li&gt;
+&lt;li&gt;secrets/transit: Use &#39;hash_algorithm&#39; parameter if present in HMAC verify requests. Otherwise fall back to deprecated &#39;algorithm&#39; parameter. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27211&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27211/hovercard&quot;&gt;GH-27211&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Fix KVv2 cursor jumping inside json editor after initial input. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27120&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27120/hovercard&quot;&gt;GH-27120&lt;/a&gt;]&lt;/li&gt;
+&lt;/ul&gt;</content>
+    <author>
+      <name>anwittin</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/13701055?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/31288958/ent-changelog-1.14.13</id>
+    <updated>2024-05-31T00:45:23+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/hashicorp/vault/releases/tag/ent-changelog-1.14.13"/>
+    <title>v1.14.13+ent</title>
+    <content type="html">&lt;h2&gt;1.14.13 Enterprise&lt;/h2&gt;
+&lt;h3&gt;May 30, 2024&lt;/h3&gt;
+&lt;p&gt;This release is created to share the Vault Enterprise changelog and notify consumers of availability. The attached source and assets do not include Vault Enterprise code and should not be used in place of official Docker &lt;a href=&quot;https://hub.docker.com/r/hashicorp/vault-enterprise/tags&quot; rel=&quot;nofollow&quot;&gt;images&lt;/a&gt; or &lt;a href=&quot;https://releases.hashicorp.com/vault/&quot; rel=&quot;nofollow&quot;&gt;binaries&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;CHANGES:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;auth/jwt: Update plugin to v0.16.1 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27122&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27122/hovercard&quot;&gt;GH-27122&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core: Bump Go version to 1.22.2.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;IMPROVEMENTS:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;website/docs: Add note about eventual consietency with the MongoDB Atlas database secrets engine [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/24152&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/24152/hovercard&quot;&gt;GH-24152&lt;/a&gt;]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;BUG FIXES:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;activity (enterprise): fix read-only storage error on upgrades&lt;/li&gt;
+&lt;li&gt;pki: Fix error in cross-signing using ed25519 keys [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27093&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27093/hovercard&quot;&gt;GH-27093&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;replication (enterprise): fix &quot;given mount path is not in the same namespace as the request&quot; error that can occur when enabling replication for the first time on a secondary cluster&lt;/li&gt;
+&lt;li&gt;secrets/transit: Use &#39;hash_algorithm&#39; parameter if present in HMAC verify requests. Otherwise fall back to deprecated &#39;algorithm&#39; parameter. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27211&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27211/hovercard&quot;&gt;GH-27211&lt;/a&gt;]&lt;/li&gt;
+&lt;/ul&gt;</content>
+    <author>
+      <name>anwittin</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/13701055?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/31288958/v1.16.3</id>
+    <updated>2024-05-31T00:33:24+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/hashicorp/vault/releases/tag/v1.16.3"/>
+    <title>v1.16.3</title>
+    <content type="html">&lt;h2&gt;1.16.3&lt;/h2&gt;
+&lt;h3&gt;May 30, 2024&lt;/h3&gt;
+&lt;p&gt;CHANGES:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;auth/jwt: Update plugin to v0.20.3 [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26890&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26890/hovercard&quot;&gt;GH-26890&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core/identity: improve performance for secondary nodes receiving identity related updates through replication [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27184&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27184/hovercard&quot;&gt;GH-27184&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core: Bump Go version to 1.22.2.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;IMPROVEMENTS:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;secrets/pki (enterprise): Disable warnings about unknown parameters to the various CIEPS endpoints&lt;/li&gt;
+&lt;li&gt;ui: Update PGP display and show error for Generate Operation Token flow with PGP [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26993&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26993/hovercard&quot;&gt;GH-26993&lt;/a&gt;]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;BUG FIXES:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;activity (enterprise): fix read-only storage error on upgrades&lt;/li&gt;
+&lt;li&gt;auto-auth: Addressed issue where having no permissions to renew a renewable token caused auto-auth to attempt to renew constantly with no backoff [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26844&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26844/hovercard&quot;&gt;GH-26844&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core (enterprise): Fix an issue that prevented the seal re-wrap status from reporting that a re-wrap is in progress for up to a second.&lt;/li&gt;
+&lt;li&gt;core/audit: Audit logging a Vault request/response will now use a minimum 5 second context timeout.&lt;br&gt;
+If the existing context deadline occurs later than 5s in the future, it will be used, otherwise a&lt;br&gt;
+new context, separate from the original will be used. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26616&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26616/hovercard&quot;&gt;GH-26616&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core: Add missing field delegated_auth_accessors to GET /sys/mounts/:path API response [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26876&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26876/hovercard&quot;&gt;GH-26876&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core: Address a data race updating a seal&#39;s last seen healthy time attribute [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27014&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27014/hovercard&quot;&gt;GH-27014&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;core: Fix &lt;code&gt;redact_version&lt;/code&gt; listener parameter being ignored for some OpenAPI related endpoints. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26607&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26607/hovercard&quot;&gt;GH-26607&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;events (enterprise): Fix bug preventing subscribing and receiving events within a namepace.&lt;/li&gt;
+&lt;li&gt;pki: Fix error in cross-signing using ed25519 keys [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27093&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27093/hovercard&quot;&gt;GH-27093&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;replication (enterprise): fix &quot;given mount path is not in the same namespace as the request&quot; error that can occur when enabling replication for the first time on a secondary cluster&lt;/li&gt;
+&lt;li&gt;secrets-sync (enterprise): Secondary nodes in a cluster now properly check activation-flags values.&lt;/li&gt;
+&lt;li&gt;secrets/azure: Update vault-plugin-secrets-azure to 0.17.2 to include a bug fix for azure role creation [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26896&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26896/hovercard&quot;&gt;GH-26896&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;secrets/pki (enterprise): cert_role parameter within authenticators.cert EST configuration handler could not be set&lt;/li&gt;
+&lt;li&gt;secrets/transit: Use &#39;hash_algorithm&#39; parameter if present in HMAC verify requests. Otherwise fall back to deprecated &#39;algorithm&#39; parameter. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27211&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27211/hovercard&quot;&gt;GH-27211&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Fix KVv2 cursor jumping inside json editor after initial input. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27120&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27120/hovercard&quot;&gt;GH-27120&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Fix KVv2 json editor to allow null values. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27094&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27094/hovercard&quot;&gt;GH-27094&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Fix broken help link in console for the web command. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26858&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26858/hovercard&quot;&gt;GH-26858&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Fix link to v2 generic secrets engine from secrets list page. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/27019&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/27019/hovercard&quot;&gt;GH-27019&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Prevent perpetual loading screen when Vault needs initialization [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26985&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26985/hovercard&quot;&gt;GH-26985&lt;/a&gt;]&lt;/li&gt;
+&lt;li&gt;ui: Refresh model within a namespace on the Secrets Sync overview page. [&lt;a href=&quot;https://github.com/hashicorp/vault/pull/26790&quot; data-hovercard-type=&quot;pull_request&quot; data-hovercard-url=&quot;/hashicorp/vault/pull/26790/hovercard&quot;&gt;GH-26790&lt;/a&gt;]&lt;/li&gt;
+&lt;/ul&gt;</content>
+    <author>
+      <name>hc-github-team-es-release-engineering</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/82989873?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/31288958/v1.17.0-rc1</id>
+    <updated>2024-05-29T22:58:51+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/hashicorp/vault/releases/tag/v1.17.0-rc1"/>
+    <title>v1.17.0-rc1</title>
+    <content type="html">&lt;p&gt;[VAULT-27613] This is an automated pull request to build all artifact…&lt;/p&gt;
+
+&lt;p&gt;…s for a release (&lt;a class=&quot;issue-link js-issue-link&quot; href=&quot;https://github.com/hashicorp/vault/pull/27253&quot;&gt;#27253&lt;/a&gt;)&lt;/p&gt;</content>
+    <author>
+      <name>hc-github-team-es-release-engineering</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/82989873?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/31288958/sdk/v0.13.0</id>
+    <updated>2024-05-23T17:00:55+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/hashicorp/vault/releases/tag/sdk%2Fv0.13.0"/>
+    <title>sdk/v0.13.0: update vault auth submodules to api/v1.14.0 (#27190)</title>
+    <content type="html">&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;update vault auth submodules to api/v1.14.0&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;go mod tidy in repo root&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</content>
+    <author>
+      <name>peteski22</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/487783?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/31288958/api/auth/userpass/v0.7.0</id>
+    <updated>2024-05-23T17:00:55+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/hashicorp/vault/releases/tag/api%2Fauth%2Fuserpass%2Fv0.7.0"/>
+    <title>api/auth/userpass/v0.7.0: update vault auth submodules to api/v1.14.0 (#27190)</title>
+    <content type="html">&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;update vault auth submodules to api/v1.14.0&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;go mod tidy in repo root&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</content>
+    <author>
+      <name>peteski22</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/487783?s=60&amp;v=4"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/31288958/api/auth/ldap/v0.7.0</id>
+    <updated>2024-05-23T17:00:55+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://github.com/hashicorp/vault/releases/tag/api%2Fauth%2Fldap%2Fv0.7.0"/>
+    <title>api/auth/ldap/v0.7.0: update vault auth submodules to api/v1.14.0 (#27190)</title>
+    <content type="html">&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;update vault auth submodules to api/v1.14.0&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;go mod tidy in repo root&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</content>
+    <author>
+      <name>peteski22</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="https://avatars.githubusercontent.com/u/487783?s=60&amp;v=4"/>
+  </entry>
+</feed>

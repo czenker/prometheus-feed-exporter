@@ -1,0 +1,684 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>security on Grafana Labs</title><link>https://grafana.com/tags/security/</link><description>Recent content in security on Grafana Labs</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 27 Jun 2024 00:00:00 +0000</lastBuildDate><atom:link href="/tags/security/index.xml" rel="self" type="application/rss+xml"/><item><title>Grafana security update: Grafana Loki and unintended data write attempts to Amazon S3 buckets</title><link>https://grafana.com/blog/2024/06/27/grafana-security-update-grafana-loki-and-unintended-data-write-attempts-to-amazon-s3-buckets/</link><pubDate>Thu, 27 Jun 2024 00:00:00 +0000</pubDate><guid>https://grafana.com/blog/2024/06/27/grafana-security-update-grafana-loki-and-unintended-data-write-attempts-to-amazon-s3-buckets/</guid><description>&lt;blockquote>
+&lt;p>Editor&amp;rsquo;s note: We have updated the copy to reflect changes from our partners at Google. (June 27 19:00 UTC)&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;em>Out of an abundance of caution, we are publishing this as a security advisory.&lt;/em>&lt;/p>
+&lt;p>You may have read or heard about the Medium blog post, &amp;ldquo;&lt;a href="https://medium.com/@maciej.pocwierz/how-an-empty-s3-bucket-can-make-your-aws-bill-explode-934a383cb8b1" target="_blank" rel="noopener noreferrer">How an empty S3 bucket can make your AWS bill explode&lt;/a>,&amp;rdquo; which described how unauthorized write attempts to an Amazon S3 storage bucket led to a $1,300 bill, and the news that AWS subsequently made a change to S3 in which unauthorized requests that customers did not initiate are free of charge. In the initial report, &lt;a href="https://medium.com/@maciej.pocwierz?source=post_page-----934a383cb8b1--------------------------------" target="_blank" rel="noopener noreferrer">Maciej Pocwierz&lt;/a> said that the unauthorized writes were the result of an unnamed open source project&amp;rsquo;s default configuration for storing backups in S3 buckets.&lt;/p>
+&lt;p>The open source project in question is Grafana Loki, our log aggregation tool. Part of the root cause was the use of the default value &lt;code>chunks&lt;/code> in our &lt;a href="/docs/loki/latest/setup/install/helm/?pg=blog&amp;amp;plcmt=body-txt">Loki Helm chart&lt;/a> for convenience when using MinIO. When Maciej created an AWS bucket named &lt;code>chunks&lt;/code>, it appeared as a valid target for other AWS customers. This bucket was created without world-writeable permissions, but the rejected write attempts were still billed.&lt;/p>
+&lt;p>In response to the issue, we have updated the Loki Helm chart to remove default bucket names except when using MinIO.&lt;/p>
+&lt;p>Now that our investigation has concluded, we are publishing this blog post. We&amp;rsquo;d like to thank Maciej for responsibly disclosing this issue to us via our &lt;a href="https://app.intigriti.com/programs/grafanalabs/grafanaossbbp/detail" target="_blank" rel="noopener noreferrer">bug bounty program&lt;/a>.&lt;/p>
+&lt;h2 id="who-is-impacted">Who is impacted&lt;/h2>
+&lt;p>AWS supports bucket namespaces that go beyond organizational boundaries; therefore, third parties can create a bucket name that appears as a valid target to others and you. We have worked with AWS to confirm that these default bucket names are currently claimed by legitimate entities and have been configured in a way that does not allow for data collection. Out of an abundance of caution, we advise that users with Loki or Grafana Enterprise Logs (GEL) deployments on AWS upgrade their Helm charts or change the names of their buckets, as outlined in the solutions and mitigations section below.&lt;/p>
+&lt;p>Google Cloud supports globally unique bucket namespaces. We have worked with Google to confirm that Google Cloud users have not been impacted. Out of an abundance of caution, we advise that users with Loki or GEL deployments on Google Cloud upgrade their Helm charts or change the names of their buckets, as outlined in the solutions and mitigations section.&lt;/p>
+&lt;p>Microsoft Azure does not support bucket namespaces that go beyond organizational boundaries, so users who have Loki or GEL deployments on Azure are &lt;strong>not affected&lt;/strong>.&lt;/p>
+&lt;p>Grafana Cloud customers are &lt;strong>not affected&lt;/strong>.&lt;/p>
+&lt;h2 id="background">Background&lt;/h2>
+&lt;p>Loki stores its data in an S3-compatible object storage. For convenience in local installations, the Loki Helm chart contained default values for a local MinIO installation.&lt;/p>
+&lt;p>&lt;a href="https://medium.com/@maciej.pocwierz?source=post_page-----934a383cb8b1--------------------------------" target="_blank" rel="noopener noreferrer">Maciej Pocwierz&lt;/a>, a Senior Software Engineer at &lt;a href="https://www.semantive.com/" target="_blank" rel="noopener noreferrer">Semantive&lt;/a> and the author of &amp;ldquo;&lt;a href="https://medium.com/@maciej.pocwierz/how-an-empty-s3-bucket-can-make-your-aws-bill-explode-934a383cb8b1" target="_blank" rel="noopener noreferrer">How an empty S3 bucket can make your AWS bill explode&lt;/a>,&amp;rdquo; reported that he incurred $1,300 in charges for unauthorized write attempts. In configuring his S3 storage, he used the same name as the Loki Helm chart default. This created a data path within AWS that Loki clusters could attempt to write to if those clusters were installed via Helm using the default bucket configuration. According to Maciej, he later made his bucket world-writeable for 30 seconds and collected roughly 10GB of data. He reached out to companies that were the source of this data, but at the time he published his blog post, he had not heard back.&lt;/p>
+&lt;p>AWS has since &lt;a href="https://aws.amazon.com/about-aws/whats-new/2024/05/amazon-s3-no-charge-http-error-codes/" target="_blank" rel="noopener noreferrer">announced a billing change for Amazon S3&lt;/a>, and no longer charges for any unauthorized PUT requests from outside their AWS account or AWS organization.&lt;/p>
+&lt;p>Prior to this point, any Loki or GEL deployments running with these default bucket names on AWS didn’t have a valid write target. These clusters could query locally cached data only, which would have made the cluster largely useless. As such, we have relatively high confidence that no one would have run an unconfigured cluster for long, not even as a trial.&lt;/p>
+&lt;h2 id="impacted-versions">Impacted versions&lt;/h2>
+&lt;p>Loki Helm charts for Grafana Loki and Grafana Enterprise Logs from 3.0.0 until 5.47.2, and additionally 6.0.0&lt;/p>
+&lt;p>As a functional check: The default buckets in the Helm chart are not configured for global writes, so clusters in this misconfigured state can only return data from the last two hours. As such, clusters that return more than two hours of data are unlikely to be impacted.&lt;/p>
+&lt;h2 id="patched-versions">Patched versions&lt;/h2>
+&lt;p>Loki Helm charts for Grafana Loki and Grafana Enterprise Logs version &lt;a href="https://github.com/grafana/helm-charts/releases/download/helm-loki-5.48.0/loki-5.48.0.tgz" target="_blank" rel="noopener noreferrer">5.48.0&lt;/a> and &lt;a href="https://github.com/grafana/helm-charts/releases/download/helm-loki-6.1.0/loki-6.1.0.tgz" target="_blank" rel="noopener noreferrer">6.1.0&lt;/a> have been patched.&lt;/p>
+&lt;h2 id="solutions-and-mitigations">Solutions and mitigations&lt;/h2>
+&lt;p>There are several solutions:&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Upgrade the Loki Helm chart to version &lt;a href="https://github.com/grafana/helm-charts/releases/download/helm-loki-5.48.0/loki-5.48.0.tgz" target="_blank" rel="noopener noreferrer">5.48.0&lt;/a> or to &lt;a href="https://github.com/grafana/helm-charts/releases/download/helm-loki-6.1.0/loki-6.1.0.tgz" target="_blank" rel="noopener noreferrer">6.1.0&lt;/a> or higher.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="/docs/loki/latest/setup/install/helm/configure-storage/">Configure your storage&lt;/a>: In your &lt;code>values.yaml&lt;/code>, change all that apply to your instance to the below:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>loki.storage.bucketNames.chunks&lt;/code> away from &lt;code>chunks&lt;/code>&lt;/li>
+&lt;li>&lt;code>loki.storage.bucketNames.ruler&lt;/code> away from &lt;code>ruler&lt;/code>&lt;/li>
+&lt;li>&lt;code>loki.storage.bucketNames.admin&lt;/code> away from &lt;code>admin&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;p>The upstream fix was to no longer provide default values in the Loki Helm chart. The Loki Helm chart will only configure MinIO default values when the user spins up a MinIO instance.&lt;/p>
+&lt;p>For contracted customers, we have reached out to help mitigate any issues.&lt;/p>
+&lt;h2 id="timeline">Timeline&lt;/h2>
+&lt;p>All times in UTC&lt;/p>
+&lt;p>2024-04-09 15:34: Maciej Pocwierz reported to Grafana Labs via our bug bounty program.&lt;br />
+2024-04-09 17:04: Report triaged.&lt;br />
+2024-04-09 17:04: Escalated to the Loki team to investigate and confirm.&lt;br />
+2024-04-09 19:27: Incident declared.&lt;br />
+2024-04-09 20:32: Partial replication by Loki team.&lt;br />
+2024-04-09 22:35: PR merged to Loki Helm chart version 6.1.0 fixing the issue.&lt;br />
+2024-04-09 22:35: Loki Helm chart version 6.1.0 released.&lt;br />
+2024-04-10 19:01: AWS and Google Cloud contacted.&lt;br />
+2024-04-11 06:24: AWS confirmed all unauthorized third party requests other than 5xx are billed.&lt;br />
+2024-05-03 01:28: Google Cloud confirmed failed requests are not billed.&lt;br />
+2024-05-06 15:43: PR merged to Loki Helm chart version 5.48.0 fixing the issue.&lt;br />
+2024-05-06 15:43: Loki Helm chart version 5.48.0 released.&lt;br />
+2024-05-08 14:20: Google Cloud confirmed that the buckets are claimed by legitimate entities and have been configured in a way that prevents data collection.&lt;br />
+2024-05-13 17:30: AWS made a change to Amazon S3 in which unauthorized requests that customers did not initiate are free of charge.&lt;br />
+2024-05-31 17:43: AWS confirmed that the buckets are claimed by legitimate entities and have been configured in a way that does not allow for data collection.&lt;br />
+2024-06-27 05:30: All cloud partner reviews of this blog post finished.&lt;br />
+2024-06-27 17:00: Blog published.&lt;br />
+2024-06-27 19:00: Blog updated to reflect changes from our partners at Google.&lt;/p>
+&lt;h2 id="reporting-security-issues">Reporting security issues&lt;/h2>
+&lt;p>If you think you have found a security vulnerability, please go to our &lt;a href="/legal/report-a-security-issue/?pg=blog&amp;amp;plcmt=body-txt">Report a security issue page&lt;/a> to learn how to send a security report.&lt;/p>
+&lt;p>Grafana Labs will send you a response indicating the next steps in handling your report. After the initial reply to your report, the security team will keep you informed of the progress towards a fix and full announcement, and may ask for additional information or guidance.&lt;/p>
+&lt;p>&lt;em>Important: We ask you to not disclose the vulnerability before it has been fixed and announced, unless you received a response from the Grafana Labs security team that you can do so.&lt;/em>&lt;/p>
+&lt;h2 id="security-announcements">Security announcements&lt;/h2>
+&lt;p>We maintain a &lt;a href="/tags/security/?pg=blog&amp;amp;plcmt=body-txt">security category&lt;/a> on our blog, where we will always post a summary, remediation, and mitigation details for any patch containing security fixes. You can also subscribe to our &lt;a href="/tags/security/index.xml">RSS feed&lt;/a>.&lt;/p></description></item><item><title>Data source security in Grafana: Best practices and what to avoid</title><link>https://grafana.com/blog/2024/05/06/data-source-security-in-grafana-best-practices-and-what-to-avoid/</link><pubDate>Mon, 06 May 2024 00:00:00 +0000</pubDate><guid>https://grafana.com/blog/2024/05/06/data-source-security-in-grafana-best-practices-and-what-to-avoid/</guid><description>&lt;p>Recently, an incorrect security report was published, claiming that there’s a SQL injection attack in Grafana. As we have communicated to the security researcher, this report is wrong. Authenticated users in Grafana have the same permissions as the user configured for the underlying data source. This is not a security issue, but is in fact the intended and &lt;a href="/docs/grafana/latest/administration/data-source-management/#data-source-permissions">documented behavior&lt;/a> for authenticated users, and foundational to both Grafana&amp;rsquo;s &amp;ldquo;big tent&amp;rdquo; strategy and the high performance of Grafana.&lt;/p>
+&lt;p>Since this has been a point of confusion for users, we wanted to create a public resource explaining how credentials and permissions in Grafana interact, and sharing best practices for data source security in Grafana.&lt;/p>
+&lt;h2 id="how-grafana-data-sources-work">How Grafana data sources work&lt;/h2>
+&lt;p>Grafana can visualize data from almost any data store. We achieve this through our &amp;ldquo;big tent&amp;rdquo; approach, actively prioritizing interoperability with everyone, even direct competitors. To query data, Grafana&amp;rsquo;s &amp;ldquo;data sources&amp;rdquo; are allowed access to those third-party data stores. As every time when data is being accessed, it’s a good idea to be precisely aware of how things work.&lt;/p>
+&lt;p>Part of the power and speed of Grafana comes from the fact that the data source builds a data pipeline. Grafana does not require you to copy or store data elsewhere. The initial data storage remains the ultimate source of truth with no risk of data divergence over time. For example, this is why we are seeing so much Business Intelligence uptake: No need to export data into Excel/Google Sheets and have a copy that’s instantly stale.&lt;/p>
+&lt;p>There are two fundamental ways to access and subsequently display data through Grafana: Anonymous and authenticated access. Anonymous access uses a more locked down and slower data path; this data path is out of scope for this blog post. Authenticated users are split into roughly three groups:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Viewer:&lt;/strong> Able to view all data which a specific data source has access to&lt;/li>
+&lt;li>&lt;strong>Editor:&lt;/strong> Able to create, edit, and delete panels, dashboards, and data sources for everyone&lt;/li>
+&lt;li>&lt;strong>Admin:&lt;/strong> Able to make changes to how the whole instance is being run&lt;/li>
+&lt;/ul>
+&lt;p>You can find more details in our &lt;a href="/docs/grafana/latest/administration/data-source-management/#data-source-permissions">data source permissions documentation&lt;/a>.&lt;/p>
+&lt;p>As more users keep adopting Grafana, we sometimes see confusion about what “Viewer” means. In simple terms: An authenticated Viewer can do everything the data source is configured to allow. Panels and dashboards are shortcuts for convenient access; they do not replace the data source’s controls and permissions. For example, if the SQL user configured for a data source is allowed to &lt;code>SELECT *&lt;/code>, &lt;code>DELETE&lt;/code>, and &lt;code>DROP&lt;/code>, the whole data source and by extension all authenticated Viewers, Editors, and Admins can &lt;code>SELECT *&lt;/code>, &lt;code>DELETE&lt;/code>, and &lt;code>DROP&lt;/code>.&lt;/p>
+&lt;p>This is the intended and documented behavior for authenticated users, and foundational to both the &amp;ldquo;big tent&amp;rdquo; and the high performance of Grafana.&lt;/p>
+&lt;p>We will walk through more examples and current best practices in the next sections.&lt;/p>
+&lt;h2 id="a-closer-look-at-credentials-and-permissions-in-grafana">A closer look at credentials and permissions in Grafana&lt;/h2>
+&lt;p>Using a web browser’s developer tools, it is trivial for anyone viewing a dashboard to see the raw query sent to the data source, and to construct their own query. If you configure data sources in Grafana, you are responsible for ensuring that the credentials that the data source is configured with only have access to the data you intend viewers to access. &lt;/p>
+&lt;p>&lt;a href="/docs/grafana/latest/administration/data-source-management/">By default&lt;/a>, data sources available in a Grafana instance can be queried by any user who can access that instance. To restrict access to data sources:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Grafana Enterprise&lt;/strong> and &lt;strong>Grafana Cloud&lt;/strong> customers can make use of &lt;a href="/docs/grafana/latest/administration/data-source-management/#data-source-permissions">data source permissions&lt;/a> and &lt;a href="/docs/grafana/latest/administration/roles-and-permissions/access-control/#role-based-access-control-rbac">role-based access controls&lt;/a>. (Grafana Loki data sources can also use &lt;a href="/docs/grafana/latest/administration/data-source-management/teamlbac/#team-lbac">team label-based access controls&lt;/a>.)&lt;/li>
+&lt;li>&lt;strong>Grafana Enterprise&lt;/strong> and &lt;strong>OSS&lt;/strong> users can use &lt;a href="/docs/grafana/latest/administration/team-management/">team management&lt;/a>.  &lt;/li>
+&lt;/ul>
+&lt;p>However, remember that these features cannot restrict what queries a user with &lt;code>query&lt;/code> permission to a data source can actually execute. &lt;/p>
+&lt;h3 id="limiting-the-credentials-capabilities-on-the-data-stores-side">Limiting the credential&amp;rsquo;s capabilities on the data store&amp;rsquo;s side&lt;/h3>
+&lt;p>You need to take even more care with data sources with query languages that permit the alteration of data, such as SQL. To help users avoid mistakes here, we include an explicit warning in the configuration page for all SQL data sources.&lt;/p>
+&lt;figure
+class="figure-wrapper figure-wrapper__lightbox w-100p "
+style="max-width: 1600px;"
+itemprop="associatedMedia"
+itemscope=""
+itemtype="http://schema.org/ImageObject"
+>
+&lt;a
+class="lightbox-link"
+href="/media/blog/sql-data-sources-warning-configuration-page-1.png"
+itemprop="contentUrl"
+>
+&lt;div class="img-wrapper w-100p h-auto">&lt;img
+class="lazyload "
+data-src="/media/blog/sql-data-sources-warning-configuration-page-1.png"data-srcset="/media/blog/sql-data-sources-warning-configuration-page-1.png?w=320 320w, /media/blog/sql-data-sources-warning-configuration-page-1.png?w=550 550w, /media/blog/sql-data-sources-warning-configuration-page-1.png?w=750 750w, /media/blog/sql-data-sources-warning-configuration-page-1.png?w=900 900w, /media/blog/sql-data-sources-warning-configuration-page-1.png?w=1040 1040w, /media/blog/sql-data-sources-warning-configuration-page-1.png?w=1240 1240w, /media/blog/sql-data-sources-warning-configuration-page-1.png?w=1920 1920w"
+data-sizes="auto"alt="Warning in the configuration page for all SQL data sources. "
+width="1600"
+height="1193"
+/>
+&lt;noscript>
+&lt;img
+src="/media/blog/sql-data-sources-warning-configuration-page-1.png"
+alt="Warning in the configuration page for all SQL data sources. "
+width="1600"
+height="1193"
+/>
+&lt;/noscript>&lt;/div>
+&lt;/a>
+&lt;/figure>
+&lt;p>If you chain a badly configured data source with other weakened security settings, such as allowing anonymous access, it could be disastrous, allowing anyone able to reach your Grafana instance the ability to run something like &lt;code>DROP TABLE users&lt;/code>. As a best practice, SQL credentials used for data sources should never have &lt;code>INSERT&lt;/code>, &lt;code>UPDATE&lt;/code>, or &lt;code>DROP&lt;/code> permissions enabled.&lt;/p>
+&lt;p>We encourage all Grafana Administrators to periodically review the credentials that their data sources are configured with and ensure they are still appropriate. Grafana on-prem administrators should also review the &lt;a href="/docs/grafana/latest/setup-grafana/configure-security/">security documentation&lt;/a> and the Grafana ini file to ensure their configuration meets their security requirements. &lt;/p>
+&lt;h3 id="limiting-allowed-queries-using-public-dashboards">Limiting allowed queries using Public dashboards&lt;/h3>
+&lt;p>There is one feature that is related: &lt;a href="/docs/grafana/latest/dashboards/dashboard-public/">Public dashboards&lt;/a>. If you are happy to share your dashboard publicly, the query execution is limited to the exact queries that are in the dashboard. The queries are stored on the server, and the user cannot modify them.&lt;/p>
+&lt;h3 id="limiting-query-exploration-in-grafana-explore">Limiting query exploration in Grafana Explore&lt;/h3>
+&lt;p>Grafana has a central place to write your own queries to get to know your data stores; it&amp;rsquo;s called Explore. By design, any query that the data source&amp;rsquo;s credentials allow, is also allowed to be sent. Check the &lt;a href="/docs/grafana/latest/explore/">documentation&lt;/a> on how to limit access to Explore. If you know that quickly iterating on your queries is not part of any of your workflows, you can also completely disable Explore in Grafana&amp;rsquo;s config file.&lt;/p>
+&lt;h2 id="further-questions">Further questions&lt;/h2>
+&lt;p>Grafana Labs customers who have any questions on this topic should open a support ticket. &lt;/p>
+&lt;p>Community users can reach out in the &lt;a href="https://community.grafana.com/" target="_blank" rel="noopener noreferrer">Grafana Community Forum&lt;/a>. &lt;/p>
+&lt;h2 id="reporting-security-issues">Reporting security issues&lt;/h2>
+&lt;p>If you think you have found a security vulnerability, please go to our &lt;a href="/legal/report-a-security-issue/?pg=blog&amp;amp;plcmt=body-txt">Report a security issue page&lt;/a> to learn how to send a security report.&lt;/p>
+&lt;p>Grafana Labs will send you a response indicating the next steps in handling your report. After the initial reply to your report, the security team will keep you informed of the progress towards a fix and full announcement, and may ask for additional information or guidance.&lt;/p>
+&lt;p>&lt;em>Important: We ask you to not disclose the vulnerability before it has been fixed and announced, unless you received a response from the Grafana Labs security team that you can do so.&lt;/em>&lt;/p>
+&lt;h2 id="security-announcements">Security announcements&lt;/h2>
+&lt;p>We maintain a &lt;a href="/tags/security/">security category&lt;/a> on our blog where we will always post a summary, remediation, and mitigation details for any patch containing security fixes. You can also subscribe to our &lt;a href="/tags/security/index.xml">RSS feed&lt;/a>.&lt;/p></description></item><item><title>Grafana Cloud security: Three common cloud security myths debunked</title><link>https://grafana.com/blog/2024/04/10/grafana-cloud-security-three-common-cloud-security-myths-debunked/</link><pubDate>Wed, 10 Apr 2024 13:38:00 +0000</pubDate><guid>https://grafana.com/blog/2024/04/10/grafana-cloud-security-three-common-cloud-security-myths-debunked/</guid><description>&lt;p>Grafana Cloud offers organizations an end-to-end observability platform, without the overhead of building and maintaining their own observability stack. We’re constantly &lt;a href="/blog/2024/03/20/grafana-cloud-updates-cool-visualizations-log-monitoring-made-easier-simplified-alert-routing/">shipping new Grafana Cloud features&lt;/a> to ensure users get the most out of the fully managed platform, which is powered by our open source Grafana LGTM Stack (&lt;a href="/oss/loki/?pg=blog&amp;amp;plcmt=body-txt">Loki&lt;/a> for logs, &lt;a href="/oss/grafana?pg=blog&amp;amp;plcmt=body-txt">Grafana&lt;/a> for visualization, &lt;a href="/oss/tempo/?pg=blog&amp;amp;plcmt=body-txt">Tempo&lt;/a> for traces, and &lt;a href="/oss/mimir/?pg=blog&amp;amp;plcmt=body-txt">Mimir&lt;/a> for metrics).&lt;/p>
+&lt;p>But despite all the benefits and powerful capabilities that Grafana Cloud provides, we still get questions (rightfully so) from prospective users about whether a cloud-hosted platform is secure enough for sensitive data and critical operations. &lt;/p>
+&lt;p>The short answer is &lt;em>yes&lt;/em>, but we hear you. That’s why, in this blog post, we want to outline — and debunk — three common security myths we’ve heard about cloud platforms, and explain how Grafana Labs is committed to maintaining the highest standards of data privacy and security in Grafana Cloud.&lt;/p>
+&lt;h2 id="debunking-cloud-security-myths">Debunking cloud security myths &lt;/h2>
+&lt;h3 id="myth-1-in-a-multi-tenant-environment-theres-a-risk-of-my-confidential-data-being-accessed-by-others">Myth 1: In a multi-tenant environment, there’s a risk of my confidential data being accessed by others.&lt;/h3>
+&lt;blockquote>
+&lt;p>&lt;strong>The facts&lt;/strong>: Even in a multi-tenant environment, your data is isolated and protected. You can trust the barriers that keep your information private.&lt;/p>
+&lt;/blockquote>
+&lt;p>Grafana Cloud employs multi-tenancy for database backends Mimir, Loki, and Tempo. Data is separated using a tenant ID on all read and write operations, managed through the X-Scope-OrgID header. This ensures dedicated storage and access pathways for each tenant&amp;rsquo;s data.&lt;/p>
+&lt;p>To prevent cross-tenant data access, Grafana Cloud&amp;rsquo;s gateway and authentication services validate your credentials against the tenant ID. Only after verification does the system grant access to the relevant database. You can define granular access policies for your tenants and issue tokens that further scope access, ensuring that queries only return data associated with the correct tenant token.&lt;/p>
+&lt;p>Each database instance, or “cell,” is allocated a unique object storage bucket. Within these buckets, all objects are tagged with the tenant ID, which guarantees that data belonging to one tenant is stored and retrieved independently of others.&lt;/p>
+&lt;p>This architecture ensures that your data in Grafana Cloud remains secure and isolated, upholding strict data confidentiality across a shared environment.&lt;/p>
+&lt;figure
+class="figure-wrapper figure-wrapper__lightbox w-100p "
+style="max-width: 960px;"
+itemprop="associatedMedia"
+itemscope=""
+itemtype="http://schema.org/ImageObject"
+>
+&lt;a
+class="lightbox-link"
+href="/media/blog/grafana-cloud-myths/grafana-cloud-myths-multi-tenancy.png"
+itemprop="contentUrl"
+>
+&lt;div class="img-wrapper w-100p h-auto">&lt;img
+class="lazyload "
+data-src="/media/blog/grafana-cloud-myths/grafana-cloud-myths-multi-tenancy.png"data-srcset="/media/blog/grafana-cloud-myths/grafana-cloud-myths-multi-tenancy.png?w=320 320w, /media/blog/grafana-cloud-myths/grafana-cloud-myths-multi-tenancy.png?w=550 550w, /media/blog/grafana-cloud-myths/grafana-cloud-myths-multi-tenancy.png?w=750 750w, /media/blog/grafana-cloud-myths/grafana-cloud-myths-multi-tenancy.png?w=900 900w, /media/blog/grafana-cloud-myths/grafana-cloud-myths-multi-tenancy.png?w=1040 1040w, /media/blog/grafana-cloud-myths/grafana-cloud-myths-multi-tenancy.png?w=1240 1240w, /media/blog/grafana-cloud-myths/grafana-cloud-myths-multi-tenancy.png?w=1920 1920w"
+data-sizes="auto"alt="A diagram of a multi-tenant architecture."
+width="960"
+height="540"
+/>
+&lt;noscript>
+&lt;img
+src="/media/blog/grafana-cloud-myths/grafana-cloud-myths-multi-tenancy.png"
+alt="A diagram of a multi-tenant architecture."
+width="960"
+height="540"
+/>
+&lt;/noscript>&lt;/div>
+&lt;/a>
+&lt;/figure>
+&lt;h3 id="myth-2-ill-need-to-expose-ip-address-ranges-in-order-to-integrate-and-visualize-data-from-private-data-sources-hosted-either-on-premises-or-within-a-virtual-private-cloud-vpc">Myth 2: I’ll need to expose IP address ranges in order to integrate and visualize data from private data sources, hosted either on premises or within a virtual private cloud (VPC).&lt;/h3>
+&lt;blockquote>
+&lt;p>&lt;strong>The facts:&lt;/strong> When you bring your private data sources into Grafana Cloud, your IP ranges stay private. You benefit from secure, encrypted connections that prioritize your data’s confidentiality.&lt;/p>
+&lt;/blockquote>
+&lt;p>You might be concerned about visualizing sensitive data sources from on premises or a VPC in Grafana Cloud, especially if it means whitelisting wide IP address ranges. Grafana Cloud addresses this through a capability called &lt;a href="/docs/grafana-cloud/connect-externally-hosted/private-data-source-connect/">Private data source connect (PDC)&lt;/a>, which enables you to &lt;a href="https://youtu.be/9pnf2U3KhG4?feature=shared" target="_blank" rel="noopener noreferrer">forge a secure connection between your private networks and your Grafana Cloud stack&lt;/a>. &lt;/p>
+&lt;p>This allows you to securely visualize and alert on your data without the need to expose a swath of IP addresses.&lt;/p>
+&lt;figure
+class="figure-wrapper figure-wrapper__lightbox w-100p "
+style="max-width: 1520px;"
+itemprop="associatedMedia"
+itemscope=""
+itemtype="http://schema.org/ImageObject"
+>
+&lt;a
+class="lightbox-link"
+href="/media/blog/grafana-cloud-myths/grafana-cloud-myths-PDC.png"
+itemprop="contentUrl"
+>
+&lt;div class="img-wrapper w-100p h-auto">&lt;img
+class="lazyload "
+data-src="/media/blog/grafana-cloud-myths/grafana-cloud-myths-PDC.png"data-srcset="/media/blog/grafana-cloud-myths/grafana-cloud-myths-PDC.png?w=320 320w, /media/blog/grafana-cloud-myths/grafana-cloud-myths-PDC.png?w=550 550w, /media/blog/grafana-cloud-myths/grafana-cloud-myths-PDC.png?w=750 750w, /media/blog/grafana-cloud-myths/grafana-cloud-myths-PDC.png?w=900 900w, /media/blog/grafana-cloud-myths/grafana-cloud-myths-PDC.png?w=1040 1040w, /media/blog/grafana-cloud-myths/grafana-cloud-myths-PDC.png?w=1240 1240w, /media/blog/grafana-cloud-myths/grafana-cloud-myths-PDC.png?w=1920 1920w"
+data-sizes="auto"alt="A diagram showing how PDC works with Grafana Cloud."
+width="1520"
+height="1956"
+/>
+&lt;noscript>
+&lt;img
+src="/media/blog/grafana-cloud-myths/grafana-cloud-myths-PDC.png"
+alt="A diagram showing how PDC works with Grafana Cloud."
+width="1520"
+height="1956"
+/>
+&lt;/noscript>&lt;/div>
+&lt;/a>
+&lt;/figure>
+&lt;h3 id="myth-3-cloud-platforms-in-general-dont-meet-the-same-rigorous-security-standards-as-on-premises-systems">Myth 3: Cloud platforms, in general, don’t meet the same rigorous security standards as on-premises systems.&lt;/h3>
+&lt;blockquote>
+&lt;p>&lt;strong>The facts:&lt;/strong> With Grafana Cloud, your data benefits from the latest security practices to keep your information safe.&lt;/p>
+&lt;/blockquote>
+&lt;p>Grafana Cloud undergoes annual audits by external specialists to achieve both &lt;a href="https://www.iso.org/standard/27001" target="_blank" rel="noopener noreferrer">ISO 27001:2022&lt;/a> and &lt;a href="https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2" target="_blank" rel="noopener noreferrer">SOC II Type 2&lt;/a> certifications. These certifications reflect our commitment to the highest standards of security practices, adhering to a proven industry framework encompassing security, availability, processing integrity, confidentiality, and privacy.&lt;/p>
+&lt;p>The SOC II Type 2 certification, particularly, signifies operational consistency and reliability over time. It means that Grafana Cloud is regularly audited in detail, with security measures evaluated over a 12-month period by A-Lign Assurance, the premier firm in SOC reporting worldwide. For an in-depth look at our security practices, our latest &lt;a href="https://trust.grafana.com/" target="_blank" rel="noopener noreferrer">SOC II Type 2 report&lt;/a> is available upon request.&lt;/p>
+&lt;p>In pursuit of comprehensive compliance, Grafana Cloud also meets a host of other standard industry frameworks, including CSA Star, GDPR, ISO 27001/27017 SoA, Microsoft SSPA, and PCI DSS. Our ISO 27001 certification, performed by an accredited body, is globally recognized and attests to our strong commitment to information security and risk management. This certification has been recently updated to the new 2022 standards, which introduce enhanced controls for cloud security and threat management.&lt;/p>
+&lt;p>Beyond certifications and pen-testing, Grafana Labs maintains a clear record of security advisories that have been addressed and hosts a proactive &lt;a href="/blog/2023/05/04/introducing-the-grafana-labs-bug-bounty-program/">bug bounty program&lt;/a>. Managed by our dedicated in-house team, this program strengthens our ties with the threat research community, providing rewards for valuable contributions and recognizing individuals in a hall of fame.&lt;/p>
+&lt;figure
+class="figure-wrapper figure-wrapper__lightbox w-100p "
+style="max-width: 1672px;"
+itemprop="associatedMedia"
+itemscope=""
+itemtype="http://schema.org/ImageObject"
+>
+&lt;a
+class="lightbox-link"
+href="/media/blog/grafana-cloud-myths/grafana-cloud-myths-grafana-trust-center.gif"
+itemprop="contentUrl"
+>
+&lt;div class="img-wrapper w-100p h-auto">&lt;img
+class="lazyload "
+data-src="/media/blog/grafana-cloud-myths/grafana-cloud-myths-grafana-trust-center.gif"alt="A gif showing the Grafana Labs Trust Center."
+width="1672"
+height="1080"
+/>
+&lt;noscript>
+&lt;img
+src="/media/blog/grafana-cloud-myths/grafana-cloud-myths-grafana-trust-center.gif"
+alt="A gif showing the Grafana Labs Trust Center."
+width="1672"
+height="1080"
+/>
+&lt;/noscript>&lt;/div>
+&lt;/a>
+&lt;/figure>
+&lt;p>Our experience has shown that once organizations understand the extent of our security measures, they often &lt;a href="/docs/grafana-cloud/account-management/e2c-guide/">proceed with their migration to Grafana Cloud.&lt;/a> It supports their cloud-first initiatives and enables them to leverage the full breadth of features and services we offer. Many also report a reduction in operational risk, particularly as they no longer need to manage patching independently.&lt;/p>
+&lt;p>&lt;a href="/auth/sign-up/create-user">Sign up&lt;/a> for our Grafana Cloud free-forever tier to get started securely observing your critical data today!&lt;/p>
+&lt;p>&lt;em>&lt;a href="/products/cloud/?pg=blog&amp;amp;plcmt=body-txt">Grafana Cloud&lt;/a> is the easiest way to get started with metrics, logs, traces, dashboards, and more. We have a generous forever-free tier and plans for every use case. &lt;a href="/auth/sign-up/create-user/?pg=blog&amp;amp;plcmt=body-txt">Sign up for free now&lt;/a>!&lt;/em>&lt;/p></description></item><item><title>Grafana security release: Medium severity security fix for CVE-2024-1442</title><link>https://grafana.com/blog/2024/03/07/grafana-security-release-medium-severity-security-fix-for-cve-2024-1442/</link><pubDate>Thu, 07 Mar 2024 00:00:00 +0000</pubDate><guid>https://grafana.com/blog/2024/03/07/grafana-security-release-medium-severity-security-fix-for-cve-2024-1442/</guid><description>&lt;p>We recently &lt;a href="/blog/2024/03/06/grafana-10.4-release-all-the-latest-features/">released Grafana 10.4&lt;/a> along with Grafana 10.3.4, 10.2.5, 10.1.8, 10.0.12 and 9.5.17. The latest version of Grafana and these patch releases contain a fix for CVE-2024-1442, a medium severity security vulnerability with Grafana’s access control system.&lt;/p>
+&lt;p>Release 10.4.0, latest release with the security patch:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="/grafana/download/10.4.0/?pg=blog&amp;amp;plcmt=body-txt">Download Grafana 10.4.0&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Release 10.3.4 with the security patch:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="/grafana/download/10.3.4/?pg=blog&amp;amp;plcmt=body-txt">Download Grafana 10.3.4&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Release 10.2.5 with the security patch:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="/grafana/download/10.2.5/?pg=blog&amp;amp;plcmt=body-txt">Download Grafana 10.2.5&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Release 10.1.8 with the security patch:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="/grafana/download/10.1.8/?pg=blog&amp;amp;plcmt=body-txt">Download Grafana 10.1.8&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Release 10.0.12 with the security patch:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="/grafana/download/10.0.12/?pg=blog&amp;amp;plcmt=body-txt">Download Grafana 10.0.12&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Release 9.5.17 with the security patch:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="/grafana/download/9.5.17/?pg=blog&amp;amp;plcmt=body-txt">Download Grafana 9.5.17&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Appropriate patches have been applied to Grafana Cloud and as always, we closely coordinated with all cloud providers licensed to offer Grafana Cloud Pro. They have received early notification under embargo and confirmed that their offerings are secure at the time of this announcement. This is applicable to Amazon Managed Grafana and Azure Managed Grafana.&lt;/p>
+&lt;h2 id="data-source-permission-escalation-cve-2024-1442httpsgrafanacomsecuritysecurity-advisoriescve-2024-1442">Data source permission escalation (&lt;a href="/security/security-advisories/cve-2024-1442/">CVE-2024-1442&lt;/a>)&lt;/h2>
+&lt;h3 id="summary">Summary&lt;/h3>
+&lt;p>The vulnerability impacts Grafana Cloud and Grafana Enterprise instances, and it is exploitable if a user who should not be able to access all data sources is granted permissions to create a data source. &lt;/p>
+&lt;p>By default, only organization Administrators are allowed to create a data source and have full access to all data sources. All other users need to be explicitly granted permission to create a data source, which then means they could exploit this vulnerability.&lt;/p>
+&lt;p>When a user creates a data source via the &lt;a href="/docs/grafana/latest/developers/http_api/data_source/#create-a-data-source">API&lt;/a>, they can specify data source UID. If the UID is set to an asterisk (*), the user gains permissions to query, update, and delete all data sources in the organization. The exploit, however, does not stretch across organizations — to exploit the vulnerability in several organizations, a user would need permissions to create data sources in each organization.&lt;/p>
+&lt;p>The vulnerability comes from a lack of UID validation. When evaluating permissions, we interpret an asterisk (*) as a wild card for all resources. Therefore, we should treat it as a reserved value, and not allow the creation of a resource with the UID set to an asterisk.&lt;/p>
+&lt;p>The CVSS score for this vulnerability is &lt;a href="https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator?vector=AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:L/A:L&amp;amp;version=3.1" target="_blank" rel="noopener noreferrer">6 Medium&lt;/a>.&lt;/p>
+&lt;h3 id="impact">Impact&lt;/h3>
+&lt;p>The vulnerability allows a user who has the permission to create a data source within an organization to gain access to query, edit, share, and delete &lt;em>any&lt;/em> existing data source within that specified organization.&lt;/p>
+&lt;h3 id="impacted-versions">Impacted versions&lt;/h3>
+&lt;p>The vulnerability impacts Grafana Enterprise and Grafana Cloud running on the following versions:&lt;/p>
+&lt;ul>
+&lt;li>Grafana 10.3.0 to Grafana 10.3.4&lt;/li>
+&lt;li>Grafana 10.2.0 to Grafana 10.2.5&lt;/li>
+&lt;li>Grafana 10.1.0 to Grafana 10.1.8&lt;/li>
+&lt;li>Grafana 10.0.0 to Grafana 10.0.12&lt;/li>
+&lt;li>All versions older than Grafana 9.5.17&lt;/li>
+&lt;/ul>
+&lt;h3 id="solutions-and-mitigations">Solutions and mitigations&lt;/h3>
+&lt;p>If your instance is vulnerable, we strongly recommend upgrading to one of the patched versions as soon as possible. &lt;/p>
+&lt;p>As a mitigation, make sure that only trusted users have permission to create data sources.&lt;/p>
+&lt;p>Here is the command to list assignments of the &lt;code>datasources:create&lt;/code> permissions for your organization: &lt;/p>
+&lt;div class="code-snippet code-snippet__mini">&lt;div class="lang-toolbar__mini">
+&lt;span class="code-clipboard">
+&lt;button x-data="app_code_snippet()" x-init="init()" @click="copy()">
+&lt;img class="code-clipboard__icon" src="/media/images/icons/icon-copy-small-2.svg" alt="Copy code to clipboard" width="14" height="13">
+&lt;span>Copy&lt;/span>
+&lt;/button>
+&lt;/span>
+&lt;/div>&lt;div class="code-snippet code-snippet__border">
+&lt;pre data-expanded="false">&lt;code class="language-none">curl [http://&amp;lt;grafana_URL&amp;gt;/api/access-control/assignments/search](http://localhost:3000/api/access-control/assignments/search) -X POST -u &amp;lt;admin_user&amp;gt;:&amp;lt;password&amp;gt; -H &amp;#39;Content-Type: application/json&amp;#39; -d &amp;#39;{ &amp;#34;userId&amp;#34;: &amp;#34;*&amp;#34;,
+  &amp;#34;teamId&amp;#34;: &amp;#34;*&amp;#34;,
+  &amp;#34;basicRole&amp;#34;: &amp;#34;*&amp;#34;,
+  &amp;#34;action&amp;#34;: &amp;#34;datasources:create&amp;#34;,
+  &amp;#34;onlyRoles&amp;#34;: true }&amp;#39;&lt;/code>&lt;/pre>
+&lt;/div>
+&lt;/div>&lt;h3 id="timeline-and-post-incident-review">Timeline and post-incident review&lt;/h3>
+&lt;p>Here is a detailed incident timeline starting from when we originally introduced the issue. All times are in UTC.&lt;/p>
+&lt;ul>
+&lt;li>2022-03-24 11:21 - Vulnerability is merged into Grafana’s code base.&lt;/li>
+&lt;li>2022-04-21 13:54 - Vulnerability is released in Grafana version 8.5.0.&lt;/li>
+&lt;li>2024-02-12 09:13 - Vulnerability is discovered through internal testing.&lt;/li>
+&lt;li>2024-02-12 11:48 - An incident is raised, CVE is requested, and GitHub Advisory is created.&lt;/li>
+&lt;li>2024-02-12 14:10 - The impact of the vulnerability is assessed, and a fix is proposed.&lt;/li>
+&lt;li>2024-02-14 11:42 - The fix for the vulnerability is merged.&lt;/li>
+&lt;li>2024-02-15 13:21 - The fix has been backported to the supported versions, and backports have been merged.&lt;/li>
+&lt;li>2024-03-06 17:17 - Public release.&lt;/li>
+&lt;/ul>
+&lt;h2 id="reporting-security-issues">Reporting security issues&lt;/h2>
+&lt;p>If you think you have found a security vulnerability, please go to our &lt;a href="/legal/report-a-security-issue/?pg=blog&amp;amp;plcmt=body-txt">Report a security issue page&lt;/a> to learn how to send a security report.&lt;/p>
+&lt;p>Grafana Labs will send you a response indicating the next steps in handling your report. After the initial reply to your report, the security team will keep you informed of the progress towards a fix and full announcement, and may ask for additional information or guidance.&lt;/p>
+&lt;p>&lt;em>Important: We ask you to not disclose the vulnerability before it has been fixed and announced, unless you received a response from the Grafana Labs security team that you can do so.&lt;/em>&lt;/p>
+&lt;h2 id="security-announcements">Security announcements&lt;/h2>
+&lt;p>We maintain a &lt;a href="/tags/security/">security category&lt;/a> on our blog where we will always post a summary, remediation, and mitigation details for any patch containing security fixes. You can also subscribe to our &lt;a href="/tags/security/index.xml">RSS feed&lt;/a>.&lt;/p></description></item><item><title>Grafana security release: Medium severity security fix for CVE-2023-6152</title><link>https://grafana.com/blog/2024/02/14/grafana-security-release-medium-severity-security-fix-for-cve-2023-6152/</link><pubDate>Wed, 14 Feb 2024 00:00:00 +0000</pubDate><guid>https://grafana.com/blog/2024/02/14/grafana-security-release-medium-severity-security-fix-for-cve-2023-6152/</guid><description>&lt;p>Today we are releasing Grafana 10.3.3, 10.2.4, 10.1.7, 10.0.11 and 9.5.16. These patch releases contain a fix for CVE-2023-6152, a medium severity security vulnerability in Grafana’s basic authentication system.&lt;/p>
+&lt;p>Release 10.3.3, latest release with the security patch:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="/grafana/download/10.3.3">Download Grafana 10.3.3&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Release 10.2.4 with the security patch:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="/grafana/download/10.2.4">Download Grafana 10.2.4&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Release 10.1.7 with the security patch:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="/grafana/download/10.1.7">Download Grafana 10.1.7&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Release 10.0.11 with the security patch:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="/grafana/download/10.0.11">Download Grafana 10.0.11&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Release 9.5.16 with the security patch:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="/grafana/download/9.5.16">Download Grafana 9.5.16&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="email-verification-bypass-when-using-grafanas-basic-authentication-cve-2023-6152httpsgrafanacomsecuritysecurity-advisoriescve-2023-6152">Email verification bypass when using Grafana’s basic authentication (&lt;a href="/security/security-advisories/cve-2023-6152/">CVE-2023-6152&lt;/a>)&lt;/h2>
+&lt;h3 id="summary">Summary&lt;/h3>
+&lt;p>The vulnerability impacts instances where &lt;a href="/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/grafana/">Grafana basic authentication&lt;/a> is enabled.&lt;/p>
+&lt;p>Grafana has a &lt;a href="/docs/grafana/latest/setup-grafana/configure-grafana/#verify_email_enabled">verify_email_enabled&lt;/a> configuration option. When this option is enabled, users are required to confirm their email addresses before the sign-up process is complete. However, the email is only checked at the time of the sign-up. No further verification is carried out if a user&amp;rsquo;s email address is updated after the initial sign-up. Moreover, Grafana allows using an email address as the user&amp;rsquo;s login name, and no verification is ever carried out for this email address.&lt;/p>
+&lt;p>This means that even if the &lt;a href="/docs/grafana/latest/setup-grafana/configure-grafana/#verify_email_enabled">verify_email_enabled&lt;/a> configuration option is enabled, users can use unverified email addresses to log into Grafana if the email address has been changed after the sign up, or if an email address is set as the login name.&lt;/p>
+&lt;p>The CVSS score for this vulnerability is [5.4 Medium] (&lt;a href="https://nvd.nist.gov/vuln-metrics/cvss/v3-calculator?vector=AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:L&amp;amp;version=3.1" target="_blank" rel="noopener noreferrer">CVSS&lt;/a>).&lt;/p>
+&lt;h3 id="impact">Impact&lt;/h3>
+&lt;p>The vulnerability allows bypassing email verification and might prevent legitimate owners of the email from signing up.&lt;/p>
+&lt;h3 id="impacted-versions">Impacted versions&lt;/h3>
+&lt;p>The vulnerability impacts instances that use &lt;a href="/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/grafana/#basic-authentication">Grafana basic authentication&lt;/a> and are running Grafana versions:&lt;/p>
+&lt;ul>
+&lt;li>Grafana 10.3.0 to Grafana 10.3.1&lt;/li>
+&lt;li>Grafana 10.2.0 to Grafana 10.2.3&lt;/li>
+&lt;li>Grafana 10.1.0 to Grafana 10.1.6&lt;/li>
+&lt;li>Grafana 10.0.0 to Grafana 10.0.10&lt;/li>
+&lt;li>All versions older than Grafana 9.5.16&lt;/li>
+&lt;/ul>
+&lt;h3 id="solutions-and-mitigations">Solutions and mitigations&lt;/h3>
+&lt;p>If your instance is vulnerable, we strongly recommend upgrading to one of the patched versions as soon as possible. &lt;/p>
+&lt;p>Alternatively, you can disable &lt;a href="/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/grafana/#basic-authentication">Grafana basic authentication&lt;/a> if your instance has other authentication mechanisms enabled.&lt;/p>
+&lt;h3 id="timeline-and-post-incident-review">Timeline and post-incident review&lt;/h3>
+&lt;p>Here is a detailed timeline starting from when we originally introduced the issue.&lt;/p>
+&lt;ul>
+&lt;li>2015-08-31 09:35 UTC - Email verification logic is introduced in Grafana.&lt;/li>
+&lt;li>2023-11-10 14:01 UTC - We received a bug bounty report stating that email verification logic can be bypassed.&lt;/li>
+&lt;li>2023-11-15 13:55 UTC - CVE is requested and GitHub Advisory is created.&lt;/li>
+&lt;li>2023-11-21 11:25 UTC- We verified that the vulnerability is present.&lt;/li>
+&lt;li>2023-01-12 11:34 UTC- We implemented a fix.&lt;/li>
+&lt;li>2023-01-18 16:21 UTC - The fix has been tested and verified.&lt;/li>
+&lt;li>2024-01-24 13:12 UTC - Backports for the fix created.&lt;/li>
+&lt;li>2024-01-26 9:43 UTC - Backports for the fix verified.&lt;/li>
+&lt;li>2024-01-30 13:43 UTC - Private release.&lt;/li>
+&lt;li>2024-02-14 10:48 UTC - Public release.&lt;/li>
+&lt;/ul>
+&lt;h2 id="reporting-security-issues">Reporting security issues&lt;/h2>
+&lt;p>If you think you have found a security vulnerability, please go to our &lt;a href="/legal/report-a-security-issue/">Report a security issue page&lt;/a> to learn how to send a security report.&lt;/p>
+&lt;p>Grafana Labs will send you a response indicating the next steps in handling your report. After the initial reply to your report, the security team will keep you informed of the progress towards a fix and full announcement, and may ask for additional information or guidance.&lt;/p>
+&lt;p>&lt;em>Important: We ask you to not disclose the vulnerability before it has been fixed and announced, unless you received a response from the Grafana Labs security team that you can do so.&lt;/em>&lt;/p>
+&lt;h2 id="security-announcements">Security announcements&lt;/h2>
+&lt;p>We maintain a &lt;a href="/tags/security/">security category&lt;/a> on our blog, where we will always post a summary, remediation, and mitigation details for any patch containing security fixes. You can also subscribe to our &lt;a href="/tags/security/index.xml">RSS feed&lt;/a>.&lt;/p></description></item><item><title>New in Grafana roles: Manage user permissions better with 'No basic role'</title><link>https://grafana.com/blog/2023/11/22/new-in-grafana-roles-manage-user-permissions-better-with-no-basic-role/</link><pubDate>Wed, 22 Nov 2023 00:00:00 +0000</pubDate><guid>https://grafana.com/blog/2023/11/22/new-in-grafana-roles-manage-user-permissions-better-with-no-basic-role/</guid><description>&lt;p>Since we introduced &lt;a href="/blog/2022/06/27/new-in-grafana-9-role-based-access-control-rbac-is-now-ga/?pg=blog&amp;amp;plcmt=body-txt">role-based access control&lt;/a> (RBAC) in Grafana 9.0, users — and later, &lt;a href="/blog/2022/08/24/new-in-grafana-9.1-service-accounts-are-now-ga/">service accounts&lt;/a> — have been required to have an assigned role that includes a basic &lt;a href="/docs/grafana/next/administration/roles-and-permissions/access-control/?pg=blog&amp;amp;plcmt=body-txt#basic-roles">set of permissions&lt;/a>. This sometimes led organizations to create users and service accounts that had more permissions than necessary. As a result, Grafana administrators had to make additional adjustments to users&amp;rsquo; permissions on a case-by-case basis.&lt;/p>
+&lt;p>As we continue to improve the access control in Grafana, we’re happy to announce that starting with &lt;a href="/blog/2023/10/24/grafana-10.2-release-grafana-panel-title-generator-interactive-visualizations-and-more/">Grafana 10.2&lt;/a>, administrators can designate users and service accounts as having &lt;strong>No basic role&lt;/strong>, which is a new permissionless role in Grafana. This feature is being rolled out on &lt;a href="/products/cloud/?pg=blog&amp;amp;plcmt=body-txt">Grafana Cloud&lt;/a> instances and will be available in Grafana Enterprise 10.2 binaries.&lt;/p>
+&lt;p>In this blog, we&amp;rsquo;ll show you how No basic role reduces an administrator&amp;rsquo;s manual efforts around permissions management, limits users&amp;rsquo; access to only the resources they need to fulfill their duties, and improves overall security for your Grafana instance.&lt;/p>
+&lt;h2 id="no-basic-role-in-grafana-advantages-to-permissionless-roles">No basic role in Grafana: Advantages to permissionless roles&lt;/h2>
+&lt;p>Granting the right permissions and access in an organization can be a challenge. This is something we&amp;rsquo;ve been working on in Grafana since we introduced &lt;a href="/docs/grafana/latest/administration/team-management/?pg=blog&amp;amp;plcmt=body-txt">team roles&lt;/a>, which lets you set permissions for an entire group of users.&lt;/p>
+&lt;p>Until recently, Grafana users could be assigned one of &lt;a href="/docs/grafana/latest/administration/roles-and-permissions/#organization-roles">three roles&lt;/a>:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Organization administrator:&lt;/strong> Has access to all organization resources, including dashboards, users, and teams.&lt;/li>
+&lt;li>&lt;strong>Editor:&lt;/strong> Can view and edit dashboards, folders, and playlists.&lt;/li>
+&lt;li>&lt;strong>Viewer:&lt;/strong> Can view dashboards and playlists.&lt;/li>
+&lt;/ol>
+&lt;p>The baseline role for all users and service accounts has always been the Viewer role. But this could potentially grant users the ability to view dashboards, folders, and even data sources that they shouldn&amp;rsquo;t have access to in the first place.&lt;/p>
+&lt;p>To solve for that, we&amp;rsquo;ve added a fourth option — &lt;strong>No basic role,&lt;/strong> which is a role that comes with no permissions. This new option provides an easier user management experience in multiple ways:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Tighter access controls.&lt;/strong> Users won’t be able to access other teams&amp;rsquo; dashboards. By restricting users to just the dashboards they need, admin&amp;rsquo;s can reinforce the team&amp;rsquo;s scope and promotes cohesion.&lt;/li>
+&lt;li>&lt;strong>Smaller blast radius.&lt;/strong> A compromised service account token will have much more restricted access to information if it has no permissions, rather than the default Viewer role.&lt;/li>
+&lt;li>&lt;strong>Simplified access management.&lt;/strong> Instead of restricting access to each private dashboard by the individual, set restrictions based on entire teams to save time and ensure your security is properly scoped.&lt;/li>
+&lt;/ul>
+&lt;p>Thanks to No basic role, we&amp;rsquo;re taking permission management a step further by not granting permissions to users outside of a given team. Instead, you grant permissions through a Team Role sync or RBAC.&lt;/p>
+&lt;h2 id="how-to-set-up-no-basic-role-in-grafana">How to set up No basic role in Grafana &lt;/h2>
+&lt;p>Managing permissions in the Grafana UI is easy, whether you&amp;rsquo;re starting from scratch or creating a new team or service account. First, let&amp;rsquo;s look at how to set No basic role for existing teams.&lt;/p>
+&lt;ul>
+&lt;li>Open the role picker menu. It can be found in the user&amp;rsquo;s details page or the organization’s users page.&lt;/li>
+&lt;li>Select the &lt;strong>No basic role&lt;/strong> option.&lt;/li>
+&lt;li>Click on the &lt;strong>Update&lt;/strong> button.&lt;/li>
+&lt;/ul>
+&lt;p>The baseline for any user should be no permissions at all, and administrators shouldn&amp;rsquo;t assign roles individually. Instead, permissions should be allocated based on the team the user is assigned to. &lt;/p>
+&lt;figure
+class="figure-wrapper figure-wrapper__lightbox w-100p "
+style="max-width: 1468px;"
+itemprop="associatedMedia"
+itemscope=""
+itemtype="http://schema.org/ImageObject"
+>
+&lt;a
+class="lightbox-link"
+href="/media/blog/no-role/no-basic-role-grafana-org.png"
+itemprop="contentUrl"
+>
+&lt;div class="img-wrapper w-100p h-auto">&lt;img
+class="lazyload "
+data-src="/media/blog/no-role/no-basic-role-grafana-org.png"data-srcset="/media/blog/no-role/no-basic-role-grafana-org.png?w=320 320w, /media/blog/no-role/no-basic-role-grafana-org.png?w=550 550w, /media/blog/no-role/no-basic-role-grafana-org.png?w=750 750w, /media/blog/no-role/no-basic-role-grafana-org.png?w=900 900w, /media/blog/no-role/no-basic-role-grafana-org.png?w=1040 1040w, /media/blog/no-role/no-basic-role-grafana-org.png?w=1240 1240w, /media/blog/no-role/no-basic-role-grafana-org.png?w=1920 1920w"
+data-sizes="auto"alt="A screenshot of No basic role being selected from a drop-down menu in Grafana"
+width="1468"
+height="950"
+/>
+&lt;noscript>
+&lt;img
+src="/media/blog/no-role/no-basic-role-grafana-org.png"
+alt="A screenshot of No basic role being selected from a drop-down menu in Grafana"
+width="1468"
+height="950"
+/>
+&lt;/noscript>&lt;/div>
+&lt;/a>
+&lt;/figure>
+&lt;p>You can also use No basic role to reduce the scope of permissions for service accounts, which are important for machine-to-machine interactions. To do so, you&amp;rsquo;ll follow a similar path as you would for teams.&lt;/p>
+&lt;ul>
+&lt;li>Go to the role picker for service accounts, which can be found in the &amp;ldquo;create service account&amp;rdquo; menu, the service accounts list page, or in the details of a service account page.&lt;/li>
+&lt;li>Open the Role picker menu.&lt;/li>
+&lt;li>Select &lt;strong>No basic role&lt;/strong> option.&lt;/li>
+&lt;li>Click on the &lt;strong>Apply&lt;/strong> button.&lt;/li>
+&lt;/ul>
+&lt;p>For more information on setting up No basic role, check out our &lt;a href="/docs/grafana/next/administration/roles-and-permissions/access-control/plan-rbac-rollout-strategy/#manage-user-permissions-through-teams">documentation&lt;/a>.&lt;/p>
+&lt;p>With the help of No basic role, your service account can start as a blank slate, which enables you to adhere to the &lt;a href="https://csrc.nist.gov/glossary/term/least_privilege" target="_blank" rel="noopener noreferrer">principle of least privilege&lt;/a>.&lt;/p>
+&lt;figure
+class="figure-wrapper figure-wrapper__lightbox w-100p "
+style="max-width: 1376px;"
+itemprop="associatedMedia"
+itemscope=""
+itemtype="http://schema.org/ImageObject"
+>
+&lt;a
+class="lightbox-link"
+href="/media/blog/no-role/no-basic-role-grafana-service-account.png"
+itemprop="contentUrl"
+>
+&lt;div class="img-wrapper w-100p h-auto">&lt;img
+class="lazyload "
+data-src="/media/blog/no-role/no-basic-role-grafana-service-account.png"data-srcset="/media/blog/no-role/no-basic-role-grafana-service-account.png?w=320 320w, /media/blog/no-role/no-basic-role-grafana-service-account.png?w=550 550w, /media/blog/no-role/no-basic-role-grafana-service-account.png?w=750 750w, /media/blog/no-role/no-basic-role-grafana-service-account.png?w=900 900w, /media/blog/no-role/no-basic-role-grafana-service-account.png?w=1040 1040w, /media/blog/no-role/no-basic-role-grafana-service-account.png?w=1240 1240w, /media/blog/no-role/no-basic-role-grafana-service-account.png?w=1920 1920w"
+data-sizes="auto"alt="In this screenshot, No basic role is selected from the Create service account menu"
+width="1376"
+height="1088"
+/>
+&lt;noscript>
+&lt;img
+src="/media/blog/no-role/no-basic-role-grafana-service-account.png"
+alt="In this screenshot, No basic role is selected from the Create service account menu"
+width="1376"
+height="1088"
+/>
+&lt;/noscript>&lt;/div>
+&lt;/a>
+&lt;/figure>
+&lt;p>If you’re using RBAC with your users or service accounts, we encourage you to update the baseline role to No basic role and assign any missing permissions through RBAC instead.&lt;/p>
+&lt;h2 id="get-started-with-no-basic-role-in-grafana">Get started with No basic role in Grafana&lt;/h2>
+&lt;p>With the new No basic role feature, we continue to take steps to ensure Grafana is a secure application. To learn more, check out our &lt;a href="/docs/grafana/latest/administration/roles-and-permissions/?pg=blog&amp;amp;plcmt=body-txt">Roles and permissions documentation&lt;/a>.&lt;/p>
+&lt;p>Keep in mind this feature is intended to restrict access to dashboards or other resources. If your goal is to share your Grafana dashboard with anyone, you might want to take a look at the &lt;a href="/docs/grafana-cloud/visualizations/dashboards/dashboard-public/?pg=blog&amp;amp;plcmt=body-txt">public dashboards&lt;/a> feature.&lt;/p>
+&lt;p>We should also note that this feature was requested by the community. With that in mind, we would like to hear feedback from you as we continue to shape Grafana to meet the needs of our community. Go to the &lt;a href="https://slack.grafana.com/" target="_blank" rel="noopener noreferrer">Grafana Community Slack&lt;/a> or reach out to your account representative today to let us know what you think!&lt;/p>
+&lt;p>&lt;em>If you’re not already using Grafana Cloud — the easiest way to get started with observability — &lt;a href="/auth/sign-up/create-user?pg=blog&amp;amp;plcmt=body-txt">sign up now for a free 14-day trial of Grafana Cloud Pro&lt;/a>, with unlimited metrics, logs, traces, and users, long-term retention, and access to all Enterprise plugins.&lt;/em>&lt;/p></description></item><item><title>Grafana Image Renderer v3.8.3 released with high severity security fix for CVE-2023-4863</title><link>https://grafana.com/blog/2023/10/18/grafana-image-renderer-v3.8.3-released-with-high-severity-security-fix-for-cve-2023-4863/</link><pubDate>Wed, 18 Oct 2023 00:00:00 +0000</pubDate><guid>https://grafana.com/blog/2023/10/18/grafana-image-renderer-v3.8.3-released-with-high-severity-security-fix-for-cve-2023-4863/</guid><description>&lt;p>We have recently released Grafana Image Renderer v3.8.3, which contains a fix for CVE-2023-4863. This vulnerability enables remote attackers to perform an out-of-bounds memory write via a crafted HTML page.&lt;/p>
+&lt;p>Grafana Image Renderer 3.8.3 with security fix:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/grafana/grafana-image-renderer/releases/tag/v3.8.3" target="_blank" rel="noopener noreferrer">Grafana Image Renderer v3.8.3&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Appropriate patches have been applied to Grafana Cloud and as always, we closely coordinated with all cloud providers licensed to offer Grafana Cloud Pro. They have received early notification under embargo and confirmed that their offerings are secure at the time of this announcement.&lt;/p>
+&lt;h2 id="out-of-bounds-memory-write-cve-2023-4863httpsnvdnistgovvulndetailcve-2023-4863">Out-of-bounds memory write (&lt;a href="https://nvd.nist.gov/vuln/detail/CVE-2023-4863" target="_blank" rel="noopener noreferrer">CVE-2023-4863&lt;/a>)&lt;/h2>
+&lt;h3 id="summary">Summary &lt;/h3>
+&lt;p>The Grafana Image Renderer service uses Chrome in the background to render dashboards. On September 11, Google released a &lt;a href="https://chromereleases.googleblog.com/2023/09/stable-channel-update-for-desktop_11.html" target="_blank" rel="noopener noreferrer">new version of Chrome&lt;/a> to fix an issue with the WebP library. Our Security team identified that the Image Renderer is vulnerable to this attack because it uses an affected version of Chrome for rendering Grafana dashboards. The fix for the Grafana Image Renderer vulnerability is available from Chrome version 116.0.5845.187 for Mac and Linux.&lt;/p>
+&lt;p>The CVSS score for this vulnerability is 8.8 High.&lt;/p>
+&lt;h3 id="impact">Impact &lt;/h3>
+&lt;p>Heap buffer overflow in libwebp in Google Chrome prior to 116.0.5845.187 and libwebp 1.3.2 allowed a remote attacker to perform an out-of-bounds memory write via a crafted HTML page. (Chromium security severity: Critical). As these are libraries that are included and used by Grafana Image Renderer, the project was vulnerable. &lt;/p>
+&lt;h3 id="impacted-versions">Impacted versions&lt;/h3>
+&lt;p>All installed versions of Grafana running the Grafana Image Renderer plugin with version equal or prior to v3.8.2.&lt;/p>
+&lt;h3 id="solution-and-mitigation">Solution and mitigation&lt;/h3>
+&lt;p>If your instance is vulnerable, we recommend that you upgrade Grafana Image Renderer to version 3.8.3 or higher. &lt;/p>
+&lt;h3 id="timeline-and-post-incident-review">Timeline and post-incident review&lt;/h3>
+&lt;p>Here is a detailed timeline starting from when we originally introduced the issue. All times in UTC.&lt;/p>
+&lt;ul>
+&lt;li>2023-09-28 10:01 UTC - Our security team was informed about a security issue in libwebp/chrome CVE-2023-5129. We opened an internal incident to investigate the exposure. &lt;/li>
+&lt;li>2023-09-29 12:43 UTC - A new version of Grafana Image Renderer (v3.8.3) was released, which contained the dependency update needed. &lt;/li>
+&lt;li>2023-09-29 12:48 UTC - Updated version of Grafana Image Renderer was deployed to Grafana Cloud. &lt;/li>
+&lt;li>2023-10-02 13:39 UTC - Our internal investigation showed that no customers of Grafana Cloud were impacted by this security issue.&lt;/li>
+&lt;li>2023-10-11 16:08 UTC - Our customers were notified of the new version and suggested to update to it.&lt;/li>
+&lt;li>2023-10-18 14:30 UTC - Public blog post to inform the community about the security update. &lt;/li>
+&lt;/ul>
+&lt;h2 id="reporting-security-issues">Reporting security issues&lt;/h2>
+&lt;p>If you think you have found a security vulnerability, please go to our &lt;a href="/legal/report-a-security-issue/">Report a security issue page&lt;/a> to learn how to send a security report.&lt;/p>
+&lt;p>Grafana Labs will send you a response indicating the next steps in handling your report. After the initial reply to your report, the security team will keep you informed of the progress towards a fix and full announcement, and may ask for additional information or guidance.&lt;/p>
+&lt;p>&lt;em>Important: We ask you to not disclose the vulnerability before it has been fixed and announced, unless you received a response from the Grafana Labs security team that you can do so.&lt;/em>&lt;/p>
+&lt;h2 id="security-announcements">Security announcements&lt;/h2>
+&lt;p>We maintain a &lt;a href="/tags/security/">security category&lt;/a> on our blog, where we will always post a summary, remediation, and mitigation details for any patch containing security fixes. You can also subscribe to our &lt;a href="/tags/security/index.xml">RSS feed&lt;/a>.&lt;/p></description></item><item><title>Grafana security release: New versions of Grafana with a medium severity security fix for CVE-2023-4822</title><link>https://grafana.com/blog/2023/10/13/grafana-security-release-new-versions-of-grafana-with-a-medium-severity-security-fix-for-cve-2023-4822/</link><pubDate>Fri, 13 Oct 2023 00:00:00 +0000</pubDate><guid>https://grafana.com/blog/2023/10/13/grafana-security-release-new-versions-of-grafana-with-a-medium-severity-security-fix-for-cve-2023-4822/</guid><description>&lt;p>We are releasing Grafana 10.1.5, 10.0.9, 9.5.13, and 9.4.17. These patch releases contain a fix for CVE-2023-4822, a medium severity security vulnerability in the role-based access control (RBAC) system in Grafana Enterprise.&lt;/p>
+&lt;p>Release 10.1.5, latest release with security patch:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="/grafana/download/10.1.5/?pg=blog&amp;amp;plcmt=body-txt">Download Grafana 10.1.5&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Release 10.0.9 with the security patch:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="/grafana/download/10.0.9/?pg=blog&amp;amp;plcmt=body-txt">Download Grafana 10.0.9&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Release 9.5.13 with the security patch:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="/grafana/download/9.5.13/?pg=blog&amp;amp;plcmt=body-txt">Download Grafana 9.5.13&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Release 9.4.17 with the security patch:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="/grafana/download/9.4.17/?pg=blog&amp;amp;plcmt=body-txt">Download Grafana 9.4.17&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="h2-cross-organization-permission-escalation-by-an-organization-administrator-cve-2023-4822">H2: Cross-organization permission escalation by an organization administrator (CVE-2023-4822)&lt;/h2>
+&lt;h3 id="summary">Summary&lt;/h3>
+&lt;p>Vulnerable versions of Grafana are incorrectly assessing permissions to update cross-organization roles and role assignments. Therefore users with administrator permissions in one organization can change cross-organization role permissions and cross-organization role assignments.&lt;/p>
+&lt;p>This vulnerability impacts instances with more than one organization running Grafana Enterprise versions.&lt;/p>
+&lt;p>No Grafana Cloud instances are impacted because the platform is limited to a single organization.&lt;/p>
+&lt;p>The CVSS score for this vulnerability is 6.7 Medium.&lt;/p>
+&lt;h3 id="impact">Impact&lt;/h3>
+&lt;p>If exploited, an attacker who has the Organization Admin role in any organization can elevate their permissions across all organizations, elevate other users’ permissions in all organizations, or limit other users’ permissions in all organizations.&lt;/p>
+&lt;p>The vulnerability, however, does not allow the attacker to become a member of an organization that they are not already a member of, nor can they add any other user to an organization that the attacker is not a member of already.&lt;/p>
+&lt;h3 id="impacted-versions">Impacted versions&lt;/h3>
+&lt;p>The vulnerability impacts instances with more than one organization running Grafana Enterprise versions:&lt;/p>
+&lt;ul>
+&lt;li>8.0.0 to 10.0.0 with RBAC enabled&lt;/li>
+&lt;li>10.0.0 to 10.1.2&lt;/li>
+&lt;li>10.1.4&lt;/li>
+&lt;/ul>
+&lt;p>You can check if role-based access control (RBAC) is enabled by calling &lt;code>GET /api/access-control/status&lt;/code>. If the endpoint is found and returns &lt;code>&amp;quot;enabled&amp;quot;: true&lt;/code>, role-based access control is enabled on your instance.&lt;/p>
+&lt;h3 id="solutions-and-mitigations">Solutions and mitigations&lt;/h3>
+&lt;p>If your instance is vulnerable, we strongly recommend upgrading to one of the patched versions as soon as possible.&lt;/p>
+&lt;p>If you cannot upgrade now, you should limit the Organization Administrator privileges only to trusted users who will not abuse this vulnerability.&lt;/p>
+&lt;h3 id="timeline-and-post-incident-review">Timeline and post-incident review&lt;/h3>
+&lt;p>Here is a detailed timeline starting from when we originally introduced the issue. All times in UTC.&lt;/p>
+&lt;ul>
+&lt;li>2021-01-06 08:45 UTC - The faulty permission evaluation logic is introduced in Grafana.&lt;/li>
+&lt;li>2023-08-18 10:42 UTC - A bug that prevents editing basic role assignments is introduced.&lt;/li>
+&lt;li>2023-09-06 17:53 UTC - It is brought to our attention that users are not able to edit the basic roles.&lt;/li>
+&lt;li>2023-09-07 10:15 UTC - We investigate the issue with updating basic roles and discover the security vulnerability in the related code.&lt;/li>
+&lt;li>2023-09-07 10:33 UTC - An incident is opened and announced.&lt;/li>
+&lt;li>2023-09-07 15:53 UTC - CVE is requested / GitHub advisory is created.&lt;/li>
+&lt;li>2023-09-08 11:47 UTC - We explore the attack surface and make sure there are no related exploitable vulnerabilities.&lt;/li>
+&lt;li>2023-09-12 14:45 UTC - Fix for the vulnerability is merged.&lt;/li>
+&lt;li>2023-09-13 06:52 UTC - Backports for the supported versions are created and merged.&lt;/li>
+&lt;li>2023-09-19 20:22 UTC - Private release.&lt;/li>
+&lt;li>2023-10-12 11:27 UTC - Public release.&lt;/li>
+&lt;li>2023-10-13 14:00 UTC - Blog published.&lt;/li>
+&lt;/ul>
+&lt;h2 id="reporting-security-issues">Reporting security issues&lt;/h2>
+&lt;p>If you think you have found a security vulnerability, please go to our &lt;a href="/legal/report-a-security-issue/">Report a security issue page&lt;/a> to learn how to send a security report.&lt;/p>
+&lt;p>Grafana Labs will send you a response indicating the next steps in handling your report. After the initial reply to your report, the security team will keep you informed of the progress towards a fix and full announcement, and may ask for additional information or guidance.&lt;/p>
+&lt;p>Important: We ask you to not disclose the vulnerability before it has been fixed and announced, unless you received a response from the Grafana Labs security team that you can do so.&lt;/p>
+&lt;h2 id="security-announcements">Security announcements&lt;/h2>
+&lt;p>We maintain a &lt;a href="/tags/security/">security category&lt;/a> on our blog, where we will always post a summary, remediation, and mitigation details for any patch containing security fixes. You can also subscribe to our &lt;a href="/tags/security/index.xml">RSS feed&lt;/a>.&lt;/p></description></item><item><title>Grafana security update: Post-incident review and timeline for GPG signing key rotation</title><link>https://grafana.com/blog/2023/09/06/grafana-security-update-post-incident-review-and-timeline-for-gpg-signing-key-rotation/</link><pubDate>Wed, 06 Sep 2023 00:00:00 +0000</pubDate><guid>https://grafana.com/blog/2023/09/06/grafana-security-update-post-incident-review-and-timeline-for-gpg-signing-key-rotation/</guid><description>&lt;p>On Aug. 24, 2023, we &lt;a href="/blog/2023/08/24/grafana-security-update-gpg-signing-key-rotation/">reported that the GPG private key and passphrase that we use for signing packages was unintentionally shared&lt;/a>. As a best practice, we immediately revoked the exposed certificate on &lt;a href="https://apt.grafana.com/gpg-full.key" target="_blank" rel="noopener noreferrer">our full GPG public keychain&lt;/a> and issued a new public key. We then advised users of our &lt;code>apt&lt;/code> and &lt;code>yum&lt;/code> repositories to update their trusted certificate to safely continue using our repositories.&lt;/p>
+&lt;p>Erring on the side of speed and transparency, we announced this as soon as we could, during the key change.&lt;/p>
+&lt;p>We have now finished our post-incident review and wanted to share this update.&lt;/p>
+&lt;h2 id="summary">Summary&lt;/h2>
+&lt;p>On Aug. 24, 2023, the &lt;a href="/blog/2023/08/24/grafana-security-update-gpg-signing-key-rotation/">GPG private key and passphrase&lt;/a> that we use for signing packages was exposed in our CI logs. As part of a reproducible-build overhaul, we made a bad assumption about how our CI service handles obfuscating secrets and subshells. &lt;/p>
+&lt;p>Unfortunately the key was logged in clear text, so we began the process of rotating and re-signing our packages. The only other occurrence we found in our extensive logs of this key exposure was on Aug. 1 before it was identified.&lt;/p>
+&lt;h3 id="how-the-incident-happened">How the incident happened&lt;/h3>
+&lt;p>Signing keys are not stored in CI/CD; however, for some pipelines, we do currently require the key to be available at build time. In a small number of legacy CI pipelines, we currently present signing keys for signing. We have already been working towards updating our build mechanisms to remove this dependency, but the change had not been rolled out to our Grafana builds at the time of the leak.&lt;/p>
+&lt;p>It is important to clarify that the keys were not exposed due to any kind of privilege escalation. At no time did third parties have access. We did not identify any discrepancy in artifacts distributed through our secure channels — our &lt;a href="/grafana/download">download page&lt;/a>, &lt;a href="https://apt.grafana.com/" target="_blank" rel="noopener noreferrer">apt repository&lt;/a>, or &lt;a href="https://rpm.grafana.com/" target="_blank" rel="noopener noreferrer">rpm repository&lt;/a>. We believe that our builds are correct and integrity has been preserved at all times. The key leakage was discovered by internal processes, and the leaked key was not trivially discoverable, having been written to only a small number of log files.&lt;/p>
+&lt;h2 id="impact">Impact&lt;/h2>
+&lt;p>The risk of this key being used for a practical attack is limited, as an attacker would still need a way to get a malicious package to users. Due to the fact that apt.grafana.com and rpm.grafana.com both serve packages over TLS (and our installation instructions specify that the repos be added as TLS URLs), a successful attack would require either a man-in-the-middle with an additional compromised TLS certificate, or for a user to retrieve the packages from an alternative source, such as a local mirror. Due to internal validation and reconciliation mechanisms, we are confident that the integrity of artifacts deployed to Grafana Cloud and released to our partners were not impacted.&lt;/p>
+&lt;h2 id="action-items">Action items&lt;/h2>
+&lt;p>We are taking further action to decouple the signing process from package creation. After this work is completed, CI pipelines will no longer have access to private key material at all — only the central signing service will. We expect this work to be completed by the end of September. The majority of the code that is used for creating Grafana packages is available at &lt;a href="https://github.com/grafana/grafana-build" target="_blank" rel="noopener noreferrer">https://github.com/grafana/grafana-build&lt;/a>.&lt;/p>
+&lt;h2 id="timeline-and-post-incident-review">Timeline and post-incident review&lt;/h2>
+&lt;p>Based on our completed post-incident review, here is the detailed timeline starting from when we originally learned of the issue. All times are in UTC.&lt;/p>
+&lt;ul>
+&lt;li>2023-08-01 15:21 UTC - Key initially leaked to logs&lt;/li>
+&lt;li>2023-08-24 15:33 UTC - Key discovered by Grafana engineer in logs&lt;/li>
+&lt;li>2023-08-24 15:37 UTC - Incident declared&lt;/li>
+&lt;li>2023-08-24 15:47 UTC - Relevant Drone repos set &lt;code>internal&lt;/code> to prevent further leakage. PR raised to correct underlying behavior&lt;/li>
+&lt;li>2023-08-24 26:50 UTC - Key rotated and published&lt;/li>
+&lt;li>2023-08-24 18:50 UTC - Initial blog published&lt;/li>
+&lt;li>2023-08-31 16:00 UTC - Updated initial blog post to state we will publish post-incident review and incident timeline&lt;/li>
+&lt;li>2023-09-06 14:39 UTC - Post-incident review complete&lt;/li>
+&lt;li>2023-09-06 16:00 UTC - Post-incident review and timeline published on the blog &lt;/li>
+&lt;/ul>
+&lt;h2 id="reporting-security-issues">Reporting security issues&lt;/h2>
+&lt;p>If you think you have found a security vulnerability, please send a report to &lt;a href="mailto:security@grafana.com">security@grafana.com&lt;/a>. This address can be used for all of Grafana Labs’ open source and commercial products (including but not limited to Grafana, Grafana Cloud, Grafana Enterprise, and grafana.com). We can accept only vulnerability reports at this address. We would prefer that you encrypt your message to us by using our PGP key. The key fingerprint is&lt;/p>
+&lt;p>&lt;code>225E 6A9B BB15 A37E 95EB 6312 C66A 51CC B44C 27E0&lt;/code>&lt;/p>
+&lt;p>The key is available from &lt;a href="https://keyserver.ubuntu.com/pks/lookup?search=0x225e6a9bbb15a37e95eb6312c66a51ccb44c27e0&amp;amp;fingerprint=on&amp;amp;op=index" target="_blank" rel="noopener noreferrer">keyserver.ubuntu.com&lt;/a>.&lt;/p>
+&lt;h2 id="security-announcements">Security announcements&lt;/h2>
+&lt;p>We maintain a &lt;a href="/tags/security/">security category on our blog&lt;/a>, where we will always post a summary, remediation, and mitigation details for any patch containing security fixes.&lt;/p>
+&lt;p>You can also subscribe to our &lt;a href="/tags/security/index.xml">RSS feed&lt;/a>.&lt;/p></description></item><item><title>Grafana security update: GPG signing key rotation</title><link>https://grafana.com/blog/2023/08/24/grafana-security-update-gpg-signing-key-rotation/</link><pubDate>Thu, 24 Aug 2023 00:00:00 +0000</pubDate><guid>https://grafana.com/blog/2023/08/24/grafana-security-update-gpg-signing-key-rotation/</guid><description>&lt;blockquote>
+&lt;p>Update 2023-09-06 19:30 UTC: The post-incident review and timeline have been posted &lt;a href="/blog/2023/09/06/grafana-security-update-post-incident-review-and-timeline-for-gpg-signing-key-rotation/">on the blog&lt;/a>.&lt;/p>
+&lt;p>Update 2023-08-31 16:00 UTC: The post-incident review and full timeline were not yet finalized when we originally published this blog post. However, we decided to publish the below as soon as possible because we strongly believe in transparency. We will be sharing the incident timeline when it’s ready.&lt;/p>
+&lt;/blockquote>
+&lt;p>On Aug. 24, the GPG private key and passphrase with the ID of &lt;code>0E22EB88E39E12277A7760AE9E439B102CF3C0C6&lt;/code> was unintentionally shared. As a best practice, we have revoked the exposed certificate on &lt;a href="https://apt.grafana.com/gpg-full.key" target="_blank" rel="noopener noreferrer">our full GPG public keychain&lt;/a> and issued a new public key. &lt;/p>
+&lt;p>As a result, users of our &lt;code>apt&lt;/code> and &lt;code>yum&lt;/code> repositories will need to update their trusted certificate to safely continue using our repositories.&lt;/p>
+&lt;h2 id="gpg-key-rotation-and-trust-relationship">GPG key rotation and trust relationship&lt;/h2>
+&lt;p>Who is affected:&lt;/p>
+&lt;ul>
+&lt;li>Users who have installed Grafana via our package repositories (packages.grafana.com, apt.grafana.com, rpm.grafana.com)&lt;/li>
+&lt;li>Users who use our binary .deb or .rpm releases and validate the GPG signatures with a local copy of the impacted GPG key&lt;/li>
+&lt;/ul>
+&lt;p>Who is &lt;em>not&lt;/em> affected:&lt;/p>
+&lt;ul>
+&lt;li>Users who have installed Grafana via their OS package repository&lt;/li>
+&lt;li>Users who have installed Grafana via a Docker image&lt;/li>
+&lt;li>Grafana Cloud/hosted users&lt;/li>
+&lt;/ul>
+&lt;p>If you are affected, you should follow the instructions below to remove the impacted GPG key from your keyrings and install our new key.&lt;/p>
+&lt;h2 id="how-to-update-your-gpg-trust-relationship">How to update your GPG trust relationship&lt;/h2>
+&lt;h3 id="debianubuntu">Debian/Ubuntu&lt;/h3>
+&lt;div class="code-snippet code-snippet__mini">&lt;div class="lang-toolbar__mini">
+&lt;span class="code-clipboard">
+&lt;button x-data="app_code_snippet()" x-init="init()" @click="copy()">
+&lt;img class="code-clipboard__icon" src="/media/images/icons/icon-copy-small-2.svg" alt="Copy code to clipboard" width="14" height="13">
+&lt;span>Copy&lt;/span>
+&lt;/button>
+&lt;/span>
+&lt;/div>&lt;div class="code-snippet code-snippet__border">
+&lt;pre data-expanded="false">&lt;code class="language-none"># Remove the old key
+apt-key del 0E22EB88E39E12277A7760AE9E439B102CF3C0C6
+# Verify that the GPG key was removed. This should return 0.
+apt-key list | grep -i grafana | wc -l
+# Download the new key and place it in the right location
+sudo wget -q -O /usr/share/keyrings/grafana.key https://apt.grafana.com/gpg.key&lt;/code>&lt;/pre>
+&lt;/div>
+&lt;/div>&lt;h3 id="rpm-rhel-centos-fedora-etc">&lt;code>rpm&lt;/code> (RHEL, CentOS, Fedora, etc.)&lt;/h3>
+&lt;p>Our rpm-based installation instructions do not add the identified GPG key to the package manager, but rather suggest downloading the .rpm and gpg key and performing a manual verification. If you have saved a local copy of the Grafana gpg key (fingerprint: &lt;code>0E22EB88E39E12277A7760AE9E439B102CF3C0C6&lt;/code>), you will need to replace it with the rotated key, which can be downloaded at &lt;a href="https://rpm.grafana.com/gpg.key" target="_blank" rel="noopener noreferrer">https://rpm.grafana.com/gpg.key&lt;/a>.&lt;/p>
+&lt;h3 id="yum-and-dnf-rhel-centos-fedora-etc">&lt;code>yum&lt;/code> and &lt;code>dnf&lt;/code> (RHEL, CentOS, Fedora, etc.)&lt;/h3>
+&lt;p>&lt;code>yum&lt;/code> and &lt;code>dnf&lt;/code> cache repository gpg keys. In order to force &lt;code>yum&lt;/code> or &lt;code>dnf&lt;/code> to fetch and use the rotated gpg key, you will need to flush this cache. Instructions are as follows:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Locate your &lt;code>yum&lt;/code> cache directory.&lt;/strong> This will default to &lt;code>/var/cache/dnf&lt;/code> for systems running dnf, but may be at &lt;code>/var/lib/yum/repos/&lt;/code> or &lt;code>/etc/yum/repos.d&lt;/code> on systems running original &lt;code>yum&lt;/code>. If you don’t see either of these, check your &lt;code>yum.conf&lt;/code> file for a &lt;code>persistdir&lt;/code> parameter. This parameter overrides the default and specifies a cache directory manually.&lt;/li>
+&lt;li>&lt;strong>Locate the cache for the Grafana repository inside your &lt;code>yum&lt;/code> cache directory.&lt;/strong> On dnf systems, this should be something like &lt;code>/var/cache/dnf/grafana-369737ffb0934a7b/&lt;/code>. On yum systems this will likely be an architecture-specific subdirectory under &lt;code>/var/lib/yum/repos/&lt;/code>.&lt;/li>
+&lt;li>&lt;strong>Remove the identified GPG key from the cached keyring.&lt;/strong> Inside the Grafana repository cache directory, there will either be a &lt;code>pubring&lt;/code> folder or a &lt;code>gpgdir&lt;/code> and &lt;code>gpgdir-ro&lt;/code> folders. These are where the keyrings are actually cached. To remove the identified GPG key from the cached keyring, use the following &lt;code>gpg&lt;/code> command:&lt;/li>
+&lt;/ol>
+&lt;div class="code-snippet code-snippet__mini">&lt;div class="lang-toolbar__mini">
+&lt;span class="code-clipboard">
+&lt;button x-data="app_code_snippet()" x-init="init()" @click="copy()">
+&lt;img class="code-clipboard__icon" src="/media/images/icons/icon-copy-small-2.svg" alt="Copy code to clipboard" width="14" height="13">
+&lt;span>Copy&lt;/span>
+&lt;/button>
+&lt;/span>
+&lt;/div>&lt;div class="code-snippet code-snippet__border">
+&lt;pre data-expanded="false">&lt;code class="language-none">gpg --batch --homedir YOUR_PATH_GOES_HERE --delete-key 0E22EB88E39E12277A7760AE9E439B102CF3C0C6&lt;/code>&lt;/pre>
+&lt;/div>
+&lt;/div>&lt;p>If you have both a &lt;code>gpgdir&lt;/code> and a &lt;code>gpgdir-ro&lt;/code> directory, run the &lt;code>gpg&lt;/code> command on both of them.&lt;/p>
+&lt;ol start="4">
+&lt;li>&lt;strong>Run &lt;code>dnf&lt;/code> update or &lt;code>yum&lt;/code> update (depending on which you have installed).&lt;/strong> You should be prompted more than once to accept a new GPG key for the Grafana repository with the following fingerprint:&lt;/li>
+&lt;/ol>
+&lt;div class="code-snippet code-snippet__mini">&lt;div class="lang-toolbar__mini">
+&lt;span class="code-clipboard">
+&lt;button x-data="app_code_snippet()" x-init="init()" @click="copy()">
+&lt;img class="code-clipboard__icon" src="/media/images/icons/icon-copy-small-2.svg" alt="Copy code to clipboard" width="14" height="13">
+&lt;span>Copy&lt;/span>
+&lt;/button>
+&lt;/span>
+&lt;/div>&lt;div class="code-snippet code-snippet__border">
+&lt;pre data-expanded="false">&lt;code class="language-none">B53A E77B ADB6 30A6 8304 6005 963F A277 1045 8545&lt;/code>&lt;/pre>
+&lt;/div>
+&lt;/div>&lt;h2 id="gpg-revocation">GPG revocation&lt;/h2>
+&lt;p>We have issued a revocation certificate for the exposed GPG key. If you would prefer to load the full set of keys that includes the revocation certificate — which would prevent the leaked public key from being used unintentionally — a file containing all three (the old key, followed by a revocation certificate, followed by the new key) can be found at &lt;a href="https://apt.grafana.com/gpg-full.key" target="_blank" rel="noopener noreferrer">https://apt.grafana.com/gpg-full.key&lt;/a>. As mentioned above, many package managers have idiosyncratic behavior when loading key files containing revocations, so please consult your package manager documentation for specific guidance.&lt;/p>
+&lt;h2 id="reporting-security-issues">Reporting security issues&lt;/h2>
+&lt;p>If you think you have found a security vulnerability, please send a report to &lt;a href="mailto:security@grafana.com">security@grafana.com&lt;/a>. This address can be used for all of Grafana Labs’ open source and commercial products (including but not limited to Grafana, Grafana Cloud, Grafana Enterprise, and grafana.com). We can accept only vulnerability reports at this address. We would prefer that you encrypt your message to us by using our PGP key. The key fingerprint is&lt;/p>
+&lt;p>&lt;code>225E 6A9B BB15 A37E 95EB 6312 C66A 51CC B44C 27E0&lt;/code>&lt;/p>
+&lt;p>The key is available from &lt;a href="https://keyserver.ubuntu.com/pks/lookup?search=0x225e6a9bbb15a37e95eb6312c66a51ccb44c27e0&amp;amp;fingerprint=on&amp;amp;op=index" target="_blank" rel="noopener noreferrer">keyserver.ubuntu.com&lt;/a>.&lt;/p>
+&lt;h2 id="security-announcements">Security announcements&lt;/h2>
+&lt;p>We maintain a &lt;a href="/tags/security/">security category on our blog&lt;/a>, where we will always post a summary, remediation, and mitigation details for any patch containing security fixes.&lt;/p>
+&lt;p>You can also subscribe to our &lt;a href="/tags/security/index.xml">RSS feed&lt;/a>.&lt;/p></description></item></channel></rss>

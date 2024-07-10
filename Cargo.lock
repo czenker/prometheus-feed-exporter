@@ -210,23 +210,22 @@ dependencies = [
 
 [[package]]
 name = "cel-interpreter"
-version = "0.6.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bf19709dc18b921e97b188349797cd8056758aefcafbbaf324030c45a8b38580"
+version = "0.8.0"
+source = "git+https://github.com/clarkmcc/cel-rust.git?tag=v0.8.0#962e5e46319248e357919fd642dd762345ccd5a2"
 dependencies = [
  "cel-parser",
  "chrono",
  "nom",
  "paste",
+ "regex",
  "serde",
  "thiserror",
 ]
 
 [[package]]
 name = "cel-parser"
-version = "0.6.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b3a85ba148abbc551f1c32c8c0cff279dba234f6d38324bf372ba2395690879e"
+version = "0.7.0"
+source = "git+https://github.com/clarkmcc/cel-rust.git?tag=v0.8.0#962e5e46319248e357919fd642dd762345ccd5a2"
 dependencies = [
  "lalrpop",
  "lalrpop-util",
@@ -1393,9 +1392,9 @@ dependencies = [
 
 [[package]]
 name = "regex"
-version = "1.10.3"
+version = "1.10.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b62dbe01f0b06f9d8dc7d49e05a0785f153b00b2c227856282f671e0318c9b15"
+checksum = "b91213439dad192326a0d7c6ee3955910425f441d7038e0d6933b0aec5c4517f"
 dependencies = [
  "aho-corasick",
  "memchr",

@@ -15,7 +15,7 @@ path = "src/main.rs"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-cel-interpreter = "0.6.0"
+cel-interpreter = { git = "https://github.com/clarkmcc/cel-rust.git", tag="v0.8.0" }
 chrono = "0.4.34"
 clap = { version = "4.5.1", features = ["derive"] }
 colored = "2.1.0"

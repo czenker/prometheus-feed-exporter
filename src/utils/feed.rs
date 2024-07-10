@@ -63,17 +63,17 @@ pub fn get_cel_context_for<'a>(entry: &'a Entry, now: &DateTime<FixedOffset>) ->
     context.add_variable("summary", summary).unwrap();
     context.add_variable("categories", categories).unwrap();
     context.add_variable("links", links).unwrap();
-    context.add_variable("updated", match updated {
+    context.add_variable_from_value("updated", match updated {
         Some(t) => Value::Timestamp(t),
         None => Value::Null,
-    }).unwrap();
-    context.add_variable("published", match published {
+    });
+    context.add_variable_from_value("published", match published {
         Some(t) => Value::Timestamp(t),
         None => Value::Null,
-    }).unwrap();
+    });
 
     let now = Value::Timestamp(*now);
-    context.add_variable("now", now).unwrap();
+    context.add_variable_from_value("now", now);
 
     // {
     //     println!("======");

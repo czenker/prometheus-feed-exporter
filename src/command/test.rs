@@ -33,12 +33,17 @@ fn print_test_success(case: &String, it: &String) {
     );
 }
 
-fn print_test_failure(case: &String, it: &String) {
+fn print_test_failure(case: &String, it: &String, reason: Option<String>) {
+    let reason = match reason {
+        Some(s) => format!(" {}", s.dimmed()),
+        None => String::from(""),
+    };
     println!(
-        "{} {} {}",
+        "{} {} {}{}",
         "✗".red(),
         format!("[{}]", case).dimmed(),
-        it
+        it,
+        reason
     );
 }
 
@@ -102,15 +107,23 @@ fn run_case(app_config: &AppConfig, test_config: &TestCaseConfig) -> TestResult 
         let mut includes: Vec<&MyCelProgram> = Vec::new();
         includes.push(&test.query); // @TODO: Shouldn't there be a literal for this?
         let excludes: Vec<&MyCelProgram> = Vec::new();
-        let result = filter(&filtered_entries, &includes, &excludes, &now);
-        let found = result.len() > 0;
-
-        if found ^ test.expected {
+        
+        let unfiltered_result = filter(&entries, &includes, &excludes, &now);
+        let found = unfiltered_result.len() > 0;
+        if !found {
             test_result = test_result + TestResult::failure();
-            print_test_failure(&test_config.name, &test.it);
+            print_test_failure(&test_config.name, &test.it, Some(String::from("Setup Error: expected entry is not in the feed in the first place")));
         } else {
-            test_result = test_result + TestResult::success();
-            print_test_success(&test_config.name, &test.it);
+            let filtered_result = filter(&filtered_entries, &includes, &excludes, &now);
+            let found = filtered_result.len() > 0;
+
+            if found ^ test.expected {
+                test_result = test_result + TestResult::failure();
+                print_test_failure(&test_config.name, &test.it, None);
+            } else {
+                test_result = test_result + TestResult::success();
+                print_test_success(&test_config.name, &test.it);
+            }
         }
     }
 

@@ -3,7 +3,7 @@ pushgateway:
 feeds:
   foobar:
     uri: https://example.com/feed.xml
-    headers: []
+    headers: {}
     excludes: []
     includes: []
     entry_id: "links[0]"

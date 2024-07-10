@@ -6,7 +6,7 @@ feeds:
   openssl-announce:
     uri: https://www.mail-archive.com/openssl-announce@openssl.org/maillist.xml
     excludes:
-      - 'published < now - duration("2160h")'
+      - 'published < now - duration("720h")'
     includes:
       - 'title.contains("Security")'
 
@@ -16,7 +16,7 @@ feeds:
     headers:
       Authorization: "Bearer ${GITHUB_API_TOKEN}"
     excludes:
-      - 'updated < now - duration("2160h")'
+      - 'updated < now - duration("720h")'
     includes:
       - 'content.contains("is a security")'
 
@@ -24,13 +24,13 @@ feeds:
     uri: https://aws.amazon.com/security/security-bulletins/rss/feed/
     entry_id: 'links[0]'
     excludes:
-      - 'published < now - duration("2160h")'
+      - 'published < now - duration("720h")'
 
   grafana:
     uri: https://grafana.com/tags/security/index.xml
     entry_id: 'links[0]'
     excludes:
-      - 'updated < now - duration("2160h")'
+      - 'published < now - duration("720h")'
     includes:
       - 'title.contains("Grafana security")'
       - 'title.contains("CVE-")'
@@ -39,28 +39,32 @@ feeds:
     uri: https://about.gitlab.com/security-releases.xml
     entry_id: 'links[0]'
     excludes:
-      - 'updated < now - duration("2160h")'
+      - 'updated < now - duration("720h")'
     includes:
       - 'content.contains("High") || content.contains("Critical") '
 
   docker-security:
     uri: https://www.docker.com/blog/tag/security/feed/
+    headers:
+      user-agent: curl/8.0.1
     excludes:
-      - 'updated < now - duration("2160h")'
+      - 'updated < now - duration("720h")'
     includes:
       - 'title.contains("Security Advisory")'
 
   aqua-security:
     uri: https://www.aquasec.com/tag/security-threats/feed/
+    headers:
+      user-agent: curl/8.0.1
     excludes:
-      - 'updated < now - duration("2160h")'
+      - 'updated < now - duration("720h")'
     includes:
       - 'title.contains("CVE")'
 
   istio-security:
     uri: https://istio.io/latest/news/feed.xml
     excludes:
-      - 'published < now - duration("2160h")'
+      - 'published < now - duration("720h")'
     includes:
       - 'title.contains("ISTIO-SECURITY")'
 
@@ -68,13 +72,13 @@ feeds:
     uri: https://kubernetes.io/docs/reference/issues-security/official-cve-feed/feed.xml
     entry_id: 'links[0]'
     excludes:
-      - 'published < now - duration("2160h")'
+      - 'published < now - duration("720h")'
 
   kyverno:
     uri: https://kyverno.io/blog/index.xml
     entry_id: 'links[0]'
     excludes:
-      - 'published < now - duration("2160h")'
+      - 'published < now - duration("720h")'
     includes:
       - 'title.contains("CVE-")'
       - 'content.contains("CVE-")'
